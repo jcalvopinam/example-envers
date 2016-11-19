@@ -12,10 +12,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.envers.Audited;
+
 /**
  * @author juanca <juan.calvopina+dev@gmail.com>
  */
 @Entity
+@Audited
 @Table(name = "Person")
 public class Person implements Serializable {
 

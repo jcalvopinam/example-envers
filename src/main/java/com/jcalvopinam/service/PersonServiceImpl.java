@@ -28,29 +28,38 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public List<Person> findAll() {
-        List<Person> persons = new ArrayList<>();
-        for (Person person : personRepository.findAll()) {
-            persons.add(person);
-        }
-        return persons;
+        return personRepository.findAll();
     }
 
     @Override
-    public Person findByText(String name, String lastName) {
-        return personRepository.findByFirstNameOrLastName(name, lastName);
+    public Person findByText(int id, String name, String lastName) {
+        return personRepository.findByIdOrFirstNameOrLastName(id, name, lastName);
     }
 
     @Override
     public String save(PersonDTO personDTO) {
-        Person person = new Person(personDTO.getName(), personDTO.getLastName());
-        personRepository.save(person);
+        personRepository.save(new Person(personDTO));
         return "Person saved!";
+    }
+
+    @Override
+    public String update(PersonDTO personDTO){
+        Person person = personRepository.findOne(personDTO.getId());
+        person = this.updatePerson(person, personDTO);
+        personRepository.save(person);
+        return "Person updated!";
     }
 
     @Override
     public String deleteById(int id) {
         personRepository.delete(id);
         return "Person deleted!";
+    }
+
+    private Person updatePerson(Person person, PersonDTO personDTO){
+        person.setFirstName(personDTO.getName());
+        person.setLastName(personDTO.getLastName());
+        return person;
     }
 
 }

@@ -14,11 +14,12 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
 
     /**
      * Finds the person by name or last name
-     * 
+     *
+     * @param id
      * @param name
      * @param lastName
      * @return
      */
-    public Person findByFirstNameOrLastName(String name, String lastName);
+    public Person findByIdOrFirstNameOrLastName(int id, String name, String lastName);
 
 }

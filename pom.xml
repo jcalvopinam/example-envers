@@ -22,8 +22,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <spring-data-jpa.version>1.10.5.RELEASE</spring-data-jpa.version>
-        <spring-data-envers>1.0.5.RELEASE</spring-data-envers>
         <tomcat-dbcp.version>8.0.30</tomcat-dbcp.version>
         <commons-lang.version>2.6</commons-lang.version>
         <log4j.version>1.2.15</log4j.version>
@@ -39,7 +37,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
 
         <dependency>
@@ -53,9 +51,14 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.data</groupId>-->
+            <!--<artifactId>spring-data-envers</artifactId>-->
+        <!--</dependency>-->
+
         <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-envers</artifactId>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-envers</artifactId>
         </dependency>
 
         <!-- MySQL database connector -->
@@ -75,7 +78,7 @@
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>

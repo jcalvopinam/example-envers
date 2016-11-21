@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.jcalvopinam.domain;
 
@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.jcalvopinam.dto.PersonDTO;
 import org.hibernate.envers.Audited;
 
 /**
@@ -19,7 +20,7 @@ import org.hibernate.envers.Audited;
  */
 @Entity
 @Audited
-@Table(name = "Person")
+@Table(name = "PERSON")
 public class Person implements Serializable {
 
     private static final long serialVersionUID = -1932398775322712810L;
@@ -63,7 +64,7 @@ public class Person implements Serializable {
 
     /**
      * Builds the Person object through of Constructor
-     * 
+     *
      * @param firstName
      * @param lastName
      */
@@ -71,6 +72,16 @@ public class Person implements Serializable {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    /**
+     * Builds the Person object through of PersonDTO
+     *
+     * @param personDTO
+     */
+    public Person(PersonDTO personDTO) {
+        this.firstName = personDTO.getName();
+        this.lastName = personDTO.getLastName();
     }
 
     @Override

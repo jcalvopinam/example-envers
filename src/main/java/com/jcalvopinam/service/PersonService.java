@@ -22,12 +22,13 @@ public interface PersonService {
 
     /**
      * Finds the person by name or last name
-     * 
+     *
+     * @param id
      * @param name
      * @param lastName
      * @return
      */
-    public Person findByText(String name, String lastName);
+    public Person findByText(int id, String name, String lastName);
 
     /**
      * Adds a new person to the database
@@ -36,6 +37,14 @@ public interface PersonService {
      * @return
      */
     public String save(PersonDTO personDTO);
+
+    /**
+     * Updates a person to the database
+     *
+     * @param personDTO
+     * @return
+     */
+    public String update(PersonDTO personDTO);
 
     /**
      * Deletes a person by Id from database

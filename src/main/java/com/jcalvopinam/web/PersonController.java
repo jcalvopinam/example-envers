@@ -3,6 +3,7 @@
  */
 package com.jcalvopinam.web;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jcalvopinam.domain.Person;
 import com.jcalvopinam.dto.PersonDTO;
 import com.jcalvopinam.service.PersonServiceImpl;
+
+import java.util.List;
 
 /**
  * @author juanca <juan.calvopina+dev@gmail.com>
@@ -32,20 +35,29 @@ public class PersonController {
     }
 
     @RequestMapping(value = "/all-persons", method = RequestMethod.GET)
-    public String allPersons() {
-        return personService.findAll()
-                            .toString();
+    public List<Person> findAllPersons() {
+        return personService.findAll();
     }
 
     @RequestMapping(value = "/find-by-person", method = RequestMethod.GET)
     public Person findByText(@RequestParam(value = "text", required = true) String text) {
-        return personService.findByText(text, text);
+        int id = 0;
+        if (StringUtils.isNumeric(text)){
+            id = Integer.parseInt(text);
+        }
+        return personService.findByText(id, text, text);
     }
 
     @RequestMapping(value = "/save-person", method = RequestMethod.POST)
-    public String savePerson(@RequestBody PersonDTO person) {
-        Validate.notNull(person, "The person cannot be null");
-        return personService.save(person);
+    public String savePerson(@RequestBody PersonDTO personDTO) {
+        Validate.notNull(personDTO, "The person cannot be null");
+        return personService.save(personDTO);
+    }
+
+    @RequestMapping(value = "/update-person", method = RequestMethod.POST)
+    public String updatePerson(@RequestBody PersonDTO personDTO) {
+        Validate.notNull(personDTO, "The person cannot be null");
+        return personService.update(personDTO);
     }
 
     @RequestMapping(value = "/delete-person", method = RequestMethod.GET)

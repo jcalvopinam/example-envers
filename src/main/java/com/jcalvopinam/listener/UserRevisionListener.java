@@ -1,3 +1,6 @@
+/**
+ * This class sets the userId attribute in the Audit table
+ */
 package com.jcalvopinam.listener;
 
 import com.jcalvopinam.domain.AuditEnversInfo;

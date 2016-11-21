@@ -1,3 +1,6 @@
+/**
+ * This entity has an additional attribute for Audit table
+ */
 package com.jcalvopinam.domain;
 
 import com.jcalvopinam.listener.UserRevisionListener;

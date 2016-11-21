@@ -3,9 +3,8 @@
  */
 package com.jcalvopinam.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.jcalvopinam.domain.Person;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * @author juanca <juan.calvopina+dev@gmail.com>
@@ -20,6 +19,6 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
      * @param lastName
      * @return
      */
-    public Person findByIdOrFirstNameOrLastName(int id, String name, String lastName);
+    Person findByIdOrFirstNameOrLastName(int id, String name, String lastName);
 
 }

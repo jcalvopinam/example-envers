@@ -3,17 +3,11 @@
  */
 package com.jcalvopinam.domain;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import com.jcalvopinam.dto.PersonDTO;
 import org.hibernate.envers.Audited;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author juanca <juan.calvopina+dev@gmail.com>
@@ -86,7 +80,11 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "Person [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + "]";
+        return "Person{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 
 }

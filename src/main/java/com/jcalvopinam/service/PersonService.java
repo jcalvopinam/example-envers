@@ -3,10 +3,10 @@
  */
 package com.jcalvopinam.service;
 
-import java.util.List;
-
 import com.jcalvopinam.domain.Person;
 import com.jcalvopinam.dto.PersonDTO;
+
+import java.util.List;
 
 /**
  * @author juanca <juan.calvopina+dev@gmail.com>
@@ -15,10 +15,10 @@ public interface PersonService {
 
     /**
      * Retrieves all persons from database
-     * 
+     *
      * @return
      */
-    public List<Person> findAll();
+    List<Person> findAll();
 
     /**
      * Finds the person by name or last name
@@ -28,15 +28,15 @@ public interface PersonService {
      * @param lastName
      * @return
      */
-    public Person findByText(int id, String name, String lastName);
+    Person findByText(int id, String name, String lastName);
 
     /**
      * Adds a new person to the database
-     * 
+     *
      * @param personDTO
      * @return
      */
-    public String save(PersonDTO personDTO);
+    String save(PersonDTO personDTO);
 
     /**
      * Updates a person to the database
@@ -44,14 +44,14 @@ public interface PersonService {
      * @param personDTO
      * @return
      */
-    public String update(PersonDTO personDTO);
+    String update(PersonDTO personDTO);
 
     /**
      * Deletes a person by Id from database
-     * 
+     *
      * @param id
      * @return
      */
-    public String deleteById(int id);
+    String deleteById(int id);
 
 }

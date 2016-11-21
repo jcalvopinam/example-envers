@@ -3,15 +3,15 @@
  */
 package com.jcalvopinam.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.jcalvopinam.domain.Person;
 import com.jcalvopinam.dto.PersonDTO;
 import com.jcalvopinam.repository.PersonRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author juanca <juan.calvopina+dev@gmail.com>
@@ -20,6 +20,9 @@ import com.jcalvopinam.repository.PersonRepository;
 @Transactional
 public class PersonServiceImpl implements PersonService {
 
+    private static final Logger logger = LoggerFactory.getLogger(PersonServiceImpl.class);
+
+    private String response;
     private final PersonRepository personRepository;
 
     public PersonServiceImpl(PersonRepository personRepository) {
@@ -38,22 +41,28 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public String save(PersonDTO personDTO) {
+        response = "Person saved!";
         personRepository.save(new Person(personDTO));
-        return "Person saved!";
+        logger.info(response);
+        return response;
     }
 
     @Override
     public String update(PersonDTO personDTO){
+        response = "Person updated!";
         Person person = personRepository.findOne(personDTO.getId());
         person = this.updatePerson(person, personDTO);
         personRepository.save(person);
-        return "Person updated!";
+        logger.info(response);
+        return response;
     }
 
     @Override
     public String deleteById(int id) {
+        response = "Person deleted!";
         personRepository.delete(id);
-        return "Person deleted!";
+        logger.info(response);
+        return response;
     }
 
     private Person updatePerson(Person person, PersonDTO personDTO){

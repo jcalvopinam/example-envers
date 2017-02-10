@@ -3,17 +3,22 @@
  */
 package com.jcalvopinam.web;
 
-import com.jcalvopinam.domain.Person;
-import com.jcalvopinam.dto.PersonDTO;
-import com.jcalvopinam.service.PersonServiceImpl;
-import org.apache.commons.lang.StringUtils;
+import java.util.List;
+
 import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.jcalvopinam.domain.Person;
+import com.jcalvopinam.dto.PersonDTO;
+import com.jcalvopinam.service.PersonService;
 
 /**
  * @author juanca <juan.calvopina+dev@gmail.com>
@@ -23,29 +28,26 @@ import java.util.List;
 public class PersonController {
 
     private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
+    private static final String WELCOME_PERSON_ENTITY = "Welcome to Envers example: Person Entity";
 
     @Autowired
-    private PersonServiceImpl personService;
+    private PersonService personService;
 
     @GetMapping("/")
     public String init() {
-        return "Welcome to Envers example";
+        return WELCOME_PERSON_ENTITY;
     }
 
-    @RequestMapping(value = "/all-persons", method = RequestMethod.GET)
+    @RequestMapping(value = "/find-all-persons", method = RequestMethod.GET)
     public List<Person> findAllPersons() {
         logger.info("Find all persons");
         return personService.findAll();
     }
 
     @RequestMapping(value = "/find-by-person", method = RequestMethod.GET)
-    public Person findByText(@RequestParam(value = "text", required = true) String text) {
+    public Person findByText(@RequestParam(value = "text") String text) {
         logger.info(String.format("Finding by: %s", text));
-        int id = 0;
-        if (StringUtils.isNumeric(text)) {
-            id = Integer.parseInt(text);
-        }
-        return personService.findByText(id, text, text);
+        return personService.findByText(text, text, text);
     }
 
     @RequestMapping(value = "/save-person", method = RequestMethod.POST)

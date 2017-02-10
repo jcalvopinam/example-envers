@@ -28,7 +28,14 @@ public interface PersonService {
      * @param lastName
      * @return
      */
-    Person findByText(int id, String name, String lastName);
+    Person findByText(String id, String name, String lastName);
+
+    /**
+     * Finds the person by int
+     * @param id
+     * @return
+     */
+    Person findById(int id);
 
     /**
      * Adds a new person to the database

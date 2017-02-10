@@ -6,6 +6,7 @@ package com.jcalvopinam.service;
 import com.jcalvopinam.domain.Person;
 import com.jcalvopinam.dto.PersonDTO;
 import com.jcalvopinam.repository.PersonRepository;
+import com.jcalvopinam.utils.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -35,8 +36,14 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person findByText(int id, String name, String lastName) {
-        return personRepository.findByIdOrFirstNameOrLastName(id, name, lastName);
+    public Person findByText(String id, String name, String lastName) {
+        Integer personId = Utilities.isInteger(id);
+        return personRepository.findByIdOrFirstNameOrLastName(personId,name,lastName);
+    }
+
+    @Override
+    public Person findById(int id) {
+        return personRepository.findOne(id);
     }
 
     @Override
@@ -48,7 +55,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public String update(PersonDTO personDTO){
+    public String update(PersonDTO personDTO) {
         response = "Person updated!";
         Person person = personRepository.findOne(personDTO.getId());
         person = this.updatePerson(person, personDTO);
@@ -65,7 +72,7 @@ public class PersonServiceImpl implements PersonService {
         return response;
     }
 
-    private Person updatePerson(Person person, PersonDTO personDTO){
+    private Person updatePerson(Person person, PersonDTO personDTO) {
         person.setFirstName(personDTO.getName());
         person.setLastName(personDTO.getLastName());
         return person;

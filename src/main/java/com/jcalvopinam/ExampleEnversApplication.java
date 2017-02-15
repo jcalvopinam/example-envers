@@ -9,4 +9,5 @@ public class ExampleEnversApplication {
     public static void main(String[] args) {
         SpringApplication.run(ExampleEnversApplication.class, args);
     }
+
 }

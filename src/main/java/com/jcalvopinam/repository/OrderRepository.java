@@ -3,12 +3,11 @@
  */
 package com.jcalvopinam.repository;
 
+import com.jcalvopinam.domain.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Date;
 import java.util.List;
-
-import com.jcalvopinam.domain.Order;
 
 /**
  * @author juanca <juan.calvopina+dev@gmail.com>

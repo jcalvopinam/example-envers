@@ -3,10 +3,9 @@
  */
 package com.jcalvopinam.domain;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 /**
  * @author juanca <juan.calvopina+dev@gmail.com>
@@ -70,10 +69,7 @@ public class OrderDetailPK implements Serializable {
 
     @Override
     public String toString() {
-        return "OrderDetailPK{" +
-                "productId=" + productId +
-                ", orderId=" + orderId +
-                '}';
+        return String.format("OrderDetailPK {productId=%s, orderId=%s}", productId, orderId);
     }
 
 }

@@ -6,8 +6,8 @@ package com.jcalvopinam.domain;
 import com.jcalvopinam.dto.ProductDTO;
 import org.hibernate.envers.Audited;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**

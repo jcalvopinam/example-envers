@@ -7,8 +7,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jcalvopinam.dto.OrderDetailDTO;
 import org.hibernate.envers.Audited;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author juanca <juan.calvopina+dev@gmail.com>

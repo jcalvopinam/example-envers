@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * @author juanca <juan.calvopina+dev@gmail.com>
@@ -56,6 +57,18 @@ public class Utilities {
      */
     private static boolean hasFormat(String date) {
         return date.matches(DATE_MATCH_FORMAT);
+    }
+
+    /**
+     * Gets random user names
+     * @return
+     */
+    public static String getRandomUsers() {
+        final String words = "Andrea:Juan:Isaac:Sandra:Michael:Annabel";
+        String[] wordsAsArray = words.split(":");
+        int index = new Random().nextInt(wordsAsArray.length);
+
+        return wordsAsArray[index];
     }
 
 }

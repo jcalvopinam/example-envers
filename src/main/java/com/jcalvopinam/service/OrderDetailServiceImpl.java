@@ -1,13 +1,9 @@
 package com.jcalvopinam.service;
 
-import com.jcalvopinam.domain.Order;
 import com.jcalvopinam.domain.OrderDetail;
 import com.jcalvopinam.domain.OrderDetailPK;
-import com.jcalvopinam.domain.Product;
 import com.jcalvopinam.dto.OrderDetailDTO;
 import com.jcalvopinam.repository.OrderDetailRepository;
-import com.jcalvopinam.repository.OrderRepository;
-import com.jcalvopinam.repository.ProductRepository;
 import com.jcalvopinam.utils.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

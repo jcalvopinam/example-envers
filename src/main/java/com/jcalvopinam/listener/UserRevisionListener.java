@@ -4,6 +4,7 @@
 package com.jcalvopinam.listener;
 
 import com.jcalvopinam.domain.AuditEnversInfo;
+import com.jcalvopinam.utils.Utilities;
 import org.hibernate.envers.RevisionListener;
 
 /**
@@ -11,12 +12,10 @@ import org.hibernate.envers.RevisionListener;
  */
 public class UserRevisionListener implements RevisionListener {
 
-    private final static String USER_ID = "J1987";
-
     @Override
     public void newRevision(Object revisionEntity) {
         AuditEnversInfo auditEnversInfo = (AuditEnversInfo) revisionEntity;
-        auditEnversInfo.setUserId(USER_ID);
+        auditEnversInfo.setUserId(Utilities.getRandomUsers());
     }
 
 }

@@ -3,8 +3,6 @@
  */
 package com.jcalvopinam.dto;
 
-import java.util.Date;
-
 /**
  * @author juanca <juan.calvopina+dev@gmail.com>
  */

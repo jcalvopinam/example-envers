@@ -21,12 +21,4 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
      */
     Person findByIdOrFirstNameOrLastName(int id, String name, String lastName);
 
-    /**
-     *
-     * @param name
-     * @param lastName
-     * @return
-     */
-    Person findByFirstNameOrLastName(String name, String lastName);
-
 }

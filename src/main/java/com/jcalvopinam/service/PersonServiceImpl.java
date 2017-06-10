@@ -22,9 +22,8 @@ import java.util.List;
 public class PersonServiceImpl implements PersonService {
 
     private static final Logger logger = LoggerFactory.getLogger(PersonServiceImpl.class);
-
-    private String response;
     private final PersonRepository personRepository;
+    private String response;
 
     public PersonServiceImpl(PersonRepository personRepository) {
         this.personRepository = personRepository;
@@ -38,7 +37,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person findByText(String id, String name, String lastName) {
         Integer personId = Utilities.isInteger(id);
-        return personRepository.findByIdOrFirstNameOrLastName(personId,name,lastName);
+        return personRepository.findByIdOrFirstNameOrLastName(personId, name, lastName);
     }
 
     @Override

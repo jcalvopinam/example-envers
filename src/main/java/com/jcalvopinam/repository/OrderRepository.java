@@ -38,12 +38,13 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
      * @param orderStatus
      * @return
      */
-    List<Order> findByOrderIdOrCustomer_FirstNameOrCustomer_LastNameOrEmployee_FirstNameOrEmployee_LastNameOrSaleDateOrOrderStatus(int orderId,
-                                                                                                                                   String customerName,
-                                                                                                                                   String customerLastName,
-                                                                                                                                   String employee,
-                                                                                                                                   String employeeLastName,
-                                                                                                                                   Date date,
-                                                                                                                                   int orderStatus);
+    List<Order> findByOrderIdOrCustomer_FirstNameOrCustomer_LastNameOrEmployee_FirstNameOrEmployee_LastNameOrSaleDateOrOrderStatus(
+            int orderId,
+            String customerName,
+            String customerLastName,
+            String employee,
+            String employeeLastName,
+            Date date,
+            int orderStatus);
 
 }

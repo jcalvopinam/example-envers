@@ -5,6 +5,7 @@ package com.jcalvopinam.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jcalvopinam.dto.OrderDetailDTO;
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -110,6 +111,18 @@ public class OrderDetail implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("discount", discount)
+                .append("quantity", quantity)
+                .append("unitPrice", unitPrice)
+                .append("order", order)
+                .append("product", product)
+                .toString();
     }
 
 }

@@ -4,6 +4,7 @@
 package com.jcalvopinam.domain;
 
 import com.jcalvopinam.dto.ProductDTO;
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -103,18 +104,16 @@ public class Product implements Serializable {
         this.orderDetails = orderDetails;
     }
 
-    public OrderDetail addOrderDetail(OrderDetail orderDetail) {
-        getOrderDetails().add(orderDetail);
-        orderDetail.setProduct(this);
-
-        return orderDetail;
-    }
-
-    public OrderDetail removeOrderDetail(OrderDetail orderDetail) {
-        getOrderDetails().remove(orderDetail);
-        orderDetail.setProduct(null);
-
-        return orderDetail;
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("productId", productId)
+                .append("description", description)
+                .append("name", name)
+                .append("quantityPerUnit", quantityPerUnit)
+                .append("unitPrice", unitPrice)
+                .append("orderDetails", orderDetails)
+                .toString();
     }
 
 }

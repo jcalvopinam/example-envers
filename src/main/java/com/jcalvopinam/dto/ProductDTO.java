@@ -51,4 +51,10 @@ public class ProductDTO {
         this.unitPrice = unitPrice;
     }
 
+    @Override
+    public String toString() {
+        return String.format("ProductDTO{ id=%d, name='%s', description='%s', quantityPerUnit=%d, unitPrice=%.2f}", id,
+                             name, description, quantityPerUnit, unitPrice);
+    }
+
 }

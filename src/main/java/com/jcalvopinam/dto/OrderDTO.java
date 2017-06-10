@@ -54,4 +54,9 @@ public class OrderDTO {
         this.employee = employee;
     }
 
+    @Override
+    public String toString() {
+        return String.format("OrderDTO{id=%d, orderStatus=%d, saleDate='%s', customer=%d, employee=%d}", id,
+                             orderStatus, saleDate, customer, employee);
+    }
 }

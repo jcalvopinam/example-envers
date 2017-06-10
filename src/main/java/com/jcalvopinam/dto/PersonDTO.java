@@ -38,7 +38,7 @@ public class PersonDTO {
 
     @Override
     public String toString() {
-        return String.format("PersonDTO {id=%s, name='%s, lastName='%s'", id, name, lastName);
+        return String.format("PersonDTO{id=%d, name='%s', lastName='%s'}", id, name, lastName);
     }
 
 }

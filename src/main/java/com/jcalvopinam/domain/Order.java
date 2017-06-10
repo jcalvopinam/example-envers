@@ -105,20 +105,6 @@ public class Order implements Serializable {
         this.orderDetails = orderDetails;
     }
 
-    public OrderDetail addOrderDetail(OrderDetail orderDetail) {
-        getOrderDetails().add(orderDetail);
-        orderDetail.setOrder(this);
-
-        return orderDetail;
-    }
-
-    public OrderDetail removeOrderDetail(OrderDetail orderDetail) {
-        getOrderDetails().remove(orderDetail);
-        orderDetail.setOrder(null);
-
-        return orderDetail;
-    }
-
     public Person getCustomer() {
         return this.customer;
     }

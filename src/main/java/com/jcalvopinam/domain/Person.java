@@ -5,6 +5,7 @@ package com.jcalvopinam.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.jcalvopinam.dto.PersonDTO;
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -89,20 +90,6 @@ public class Person implements Serializable {
         this.customers = customers;
     }
 
-    public Order addCustomer(Order order) {
-        getCustomers().add(order);
-        order.setCustomer(this);
-
-        return order;
-    }
-
-    public Order removeCustomer(Order order) {
-        getCustomers().remove(order);
-        order.setCustomer(null);
-
-        return order;
-    }
-
     public List<Order> getEmployees() {
         return this.employees;
     }
@@ -111,18 +98,15 @@ public class Person implements Serializable {
         this.employees = employees;
     }
 
-    public Order addEmployee(Order employee) {
-        getEmployees().add(employee);
-        employee.setEmployee(this);
-
-        return employee;
-    }
-
-    public Order removeEmployee(Order employee) {
-        getEmployees().remove(employee);
-        employee.setEmployee(null);
-
-        return employee;
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("firstName", firstName)
+                .append("lastName", lastName)
+                .append("customers", customers)
+                .append("employees", employees)
+                .toString();
     }
 
 }

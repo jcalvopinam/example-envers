@@ -13,8 +13,8 @@ import java.util.Random;
  */
 public class Utilities {
 
-    private static final String DATE_MATCH_FORMAT = "\\d{4}-\\d{2}-\\d{2}";
     public static final String DATE_FORMAT = "yyyy-MM-dd";
+    private static final String DATE_MATCH_FORMAT = "\\d{4}-\\d{2}-\\d{2}";
 
     /**
      * If the input parameter is integer, then converts the String input to Integer output else return null
@@ -61,6 +61,7 @@ public class Utilities {
 
     /**
      * Gets random user names
+     *
      * @return
      */
     public static String getRandomUsers() {

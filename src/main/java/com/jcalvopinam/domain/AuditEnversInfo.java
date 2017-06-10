@@ -3,14 +3,13 @@
  */
 package com.jcalvopinam.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
+import com.jcalvopinam.listener.UserRevisionListener;
 import org.hibernate.envers.DefaultRevisionEntity;
 import org.hibernate.envers.RevisionEntity;
 
-import com.jcalvopinam.listener.UserRevisionListener;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * @author juanca <juan.calvopina+dev@gmail.com>

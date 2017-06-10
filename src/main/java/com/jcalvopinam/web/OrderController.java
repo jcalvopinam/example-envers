@@ -36,7 +36,7 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/find-by-order")
-    public List<Order> findByTest(@RequestParam (value = "text") String text){
+    public List<Order> findByTest(@RequestParam(value = "text") String text) {
         logger.info(String.format("Finding by: %s", text));
         return orderService.findByText(text, text, text, text, text);
     }

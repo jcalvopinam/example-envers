@@ -44,4 +44,10 @@ public class OrderDetailDTO {
         this.unitPrice = unitPrice;
     }
 
+    @Override
+    public String toString() {
+        return String.format("OrderDetailDTO{[order=%d, product=%d], discount=%.2f, quantity=%d, unitPrice=%.2f}",
+                             id.getOrderId(), id.getProductId(), discount, quantity, unitPrice);
+    }
+
 }

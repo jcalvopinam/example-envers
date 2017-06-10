@@ -46,8 +46,12 @@ public class OrderServiceImpl implements OrderService {
         Date valueDate = Utilities.matchDate(date);
 
         return (customerId == 0 || employeeId == 0)
-                ? orderRepository.findByOrderIdOrCustomer_FirstNameOrCustomer_LastNameOrEmployee_FirstNameOrEmployee_LastNameOrSaleDateOrOrderStatus(orderId, customer, customer, employee, employee, valueDate, orderId)
-                : orderRepository.findByOrderIdOrCustomer_IdOrEmployee_IdOrSaleDateOrOrderStatus(orderId, customerId, employeeId, valueDate, orderId);
+               ? orderRepository
+                       .findByOrderIdOrCustomer_FirstNameOrCustomer_LastNameOrEmployee_FirstNameOrEmployee_LastNameOrSaleDateOrOrderStatus(
+                               orderId, customer, customer, employee, employee, valueDate, orderId)
+               : orderRepository
+                       .findByOrderIdOrCustomer_IdOrEmployee_IdOrSaleDateOrOrderStatus(orderId, customerId, employeeId,
+                                                                                       valueDate, orderId);
     }
 
     @Override

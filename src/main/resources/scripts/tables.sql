@@ -1,4 +1,28 @@
-# ORDER TABLE
+-----------------------------------------------------------
+-- DDL: Data Definition Language
+-- Scripts for DROP TABLES IF THEM EXIST
+-----------------------------------------------------------
+
+DROP TABLE IF EXISTS `example-envers`.`env_person`;
+DROP TABLE IF EXISTS `example-envers`.`env_person`;
+DROP TABLE IF EXISTS `example-envers`.`env_person`;
+DROP TABLE IF EXISTS `example-envers`.`env_person`;
+DROP TABLE IF EXISTS `example-envers`.`env_person`;
+
+-----------------------------------------------------------
+-- DDL: Data Definition Language
+-- Scripts for CREATE TABLES
+-----------------------------------------------------------
+
+-- PERSON TABLE
+CREATE TABLE `example-envers`.`env_person` (
+  `id`         INT(11) NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(255)     DEFAULT NULL,
+  `last_name`  VARCHAR(255)     DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ORDER TABLE
 CREATE TABLE `example-envers`.`env_order` (
   `order_id`     INT      NOT NULL AUTO_INCREMENT,
   `customer_id`  INT      NULL,
@@ -20,7 +44,7 @@ CREATE TABLE `example-envers`.`env_order` (
     ON UPDATE NO ACTION
 );
 
-# PRODUCT TABLE
+-- PRODUCT TABLE
 CREATE TABLE `example-envers`.`env_product` (
   `product_id`        INT         NOT NULL,
   `name`              VARCHAR(45) NULL,
@@ -30,7 +54,7 @@ CREATE TABLE `example-envers`.`env_product` (
   PRIMARY KEY (`product_id`)
 );
 
-# ORDER DETAIL TABLE
+-- ORDER DETAIL TABLE
 CREATE TABLE `example-envers`.`env_order_detail` (
   `order_id`   INT    NOT NULL,
   `product_id` INT    NOT NULL,
@@ -49,12 +73,4 @@ CREATE TABLE `example-envers`.`env_order_detail` (
   REFERENCES `example-envers`.`products` (`product_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
-);
-
-# PERSON TABLE
-CREATE TABLE `example-envers`.`env_person` (
-  `id`         INT(11) NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(255)     DEFAULT NULL,
-  `last_name`  VARCHAR(255)     DEFAULT NULL,
-  PRIMARY KEY (`id`)
 );

@@ -1,3 +1,28 @@
+/*
+ * MIT License
+ *
+ * Copyright (c) 2017 JUAN CALVOPINA M
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ */
+
 /**
  * The persistent class for the env_person database table.
  */
@@ -5,6 +30,7 @@ package com.jcalvopinam.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.jcalvopinam.dto.PersonDTO;
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -89,20 +115,6 @@ public class Person implements Serializable {
         this.customers = customers;
     }
 
-    public Order addCustomer(Order order) {
-        getCustomers().add(order);
-        order.setCustomer(this);
-
-        return order;
-    }
-
-    public Order removeCustomer(Order order) {
-        getCustomers().remove(order);
-        order.setCustomer(null);
-
-        return order;
-    }
-
     public List<Order> getEmployees() {
         return this.employees;
     }
@@ -111,18 +123,15 @@ public class Person implements Serializable {
         this.employees = employees;
     }
 
-    public Order addEmployee(Order employee) {
-        getEmployees().add(employee);
-        employee.setEmployee(this);
-
-        return employee;
-    }
-
-    public Order removeEmployee(Order employee) {
-        getEmployees().remove(employee);
-        employee.setEmployee(null);
-
-        return employee;
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("firstName", firstName)
+                .append("lastName", lastName)
+                .append("customers", customers)
+                .append("employees", employees)
+                .toString();
     }
 
 }

@@ -38,8 +38,10 @@ import java.util.Random;
  */
 public class Utilities {
 
-    public static final String DATE_FORMAT = "yyyy-MM-dd";
+    private static final String COLON = ":";
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String DATE_MATCH_FORMAT = "\\d{4}-\\d{2}-\\d{2}";
+    private static final String NAMES = "Andrea:Juan:Isaac:Sandra:Michael:Annabel";
 
     /**
      * If the input parameter is integer, then converts the String input to Integer output else return null
@@ -90,8 +92,7 @@ public class Utilities {
      * @return
      */
     public static String getRandomUsers() {
-        final String words = "Andrea:Juan:Isaac:Sandra:Michael:Annabel";
-        String[] wordsAsArray = words.split(":");
+        String[] wordsAsArray = NAMES.split(COLON);
         int index = new Random().nextInt(wordsAsArray.length);
 
         return wordsAsArray[index];

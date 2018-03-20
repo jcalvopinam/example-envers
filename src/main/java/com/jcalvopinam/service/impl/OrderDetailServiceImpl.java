@@ -23,12 +23,13 @@
  *
  */
 
-package com.jcalvopinam.service;
+package com.jcalvopinam.service.impl;
 
 import com.jcalvopinam.domain.OrderDetail;
 import com.jcalvopinam.domain.OrderDetailPK;
 import com.jcalvopinam.dto.OrderDetailDTO;
 import com.jcalvopinam.repository.OrderDetailRepository;
+import com.jcalvopinam.service.OrderDetailService;
 import com.jcalvopinam.utils.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

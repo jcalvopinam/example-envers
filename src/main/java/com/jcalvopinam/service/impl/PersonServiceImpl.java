@@ -23,11 +23,15 @@
  *
  */
 
-package com.jcalvopinam.service;
+/**
+ * Implementation of the method signatures
+ */
+package com.jcalvopinam.service.impl;
 
-import com.jcalvopinam.domain.Product;
-import com.jcalvopinam.dto.ProductDTO;
-import com.jcalvopinam.repository.ProductRepository;
+import com.jcalvopinam.domain.Person;
+import com.jcalvopinam.dto.PersonDTO;
+import com.jcalvopinam.repository.PersonRepository;
+import com.jcalvopinam.service.PersonService;
 import com.jcalvopinam.utils.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,60 +45,62 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class ProductServiceImpl implements ProductService {
+public class PersonServiceImpl implements PersonService {
 
-    private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
-
-    private final ProductRepository productRepository;
+    private static final Logger logger = LoggerFactory.getLogger(PersonServiceImpl.class);
+    private final PersonRepository personRepository;
     private String response;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public PersonServiceImpl(PersonRepository personRepository) {
+        this.personRepository = personRepository;
     }
 
     @Override
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    public List<Person> findAll() {
+        return personRepository.findAll();
     }
 
     @Override
-    public Product findByText(String id, String name) {
-        Integer productId = Utilities.isInteger(id);
-        return productRepository.findByProductIdOrName(productId, name);
+    public Person findByText(String id, String name, String lastName) {
+        Integer personId = Utilities.isInteger(id);
+        return personRepository.findByIdOrFirstNameOrLastName(personId, name, lastName);
     }
 
     @Override
-    public String save(ProductDTO productDTO) {
-        response = "Product saved!";
-        productRepository.save(new Product(productDTO));
+    public Person findById(int id) {
+        return personRepository.findOne(id);
+    }
+
+    @Override
+    public String save(PersonDTO personDTO) {
+        response = "Person saved!";
+        personRepository.save(new Person(personDTO));
         logger.info(response);
         return response;
     }
 
     @Override
-    public String update(ProductDTO productDTO) {
-        response = "Product updated!";
-        Product product = productRepository.findOne(productDTO.getId());
-        product = this.updateProduct(product, productDTO);
-        productRepository.save(product);
+    public String update(PersonDTO personDTO) {
+        response = "Person updated!";
+        Person person = personRepository.findOne(personDTO.getId());
+        person = this.updatePerson(person, personDTO);
+        personRepository.save(person);
         logger.info(response);
         return response;
     }
 
     @Override
     public String deleteById(int id) {
-        response = "Product deleted!";
-        productRepository.delete(id);
+        response = "Person deleted!";
+        personRepository.delete(id);
         logger.info(response);
         return response;
     }
 
-    private Product updateProduct(Product product, ProductDTO productDTO) {
-        product.setName(productDTO.getName());
-        product.setDescription(productDTO.getDescription());
-        product.setQuantityPerUnit(productDTO.getQuantityPerUnit());
-        product.setUnitPrice(productDTO.getUnitPrice());
-        return product;
+    private Person updatePerson(Person person, PersonDTO personDTO) {
+        person.setFirstName(personDTO.getName());
+        person.setLastName(personDTO.getLastName());
+        return person;
     }
 
 }

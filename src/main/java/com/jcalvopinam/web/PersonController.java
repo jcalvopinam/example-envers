@@ -47,44 +47,42 @@ import java.util.List;
 public class PersonController {
 
     private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
-    private static final String WELCOME_PERSON_ENTITY = "Welcome to Envers example: Person Entity";
+
+    private final PersonService personService;
 
     @Autowired
-    private PersonService personService;
-
-    @GetMapping("/")
-    public String init() {
-        return WELCOME_PERSON_ENTITY;
+    public PersonController(PersonService personService) {
+        this.personService = personService;
     }
 
-    @RequestMapping(value = "/find-all-persons", method = RequestMethod.GET)
+    @GetMapping
     public List<Person> findAllPersons() {
         logger.info("Find all persons");
         return personService.findAll();
     }
 
-    @RequestMapping(value = "/find-by-person", method = RequestMethod.GET)
-    public Person findByText(@RequestParam(value = "text") String text) {
+    @GetMapping(path = "/{text}")
+    public Person findByText(@PathVariable String text) {
         logger.info(String.format("Finding by: %s", text));
         return personService.findByText(text, text, text);
     }
 
-    @RequestMapping(value = "/save-person", method = RequestMethod.POST)
+    @PostMapping
     public String savePerson(@RequestBody PersonDTO personDTO) {
         Validate.notNull(personDTO, "The person cannot be null");
         logger.info(String.format("Saving person: %s", personDTO.toString()));
         return personService.save(personDTO);
     }
 
-    @RequestMapping(value = "/update-person", method = RequestMethod.POST)
+    @PutMapping
     public String updatePerson(@RequestBody PersonDTO personDTO) {
         Validate.notNull(personDTO, "The person cannot be null");
         logger.info(String.format("Updating person: %s", personDTO.toString()));
         return personService.update(personDTO);
     }
 
-    @RequestMapping(value = "/delete-person", method = RequestMethod.GET)
-    public String deletePerson(@RequestParam(value = "id", required = true) int id) {
+    @DeleteMapping(path = "/{id}")
+    public String deletePerson(@PathVariable int id) {
         logger.info(String.format("Deleting person: %s", id));
         return personService.deleteById(id);
     }

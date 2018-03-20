@@ -44,44 +44,42 @@ import java.util.List;
 public class OrderController {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
-    private static final String WELCOME_ORDER_ENTITY = "Welcome to Envers example: Order Entity";
+
+    private final OrderService orderService;
 
     @Autowired
-    private OrderService orderService;
-
-    @GetMapping("/")
-    public String init() {
-        return WELCOME_ORDER_ENTITY;
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
     }
 
-    @RequestMapping(value = "/find-all-orders")
+    @GetMapping
     public List<Order> findAllOrders() {
         logger.info("Find all orders");
         return orderService.findAll();
     }
 
-    @RequestMapping(value = "/find-by-order")
-    public List<Order> findByTest(@RequestParam(value = "text") String text) {
+    @GetMapping(path = "/{text}")
+    public List<Order> findByTest(@PathVariable String text) {
         logger.info(String.format("Finding by: %s", text));
         return orderService.findByText(text, text, text, text, text);
     }
 
-    @RequestMapping(value = "/save-order", method = RequestMethod.POST)
+    @PostMapping
     public String saveOrder(@RequestBody OrderDTO orderDTO) {
         Validate.notNull(orderDTO, "The order cannot be null");
         logger.info(String.format("Saving order: %s", orderDTO.toString()));
         return orderService.save(orderDTO);
     }
 
-    @RequestMapping(value = "/update-order", method = RequestMethod.POST)
+    @PutMapping
     public String updateOrder(@RequestBody OrderDTO orderDTO) {
         Validate.notNull(orderDTO, "The order cannot be null");
         logger.info(String.format("Updating order: %s", orderDTO.toString()));
         return orderService.update(orderDTO);
     }
 
-    @RequestMapping(value = "/delete-order", method = RequestMethod.GET)
-    public String deleteOrder(@RequestParam(value = "id") int id) {
+    @DeleteMapping(path = "/{id}")
+    public String deleteOrder(@PathVariable int id) {
         logger.info(String.format("Deleting order: %s", id));
         return orderService.deleteById(id);
     }

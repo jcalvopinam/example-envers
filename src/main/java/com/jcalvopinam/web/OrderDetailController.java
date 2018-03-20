@@ -42,45 +42,44 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/order-detail")
 public class OrderDetailController {
+
     private static final Logger logger = LoggerFactory.getLogger(OrderDetail.class);
-    private static final String WELCOME_ORDER_DETAIL_ENTITY = "Welcome to Envers example: Order Detail Entity";
+
+    private final OrderDetailService orderDetailService;
 
     @Autowired
-    private OrderDetailService orderDetailService;
-
-    @GetMapping("/")
-    public String init() {
-        return WELCOME_ORDER_DETAIL_ENTITY;
+    public OrderDetailController(OrderDetailService orderDetailService) {
+        this.orderDetailService = orderDetailService;
     }
 
-    @RequestMapping(value = "/find-all-details", method = RequestMethod.GET)
+    @GetMapping
     public List<OrderDetail> findAllDetails() {
         logger.info("Find all order details");
         return orderDetailService.findAll();
     }
 
-    @RequestMapping(value = "/find-by-detail", method = RequestMethod.GET)
-    public OrderDetail findByDetailPk(@RequestParam(value = "productId") String productId,
-                                      @RequestParam(value = "orderId") String orderId) {
+    @GetMapping(path = "/{productId}/{orderId}")
+    public OrderDetail findByDetailPk(@PathVariable String productId,
+                                      @PathVariable String orderId) {
         logger.info(String.format("Finding by: %s, %s", productId, orderId));
         return orderDetailService.findByDetailPk(productId, orderId);
     }
 
-    @RequestMapping(value = "/save-detail", method = RequestMethod.POST)
+    @PostMapping
     public String saveDetail(@RequestBody OrderDetailDTO orderDetailDTO) {
         Validate.notNull(orderDetailDTO, "The order detail cannot be null");
         logger.info(String.format("Saving detail: %s", orderDetailDTO.toString()));
         return orderDetailService.save(orderDetailDTO);
     }
 
-    @RequestMapping(value = "/update-detail", method = RequestMethod.POST)
+    @PutMapping
     public String updateDetail(@RequestBody OrderDetailDTO orderDetailDTO) {
         Validate.notNull(orderDetailDTO, "The order detail cannot be null");
         logger.info(String.format("Updating order detail: %s", orderDetailDTO.toString()));
         return orderDetailService.update(orderDetailDTO);
     }
 
-    @RequestMapping(value = "/delete-detail", method = RequestMethod.POST)
+    @DeleteMapping
     public String deleteDetail(@RequestBody OrderDetailDTO orderDetailDTO) {
         logger.info(String.format("Deleting order detail: %s", orderDetailDTO));
         return orderDetailService.deleteById(orderDetailDTO.getId());

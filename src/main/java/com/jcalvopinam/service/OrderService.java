@@ -23,9 +23,6 @@
  *
  */
 
-/**
- * List of methods signature
- */
 package com.jcalvopinam.service;
 
 import com.jcalvopinam.domain.Order;
@@ -34,49 +31,50 @@ import com.jcalvopinam.dto.OrderDTO;
 import java.util.List;
 
 /**
+ * List of methods signature
+ *
  * @author juanca <juan.calvopina+dev@gmail.com>
  */
 public interface OrderService {
 
     /**
-     * Retrieves all orders from database
+     * Retrieves all orders from database.
      *
-     * @return
+     * @return List of Order.
      */
     List<Order> findAll();
 
     /**
-     * Finds the order by id or customer, employee, date or orderStatus
+     * Finds the order by id or customer, employee, date or orderStatus.
      *
-     * @param id
-     * @param customer
-     * @param employee
-     * @param date
-     * @param orderStatus
-     * @return
+     * @param id          receive an id value.
+     * @param customer    receive a customer value.
+     * @param employee    receive a employee value
+     * @param date        receive a date value.
+     * @param orderStatus receive an orderStatus value.
+     * @return List of Order.
      */
     List<Order> findByText(String id, String customer, String employee, String date, String orderStatus);
 
+    //FIXME: Update those methods.
+
     /**
-     * Adds a new order to the database
+     * Adds a new order to the database.
      *
-     * @param orderDTO
      * @return
      */
     String save(OrderDTO orderDTO);
 
     /**
-     * Updates a order to the database
+     * Updates a order to the database.
      *
-     * @param orderDTO
      * @return
      */
     String update(OrderDTO orderDTO);
 
     /**
-     * Deletes a order by Id from database
+     * Deletes a order by Id from database.
      *
-     * @param id
      * @return
      */
     String deleteById(int id);

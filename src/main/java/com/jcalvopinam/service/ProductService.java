@@ -36,24 +36,27 @@ import java.util.List;
 public interface ProductService {
 
     /**
-     * Retrieves all products from database
+     * Retrieves all products from database.
      *
-     * @return
+     * @return a List of product.
      */
     List<Product> findAll();
 
     /**
-     * Finds the product by id or name
+     * Finds the product by id or name.
      *
-     * @param id
-     * @return
+     * @param id   receive an id value.
+     * @param name receive a name value.
+     * @return a Product object.
      */
     Product findByText(String id, String name);
 
+    //FIXME: Update those methods.
+
     /**
-     * Adds a new product to the database
+     * Adds a new product to the database.
      *
-     * @param productDTO
+     * @param productDTO receive an ProductDTO object.
      * @return
      */
     String save(ProductDTO productDTO);
@@ -61,7 +64,6 @@ public interface ProductService {
     /**
      * Updates a product to the database
      *
-     * @param productDTO
      * @return
      */
     String update(ProductDTO productDTO);
@@ -69,7 +71,6 @@ public interface ProductService {
     /**
      * Deletes a product by Id from database
      *
-     * @param id
      * @return
      */
     String deleteById(int id);

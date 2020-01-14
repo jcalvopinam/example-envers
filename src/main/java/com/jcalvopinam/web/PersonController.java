@@ -31,11 +31,17 @@ package com.jcalvopinam.web;
 import com.jcalvopinam.domain.Person;
 import com.jcalvopinam.dto.PersonDTO;
 import com.jcalvopinam.service.PersonService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.Validate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -44,48 +50,45 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/person")
+@Slf4j
 public class PersonController {
 
-    private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
-    private static final String WELCOME_PERSON_ENTITY = "Welcome to Envers example: Person Entity";
+    private final PersonService personService;
 
     @Autowired
-    private PersonService personService;
-
-    @GetMapping("/")
-    public String init() {
-        return WELCOME_PERSON_ENTITY;
+    public PersonController(final PersonService personService) {
+        this.personService = personService;
     }
 
-    @RequestMapping(value = "/find-all-persons", method = RequestMethod.GET)
+    @GetMapping
     public List<Person> findAllPersons() {
-        logger.info("Find all persons");
+        log.info("Find all persons");
         return personService.findAll();
     }
 
-    @RequestMapping(value = "/find-by-person", method = RequestMethod.GET)
-    public Person findByText(@RequestParam(value = "text") String text) {
-        logger.info(String.format("Finding by: %s", text));
+    @GetMapping("/{text}")
+    public Person findByText(@PathVariable final String text) {
+        log.info(String.format("Finding by: %s", text));
         return personService.findByText(text, text, text);
     }
 
-    @RequestMapping(value = "/save-person", method = RequestMethod.POST)
-    public String savePerson(@RequestBody PersonDTO personDTO) {
+    @PostMapping
+    public String savePerson(@RequestBody final PersonDTO personDTO) {
         Validate.notNull(personDTO, "The person cannot be null");
-        logger.info(String.format("Saving person: %s", personDTO.toString()));
+        log.info(String.format("Saving person: %s", personDTO.toString()));
         return personService.save(personDTO);
     }
 
-    @RequestMapping(value = "/update-person", method = RequestMethod.POST)
-    public String updatePerson(@RequestBody PersonDTO personDTO) {
+    @PutMapping("/{id}")
+    public String updatePerson(@RequestBody final PersonDTO personDTO, @PathVariable final int id) {
         Validate.notNull(personDTO, "The person cannot be null");
-        logger.info(String.format("Updating person: %s", personDTO.toString()));
+        log.info(String.format("Updating person: %s", personDTO.toString()));
         return personService.update(personDTO);
     }
 
-    @RequestMapping(value = "/delete-person", method = RequestMethod.GET)
-    public String deletePerson(@RequestParam(value = "id", required = true) int id) {
-        logger.info(String.format("Deleting person: %s", id));
+    @DeleteMapping("/{id}")
+    public String deletePerson(@PathVariable final int id) {
+        log.info(String.format("Deleting person: %s", id));
         return personService.deleteById(id);
     }
 

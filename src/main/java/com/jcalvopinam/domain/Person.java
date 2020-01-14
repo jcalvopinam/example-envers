@@ -23,26 +23,34 @@
  *
  */
 
-/**
- * The persistent class for the env_person database table.
- */
 package com.jcalvopinam.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.jcalvopinam.dto.PersonDTO;
-import org.apache.commons.lang.builder.ToStringBuilder;
+import lombok.Data;
+import lombok.ToString;
 import org.hibernate.envers.Audited;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
 
 /**
+ * The persistent class for the env_person database table.
+ *
  * @author juanca <juan.calvopina+dev@gmail.com>
  */
 @Entity
 @Audited
 @Table(name = "env_person")
+@Data
+@ToString
 public class Person implements Serializable {
 
     private static final long serialVersionUID = -8284413697324924501L;
@@ -81,57 +89,6 @@ public class Person implements Serializable {
     public Person(PersonDTO personDTO) {
         this.firstName = personDTO.getName();
         this.lastName = personDTO.getLastName();
-    }
-
-    public int getId() {
-        return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return this.firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return this.lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public List<Order> getCustomers() {
-        return this.customers;
-    }
-
-    public void setCustomers(List<Order> customers) {
-        this.customers = customers;
-    }
-
-    public List<Order> getEmployees() {
-        return this.employees;
-    }
-
-    public void setEmployees(List<Order> employees) {
-        this.employees = employees;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .append("id", id)
-                .append("firstName", firstName)
-                .append("lastName", lastName)
-                .append("customers", customers)
-                .append("employees", employees)
-                .toString();
     }
 
 }

@@ -28,10 +28,10 @@ package com.jcalvopinam.service;
 import com.jcalvopinam.domain.OrderDetail;
 import com.jcalvopinam.domain.OrderDetailPK;
 import com.jcalvopinam.dto.OrderDetailDTO;
+import com.jcalvopinam.exception.OrderDetailException;
 import com.jcalvopinam.repository.OrderDetailRepository;
 import com.jcalvopinam.utils.Utilities;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,9 +42,8 @@ import java.util.List;
  */
 @Service
 @Transactional
+@Slf4j
 public class OrderDetailServiceImpl implements OrderDetailService {
-
-    private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     private final OrderDetailRepository orderDetailRepository;
 
@@ -54,41 +53,60 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         this.orderDetailRepository = orderDetailRepository;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<OrderDetail> findAll() {
         return orderDetailRepository.findAll();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public OrderDetail findByDetailPk(String productId, String orderId) {
         Integer prodId = Utilities.isInteger(productId);
         Integer ordId = Utilities.isInteger(orderId);
-        return orderDetailRepository.findById(new OrderDetailPK(prodId, ordId));
+        return orderDetailRepository.findById(new OrderDetailPK(prodId, ordId))
+                                    .orElseThrow(() -> {
+                                        final String message = "Order detail not found!";
+                                        log.error(message);
+                                        throw new OrderDetailException(message);
+                                    });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String save(OrderDetailDTO orderDetailDTO) {
-        response = "Order Detail saved!";
-        orderDetailRepository.save(new OrderDetail(orderDetailDTO));
-        logger.info(response);
-        return response;
+    public OrderDetail save(final OrderDetailDTO orderDetailDTO) {
+        final OrderDetail orderDetail = orderDetailRepository.save(new OrderDetail(orderDetailDTO));
+        log.info("Order Detail saved!");
+        return orderDetail;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String update(OrderDetailDTO orderDetailDTO) {
-        response = "Order Detail updated!";
-        OrderDetail orderDetail = orderDetailRepository.findOne(orderDetailDTO.getId());
+    public OrderDetail update(final OrderDetailDTO orderDetailDTO, final int id) {
+        OrderDetail orderDetail = orderDetailRepository.findById(id)
+                                                       .orElseThrow(() -> {
+                                                           final String message = "Order detail not found!";
+                                                           log.error(message);
+                                                           throw new OrderDetailException(message);
+                                                       });
         orderDetail = this.updateOrderDetail(orderDetail, orderDetailDTO);
-        orderDetailRepository.save(orderDetail);
-        logger.info(response);
-        return response;
+        final OrderDetail updated = orderDetailRepository.save(orderDetail);
+        log.info("Order Detail updated!");
+        return updated;
     }
 
     @Override
-    public String deleteById(OrderDetailPK orderDetailPK) {
-        response = "Order Detail deleted!";
-        orderDetailRepository.delete(orderDetailPK);
-        return response;
+    public void deleteById(final int id) {
+        orderDetailRepository.deleteById(id);
+        log.info("Order Detail deleted!");
     }
 
     private OrderDetail updateOrderDetail(OrderDetail orderDetail,

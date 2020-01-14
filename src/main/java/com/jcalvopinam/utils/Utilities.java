@@ -36,31 +36,32 @@ import java.util.Random;
 /**
  * @author juanca <juan.calvopina+dev@gmail.com>
  */
-public class Utilities {
+public final class Utilities {
 
     public static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String DATE_MATCH_FORMAT = "\\d{4}-\\d{2}-\\d{2}";
 
-    /**
-     * If the input parameter is integer, then converts the String input to Integer output else return null
-     *
-     * @param input
-     * @return
-     */
-    public static Integer isInteger(String input) {
-        Integer output = 0;
-        if (StringUtils.isNumeric(input)) {
-            output = Integer.parseInt(input);
-        }
-        return output;
+    private Utilities() {
     }
 
     /**
-     * Convert date from String to Date object
+     * If the input parameter is integer, then converts the String input to Integer output else return null.
      *
-     * @param date
-     * @return
-     * @throws Exception
+     * @param input receive an input value.
+     * @return an Integer object.
+     */
+    public static Integer isInteger(String input) {
+        return StringUtils.isNumeric(input)
+               ? Integer.parseInt(input)
+               : 0;
+    }
+
+    /**
+     * Convert date from String to Date object.
+     *
+     * @param date receive a date value.
+     * @return a Date object.
+     * @throws ParseException throws an exception if the parse fail.
      */
     public static Date matchDate(String date) {
         try {
@@ -75,10 +76,10 @@ public class Utilities {
     }
 
     /**
-     * Check if the string has a Date format
+     * Check if the string has a Date format.
      *
-     * @param date
-     * @return
+     * @param date receive a date value.
+     * @return a boolean value.
      */
     private static boolean hasFormat(String date) {
         return date.matches(DATE_MATCH_FORMAT);
@@ -87,7 +88,7 @@ public class Utilities {
     /**
      * Gets random user names
      *
-     * @return
+     * @return a String value.
      */
     public static String getRandomUsers() {
         final String words = "Andrea:Juan:Isaac:Sandra:Michael:Annabel";

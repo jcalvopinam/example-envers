@@ -28,11 +28,17 @@ package com.jcalvopinam.web;
 import com.jcalvopinam.domain.OrderDetail;
 import com.jcalvopinam.dto.OrderDetailDTO;
 import com.jcalvopinam.service.OrderDetailService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.Validate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -41,49 +47,46 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/order-detail")
+@Slf4j
 public class OrderDetailController {
-    private static final Logger logger = LoggerFactory.getLogger(OrderDetail.class);
-    private static final String WELCOME_ORDER_DETAIL_ENTITY = "Welcome to Envers example: Order Detail Entity";
+
+    private final OrderDetailService orderDetailService;
 
     @Autowired
-    private OrderDetailService orderDetailService;
-
-    @GetMapping("/")
-    public String init() {
-        return WELCOME_ORDER_DETAIL_ENTITY;
+    public OrderDetailController(final OrderDetailService orderDetailService) {
+        this.orderDetailService = orderDetailService;
     }
 
-    @RequestMapping(value = "/find-all-details", method = RequestMethod.GET)
+    @GetMapping
     public List<OrderDetail> findAllDetails() {
-        logger.info("Find all order details");
+        log.info("Find all order details");
         return orderDetailService.findAll();
     }
 
-    @RequestMapping(value = "/find-by-detail", method = RequestMethod.GET)
-    public OrderDetail findByDetailPk(@RequestParam(value = "productId") String productId,
-                                      @RequestParam(value = "orderId") String orderId) {
-        logger.info(String.format("Finding by: %s, %s", productId, orderId));
+    @GetMapping("/{productId}/{orderId}")
+    public OrderDetail findByDetailPk(@PathVariable String productId, @PathVariable String orderId) {
+        log.info(String.format("Finding by: %s, %s", productId, orderId));
         return orderDetailService.findByDetailPk(productId, orderId);
     }
 
-    @RequestMapping(value = "/save-detail", method = RequestMethod.POST)
+    @PostMapping
     public String saveDetail(@RequestBody OrderDetailDTO orderDetailDTO) {
         Validate.notNull(orderDetailDTO, "The order detail cannot be null");
-        logger.info(String.format("Saving detail: %s", orderDetailDTO.toString()));
+        log.info(String.format("Saving detail: %s", orderDetailDTO.toString()));
         return orderDetailService.save(orderDetailDTO);
     }
 
-    @RequestMapping(value = "/update-detail", method = RequestMethod.POST)
-    public String updateDetail(@RequestBody OrderDetailDTO orderDetailDTO) {
+    @PutMapping("/{id}")
+    public String updateDetail(@RequestBody OrderDetailDTO orderDetailDTO, @PathVariable int id) {
         Validate.notNull(orderDetailDTO, "The order detail cannot be null");
-        logger.info(String.format("Updating order detail: %s", orderDetailDTO.toString()));
+        log.info(String.format("Updating order detail: %s", orderDetailDTO.toString()));
         return orderDetailService.update(orderDetailDTO);
     }
 
-    @RequestMapping(value = "/delete-detail", method = RequestMethod.POST)
-    public String deleteDetail(@RequestBody OrderDetailDTO orderDetailDTO) {
-        logger.info(String.format("Deleting order detail: %s", orderDetailDTO));
-        return orderDetailService.deleteById(orderDetailDTO.getId());
+    @DeleteMapping("/{id}")
+    public void deleteDetail(@PathVariable int id) {
+        log.info(String.format("Deleting order detail: %s", id));
+        orderDetailService.deleteById(id);
     }
 
 }

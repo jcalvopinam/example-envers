@@ -23,9 +23,6 @@
  *
  */
 
-/**
- * Methods for accessing the database
- */
 package com.jcalvopinam.repository;
 
 import com.jcalvopinam.domain.Order;
@@ -35,41 +32,39 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * Methods for accessing the database
+ *
  * @author juanca <juan.calvopina+dev@gmail.com>
  */
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     /**
-     * @param orderId
-     * @param customer
-     * @param employee
-     * @param date
-     * @param orderStatus
-     * @return
+     * Find by OrderId or CustomerId or EmployeeId or SaleDate or OrderStatus.
+     *
+     * @param orderId     receive an orderId value.
+     * @param customer    receive a customer value.
+     * @param employee    receive an employee value.
+     * @param date        receive a date value.
+     * @param orderStatus receive an orderStatus value.
+     * @return a List of Orders.
      */
-    List<Order> findByOrderIdOrCustomer_IdOrEmployee_IdOrSaleDateOrOrderStatus(int orderId,
-                                                                               int customer,
-                                                                               int employee,
-                                                                               Date date,
-                                                                               int orderStatus);
+    List<Order> findByOrderIdOrCustomer_IdOrEmployee_IdOrSaleDateOrOrderStatus(int orderId, int customer, int employee,
+                                                                               Date date, int orderStatus);
 
     /**
-     * @param orderId
-     * @param customerName
-     * @param customerLastName
-     * @param employee
-     * @param employeeLastName
-     * @param date
-     * @param orderStatus
-     * @return
+     * Find by OrderId or Customer (FirstName or LastName) or Employee (FirstName or LastName) or SaleDate or OrderStatus.
+     *
+     * @param orderId          receive an orderId value.
+     * @param customerName     receive a customerName value.
+     * @param customerLastName receive a customerLastName value.
+     * @param employee         receive an employee value.
+     * @param employeeLastName receive an employeeLastName value.
+     * @param date             receive a date value.
+     * @param orderStatus      receive an orderId value.
+     * @return a List of Orders.
      */
     List<Order> findByOrderIdOrCustomer_FirstNameOrCustomer_LastNameOrEmployee_FirstNameOrEmployee_LastNameOrSaleDateOrOrderStatus(
-            int orderId,
-            String customerName,
-            String customerLastName,
-            String employee,
-            String employeeLastName,
-            Date date,
-            int orderStatus);
+            int orderId, String customerName, String customerLastName, String employee, String employeeLastName,
+            Date date, int orderStatus);
 
 }

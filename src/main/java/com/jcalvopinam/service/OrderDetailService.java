@@ -26,7 +26,6 @@
 package com.jcalvopinam.service;
 
 import com.jcalvopinam.domain.OrderDetail;
-import com.jcalvopinam.domain.OrderDetailPK;
 import com.jcalvopinam.dto.OrderDetailDTO;
 
 import java.util.List;
@@ -39,41 +38,38 @@ public interface OrderDetailService {
     /**
      * Retrieves all order details from database
      *
-     * @return
+     * @return a List of OrderDetail.
      */
     List<OrderDetail> findAll();
 
     /**
      * Finds the order detail by id or customer, employee, date or orderStatus
      *
-     * @param productId
-     * @param orderId
-     * @return
+     * @return an OrderDetail object.
      */
     OrderDetail findByDetailPk(String productId, String orderId);
 
     /**
      * Adds a new order detail to the database
      *
-     * @param orderDetailDTO
-     * @return
+     * @return an OrderDetail object.
      */
-    String save(OrderDetailDTO orderDetailDTO);
+    OrderDetail save(OrderDetailDTO orderDetailDTO);
 
     /**
      * Updates a order detail to the database
      *
-     * @param orderDetailDTO
-     * @return
+     * @param orderDetailDTO receive an OrderDetailDTO object.
+     * @param id             receive an id value.
+     * @return an OrderDetail object.
      */
-    String update(OrderDetailDTO orderDetailDTO);
+    OrderDetail update(OrderDetailDTO orderDetailDTO, int id);
 
     /**
      * Deletes a order detail by orderDetailPK from database
      *
-     * @param orderDetailPK
-     * @return
+     * @param id receive an id value.
      */
-    String deleteById(OrderDetailPK orderDetailPK);
+    void deleteById(int id);
 
 }

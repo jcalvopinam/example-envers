@@ -23,9 +23,6 @@
  *
  */
 
-/**
- * This class sets the userId attribute in the Audit table
- */
 package com.jcalvopinam.listener;
 
 import com.jcalvopinam.domain.AuditEnversInfo;
@@ -33,6 +30,8 @@ import com.jcalvopinam.utils.Utilities;
 import org.hibernate.envers.RevisionListener;
 
 /**
+ * This class sets the userId attribute in the Audit table
+ *
  * @author juanca <juan.calvopina+dev@gmail.com>
  */
 public class UserRevisionListener implements RevisionListener {

@@ -23,30 +23,29 @@
  *
  */
 
-/**
- * Implementation of the method signatures
- */
 package com.jcalvopinam.service;
 
 import com.jcalvopinam.domain.Person;
 import com.jcalvopinam.dto.PersonDTO;
+import com.jcalvopinam.exception.PersonException;
 import com.jcalvopinam.repository.PersonRepository;
 import com.jcalvopinam.utils.Utilities;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
+ * Implementation of the method signatures
+ *
  * @author juanca <juan.calvopina+dev@gmail.com>
  */
 @Service
 @Transactional
+@Slf4j
 public class PersonServiceImpl implements PersonService {
 
-    private static final Logger logger = LoggerFactory.getLogger(PersonServiceImpl.class);
     private final PersonRepository personRepository;
     private String response;
 
@@ -54,45 +53,68 @@ public class PersonServiceImpl implements PersonService {
         this.personRepository = personRepository;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Person> findAll() {
         return personRepository.findAll();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Person findByText(String id, String name, String lastName) {
         Integer personId = Utilities.isInteger(id);
         return personRepository.findByIdOrFirstNameOrLastName(personId, name, lastName);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Person findById(int id) {
-        return personRepository.findOne(id);
+        return personRepository.findById(id)
+                               .orElseThrow(() -> {
+                                   final String message = "Order detail not found!";
+                                   log.error(message);
+                                   throw new PersonException(message);
+                               });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String save(PersonDTO personDTO) {
         response = "Person saved!";
         personRepository.save(new Person(personDTO));
-        logger.info(response);
+        log.info(response);
         return response;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String update(PersonDTO personDTO) {
         response = "Person updated!";
-        Person person = personRepository.findOne(personDTO.getId());
+        Person person = findById(personDTO.getId());
         person = this.updatePerson(person, personDTO);
         personRepository.save(person);
-        logger.info(response);
+        log.info(response);
         return response;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String deleteById(int id) {
         response = "Person deleted!";
-        personRepository.delete(id);
-        logger.info(response);
+        personRepository.deleteById(id);
+        log.info(response);
         return response;
     }
 

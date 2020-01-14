@@ -27,10 +27,10 @@ package com.jcalvopinam.service;
 
 import com.jcalvopinam.domain.Product;
 import com.jcalvopinam.dto.ProductDTO;
+import com.jcalvopinam.exception.PersonException;
 import com.jcalvopinam.repository.ProductRepository;
 import com.jcalvopinam.utils.Utilities;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,9 +41,8 @@ import java.util.List;
  */
 @Service
 @Transactional
+@Slf4j
 public class ProductServiceImpl implements ProductService {
-
-    private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     private final ProductRepository productRepository;
     private String response;
@@ -52,40 +51,60 @@ public class ProductServiceImpl implements ProductService {
         this.productRepository = productRepository;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Product> findAll() {
         return productRepository.findAll();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Product findByText(String id, String name) {
         Integer productId = Utilities.isInteger(id);
         return productRepository.findByProductIdOrName(productId, name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String save(ProductDTO productDTO) {
         response = "Product saved!";
         productRepository.save(new Product(productDTO));
-        logger.info(response);
+        log.info(response);
         return response;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String update(ProductDTO productDTO) {
         response = "Product updated!";
-        Product product = productRepository.findOne(productDTO.getId());
+        Product product = productRepository.findById(productDTO.getId())
+                                           .orElseThrow(() -> {
+                                               final String message = "Order detail not found!";
+                                               log.error(message);
+                                               throw new PersonException(message);
+                                           });
         product = this.updateProduct(product, productDTO);
         productRepository.save(product);
-        logger.info(response);
+        log.info(response);
         return response;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String deleteById(int id) {
         response = "Product deleted!";
-        productRepository.delete(id);
-        logger.info(response);
+        productRepository.deleteById(id);
+        log.info(response);
         return response;
     }
 

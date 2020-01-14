@@ -34,11 +34,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     /**
-     * Finds the product by id or name
+     * Finds the product by id or name.
      *
-     * @param id
-     * @param name
-     * @return
+     * @param id   receive an id value.
+     * @param name receive a name value.
+     * @return a Product object.
      */
     Product findByProductIdOrName(int id, String name);
 

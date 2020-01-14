@@ -29,15 +29,19 @@ import com.jcalvopinam.domain.OrderDetail;
 import com.jcalvopinam.domain.OrderDetailPK;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 /**
  * @author juanca <juan.calvopina+dev@gmail.com>
  */
 public interface OrderDetailRepository extends JpaRepository<OrderDetail, OrderDetailPK> {
 
     /**
-     * @param orderDetailPK
-     * @return
+     * Find by OrderDetailId.
+     *
+     * @param orderDetailPK receive an OrderDetailPK object.
+     * @return an OrderDetail wrapped in an Optional.
      */
-    OrderDetail findById(OrderDetailPK orderDetailPK);
+    Optional<OrderDetail> findById(OrderDetailPK orderDetailPK);
 
 }

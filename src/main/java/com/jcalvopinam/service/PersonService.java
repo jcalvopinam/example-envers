@@ -39,50 +39,49 @@ import java.util.List;
 public interface PersonService {
 
     /**
-     * Retrieves all persons from database
+     * Retrieves all persons from database.
      *
-     * @return
+     * @return a List of Person.
      */
     List<Person> findAll();
 
     /**
-     * Finds the person by name or last name
+     * Finds the person by name or last name.
      *
-     * @param id
-     * @param name
-     * @param lastName
-     * @return
+     * @param id       receive an id value.
+     * @param name     receive a name value.
+     * @param lastName receive a lastName value.
+     * @return a Person object.
      */
     Person findByText(String id, String name, String lastName);
 
     /**
-     * Finds the person by int
+     * Finds the person by int.
      *
-     * @param id
-     * @return
+     * @param id receive an id value.
+     * @return a Person Object.
      */
     Person findById(int id);
 
+    //FIXME: Update those methods.
+
     /**
-     * Adds a new person to the database
+     * Adds a new person to the database.
      *
-     * @param personDTO
      * @return
      */
     String save(PersonDTO personDTO);
 
     /**
-     * Updates a person to the database
+     * Updates a person to the database.
      *
-     * @param personDTO
      * @return
      */
     String update(PersonDTO personDTO);
 
     /**
-     * Deletes a person by Id from database
+     * Deletes a person by Id from database.
      *
-     * @param id
      * @return
      */
     String deleteById(int id);

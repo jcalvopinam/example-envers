@@ -23,14 +23,16 @@
  *
  */
 
-/**
- * DTO to mapping of Order attributes
- */
 package com.jcalvopinam.dto;
 
+import lombok.Data;
+
 /**
+ * DTO to mapping of Order attributes
+ *
  * @author juanca <juan.calvopina+dev@gmail.com>
  */
+@Data
 public class OrderDTO {
 
     private int id;
@@ -39,49 +41,10 @@ public class OrderDTO {
     private int customer;
     private int employee;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(int orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
-    public String getSaleDate() {
-        return saleDate;
-    }
-
-    public void setSaleDate(String saleDate) {
-        this.saleDate = saleDate;
-    }
-
-    public int getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(int customer) {
-        this.customer = customer;
-    }
-
-    public int getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(int employee) {
-        this.employee = employee;
-    }
-
     @Override
     public String toString() {
         return String.format("OrderDTO{id=%d, orderStatus=%d, saleDate='%s', customer=%d, employee=%d}", id,
                              orderStatus, saleDate, customer, employee);
     }
+
 }

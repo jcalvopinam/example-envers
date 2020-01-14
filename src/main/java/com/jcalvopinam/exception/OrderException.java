@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2020 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,26 +23,14 @@
  *
  */
 
-package com.jcalvopinam.dto;
+package com.jcalvopinam.exception;
 
-import lombok.Data;
+public class OrderException extends RuntimeException {
 
-/**
- * @author juanca <juan.calvopina+dev@gmail.com>
- */
-@Data
-public class ProductDTO {
+    private static final long serialVersionUID = -9130418085882264714L;
 
-    private int id;
-    private String name;
-    private String description;
-    private int quantityPerUnit;
-    private double unitPrice;
-
-    @Override
-    public String toString() {
-        return String.format("ProductDTO{ id=%d, name='%s', description='%s', quantityPerUnit=%d, unitPrice=%.2f}", id,
-                             name, description, quantityPerUnit, unitPrice);
+    public OrderException(final String message) {
+        super(message);
     }
 
 }

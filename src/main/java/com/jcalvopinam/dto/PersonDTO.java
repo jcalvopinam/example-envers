@@ -23,47 +23,22 @@
  *
  */
 
-/**
- * DTO to mapping of Person attributes
- */
 package com.jcalvopinam.dto;
 
+import lombok.Data;
+import lombok.ToString;
+
 /**
+ * DTO to mapping of Person attributes
+ *
  * @author juanca <juan.calvopina+dev@gmail.com>
  */
+@Data
+@ToString
 public class PersonDTO {
 
     private int id;
     private String name;
     private String lastName;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("PersonDTO{id=%d, name='%s', lastName='%s'}", id, name, lastName);
-    }
 
 }

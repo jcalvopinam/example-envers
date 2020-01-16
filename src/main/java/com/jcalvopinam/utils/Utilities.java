@@ -34,7 +34,7 @@ import java.util.Date;
 import java.util.Random;
 
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author juan.calvopina
  */
 public final class Utilities {
 

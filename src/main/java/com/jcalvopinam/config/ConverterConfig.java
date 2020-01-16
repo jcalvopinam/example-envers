@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2020 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,23 +23,30 @@
  *
  */
 
-package com.jcalvopinam.listener;
+package com.jcalvopinam.config;
 
-import com.jcalvopinam.domain.AuditEnversInfo;
-import com.jcalvopinam.utils.Utilities;
-import org.hibernate.envers.RevisionListener;
+import com.jcalvopinam.converter.PersonToPersonDTOConverter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * This class sets the userId attribute in the Audit table
- *
  * @author juan.calvopina
  */
-public class UserRevisionListener implements RevisionListener {
+@Configuration
+public class ConverterConfig implements WebMvcConfigurer {
+
+    private final PersonToPersonDTOConverter personToPersonDTOConverter;
+
+    @Autowired
+    public ConverterConfig(final PersonToPersonDTOConverter personToPersonDTOConverter) {
+        this.personToPersonDTOConverter = personToPersonDTOConverter;
+    }
 
     @Override
-    public void newRevision(Object revisionEntity) {
-        AuditEnversInfo auditEnversInfo = (AuditEnversInfo) revisionEntity;
-        auditEnversInfo.setUserId(Utilities.getRandomUsers());
+    public void addFormatters(final FormatterRegistry registry) {
+        registry.addConverter(personToPersonDTOConverter);
     }
 
 }

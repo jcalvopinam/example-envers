@@ -38,7 +38,7 @@ import javax.persistence.Table;
 /**
  * This entity has an additional attribute for Audit table
  *
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author juan.calvopina
  */
 @Entity
 @RevisionEntity(UserRevisionListener.class)

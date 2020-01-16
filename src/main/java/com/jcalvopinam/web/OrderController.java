@@ -43,7 +43,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author juan.calvopina
  */
 @RestController
 @RequestMapping(value = "/order")

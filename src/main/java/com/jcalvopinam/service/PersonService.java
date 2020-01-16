@@ -34,7 +34,7 @@ import com.jcalvopinam.dto.PersonDTO;
 import java.util.List;
 
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author juan.calvopina
  */
 public interface PersonService {
 
@@ -63,27 +63,27 @@ public interface PersonService {
      */
     Person findById(int id);
 
-    //FIXME: Update those methods.
-
     /**
      * Adds a new person to the database.
      *
-     * @return
+     * @param personDTO receive a PersonDTO object.
+     * @return a PersonDTO object.
      */
-    String save(PersonDTO personDTO);
+    PersonDTO save(PersonDTO personDTO);
 
     /**
      * Updates a person to the database.
      *
-     * @return
+     * @param personDTO receive a PersonDTO object.
+     * @return a PersonDTO object.
      */
-    String update(PersonDTO personDTO);
+    PersonDTO update(PersonDTO personDTO);
 
     /**
      * Deletes a person by Id from database.
      *
-     * @return
+     * @param id receive an id value.
      */
-    String deleteById(int id);
+    void deleteById(int id);
 
 }

@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * Methods for accessing the database
  *
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author juan.calvopina
  */
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 

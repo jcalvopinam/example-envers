@@ -35,7 +35,7 @@ import java.io.Serializable;
 /**
  * The primary key class for the order_details database table.
  *
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author juan.calvopina
  */
 @Embeddable
 @Data

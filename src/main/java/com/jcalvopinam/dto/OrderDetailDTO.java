@@ -26,12 +26,18 @@
 package com.jcalvopinam.dto;
 
 import com.jcalvopinam.domain.OrderDetailPK;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author juan.calvopina
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderDetailDTO {
 
     private OrderDetailPK id;

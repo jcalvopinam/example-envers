@@ -43,7 +43,7 @@ import java.util.List;
 /**
  * The persistent class for the env_products database table.
  *
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author juan.calvopina
  */
 @Entity
 @Audited

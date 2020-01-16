@@ -31,7 +31,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * Methods for accessing the database
  *
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author juan.calvopina
  */
 public interface PersonRepository extends JpaRepository<Person, Integer> {
 

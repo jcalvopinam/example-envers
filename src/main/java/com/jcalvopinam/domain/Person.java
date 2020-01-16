@@ -26,7 +26,6 @@
 package com.jcalvopinam.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.jcalvopinam.dto.PersonDTO;
 import lombok.Data;
 import lombok.ToString;
 import org.hibernate.envers.Audited;
@@ -44,7 +43,7 @@ import java.util.List;
 /**
  * The persistent class for the env_person database table.
  *
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author juan.calvopina
  */
 @Entity
 @Audited
@@ -84,11 +83,6 @@ public class Person implements Serializable {
     private List<Order> employees;
 
     public Person() {
-    }
-
-    public Person(PersonDTO personDTO) {
-        this.firstName = personDTO.getName();
-        this.lastName = personDTO.getLastName();
     }
 
 }

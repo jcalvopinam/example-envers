@@ -25,15 +25,21 @@
 
 package com.jcalvopinam.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
  * DTO to mapping of Person attributes
  *
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author juan.calvopina
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class PersonDTO {
 

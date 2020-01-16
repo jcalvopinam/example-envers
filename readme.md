@@ -39,3 +39,11 @@ I used the postman as a client to test the endpoints, you can import the collect
 ```
 Or if you prefer, you can see the Controllers inside of ```com.jcalvopinam.web``` 
 package and the DTOs inside of ```com.jcalvopinam.dto```
+
+
+Docker
+---
+The following command will download the mysql image
+``` 
+docker run --name mysqlDb -p 3306:3306 -e MYSQL_ROOT_PASSWORD=juanca123 -d mysql
+```

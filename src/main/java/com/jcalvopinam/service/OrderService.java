@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * List of methods signature
  *
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author juan.calvopina
  */
 public interface OrderService {
 

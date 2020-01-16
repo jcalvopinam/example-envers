@@ -46,7 +46,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author juan.calvopina
  */
 @RestController
 @RequestMapping(value = "/person")
@@ -73,8 +73,7 @@ public class PersonController {
     }
 
     @PostMapping
-    public String savePerson(@RequestBody final PersonDTO personDTO) {
-        Validate.notNull(personDTO, "The person cannot be null");
+    public PersonDTO savePerson(@RequestBody final PersonDTO personDTO) {
         log.info(String.format("Saving person: %s", personDTO.toString()));
         return personService.save(personDTO);
     }

@@ -29,7 +29,7 @@ import com.jcalvopinam.domain.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author juan.calvopina
  */
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 

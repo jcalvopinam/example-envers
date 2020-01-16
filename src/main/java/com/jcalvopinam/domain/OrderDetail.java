@@ -42,7 +42,7 @@ import java.io.Serializable;
 /**
  * The persistent class for the env_order_details database table.
  *
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author juan.calvopina
  */
 @Entity
 @Audited

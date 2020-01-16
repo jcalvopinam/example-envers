@@ -32,7 +32,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author juan.calvopina
  */
 public interface OrderDetailRepository extends JpaRepository<OrderDetail, OrderDetailPK> {
 

@@ -23,14 +23,25 @@
  *
  */
 
-package com.jcalvopinam.exception;
+package com.jcalvopinam.converter;
 
-public class ProductException extends RuntimeException {
+import com.jcalvopinam.domain.Order;
+import com.jcalvopinam.dto.OrderDTO;
+import org.springframework.beans.BeanUtils;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
-    private static final long serialVersionUID = -6328899891108615600L;
+/**
+ * @author juan.calvopina
+ */
+@Component
+public class OrderDTOtoOrderConverter implements Converter<Order, OrderDTO> {
 
-    public ProductException(final String message) {
-        super(message);
+    @Override
+    public OrderDTO convert(final Order order) {
+        final OrderDTO orderDTO = new OrderDTO();
+        BeanUtils.copyProperties(order, orderDTO);
+        return orderDTO;
     }
 
 }

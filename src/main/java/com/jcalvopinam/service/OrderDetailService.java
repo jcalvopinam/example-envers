@@ -60,16 +60,15 @@ public interface OrderDetailService {
      * Updates a order detail to the database
      *
      * @param orderDetailDTO receive an OrderDetailDTO object.
-     * @param id             receive an id value.
      * @return an OrderDetail object.
      */
-    OrderDetail update(OrderDetailDTO orderDetailDTO, int id);
+    OrderDetail update(OrderDetailDTO orderDetailDTO);
 
     /**
      * Deletes a order detail by orderDetailPK from database
      *
-     * @param id receive an id value.
+     * @param orderDetailDTO receive an OrderDetailDTO object.
      */
-    void deleteById(int id);
+    void deleteById(final OrderDetailDTO orderDetailDTO);
 
 }

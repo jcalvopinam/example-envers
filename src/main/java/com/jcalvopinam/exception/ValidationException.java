@@ -23,25 +23,17 @@
  *
  */
 
-package com.jcalvopinam.converter;
-
-import com.jcalvopinam.domain.Person;
-import com.jcalvopinam.dto.PersonDTO;
-import org.springframework.beans.BeanUtils;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
+package com.jcalvopinam.exception;
 
 /**
  * @author juan.calvopina
  */
-@Component
-public class PersonToPersonDTOConverter implements Converter<Person, PersonDTO> {
+public class ValidationException extends RuntimeException {
 
-    @Override
-    public PersonDTO convert(final Person person) {
-        final PersonDTO personDTO = new PersonDTO();
-        BeanUtils.copyProperties(person, personDTO);
-        return personDTO;
+    private static final long serialVersionUID = 9034804420253968134L;
+
+    public ValidationException(final String message) {
+        super(message);
     }
 
 }

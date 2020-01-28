@@ -25,6 +25,9 @@
 
 package com.jcalvopinam.config;
 
+import com.jcalvopinam.converter.OrderDTOtoOrderConverter;
+import com.jcalvopinam.converter.OrderToOrderDTOConverter;
+import com.jcalvopinam.converter.PersonDTOtoPersonConverter;
 import com.jcalvopinam.converter.PersonToPersonDTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -38,15 +41,27 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class ConverterConfig implements WebMvcConfigurer {
 
     private final PersonToPersonDTOConverter personToPersonDTOConverter;
+    private final PersonDTOtoPersonConverter personDTOtoPersonConverter;
+    private final OrderToOrderDTOConverter orderToOrderDTOConverter;
+    private final OrderDTOtoOrderConverter orderDTOtoOrderConverter;
 
     @Autowired
-    public ConverterConfig(final PersonToPersonDTOConverter personToPersonDTOConverter) {
+    public ConverterConfig(final PersonToPersonDTOConverter personToPersonDTOConverter,
+                           final PersonDTOtoPersonConverter personDTOtoPersonConverter,
+                           final OrderToOrderDTOConverter orderToOrderDTOConverter,
+                           final OrderDTOtoOrderConverter orderDTOtoOrderConverter) {
         this.personToPersonDTOConverter = personToPersonDTOConverter;
+        this.personDTOtoPersonConverter = personDTOtoPersonConverter;
+        this.orderToOrderDTOConverter = orderToOrderDTOConverter;
+        this.orderDTOtoOrderConverter = orderDTOtoOrderConverter;
     }
 
     @Override
     public void addFormatters(final FormatterRegistry registry) {
         registry.addConverter(personToPersonDTOConverter);
+        registry.addConverter(personDTOtoPersonConverter);
+        registry.addConverter(orderToOrderDTOConverter);
+        registry.addConverter(orderDTOtoOrderConverter);
     }
 
 }

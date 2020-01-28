@@ -64,29 +64,29 @@ public class ProductController {
     }
 
     @GetMapping("/{text}")
-    public Product findByText(@PathVariable final String text) {
+    public ProductDTO findByText(@PathVariable final String text) {
         log.info(String.format("Finding by: %s", text));
         return productService.findByText(text, text);
     }
 
     @PostMapping
-    public String saveProduct(@RequestBody ProductDTO productDTO) {
+    public ProductDTO saveProduct(@RequestBody ProductDTO productDTO) {
         Validate.notNull(productDTO, "The product cannot be null");
         log.info(String.format("Saving product: %s", productDTO.toString()));
         return productService.save(productDTO);
     }
 
     @PutMapping("/{id}")
-    public String updateProduct(@RequestBody final ProductDTO productDTO, @PathVariable final int id) {
+    public ProductDTO updateProduct(@RequestBody final ProductDTO productDTO, @PathVariable final int id) {
         Validate.notNull(productDTO, "The product cannot be null");
         log.info(String.format("Updating product: %s", productDTO.toString()));
         return productService.update(productDTO);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteProduct(@PathVariable final int id) {
+    public void deleteProduct(@PathVariable final int id) {
         log.info(String.format("Deleting product: %s", id));
-        return productService.deleteById(id);
+        productService.deleteById(id);
     }
 
 }

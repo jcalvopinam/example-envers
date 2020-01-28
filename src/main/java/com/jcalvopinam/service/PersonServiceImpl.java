@@ -27,7 +27,7 @@ package com.jcalvopinam.service;
 
 import com.jcalvopinam.domain.Person;
 import com.jcalvopinam.dto.PersonDTO;
-import com.jcalvopinam.exception.PersonException;
+import com.jcalvopinam.exception.PersonNotFoundException;
 import com.jcalvopinam.repository.PersonRepository;
 import com.jcalvopinam.utils.Utilities;
 import lombok.extern.slf4j.Slf4j;
@@ -71,21 +71,26 @@ public class PersonServiceImpl implements PersonService {
      * {@inheritDoc}
      */
     @Override
-    public Person findByText(String id, String name, String lastName) {
+    public PersonDTO findByText(String id, String name, String lastName) {
         Integer personId = Utilities.isInteger(id);
-        return personRepository.findByIdOrFirstNameOrLastName(personId, name, lastName);
+        final Person person = personRepository.findByIdOrFirstNameOrLastName(personId, name, lastName);
+        return conversionService.convert(person, PersonDTO.class);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Person findById(int id) {
+    public PersonDTO findById(int id) {
+        return conversionService.convert(findPersonById(id), PersonDTO.class);
+    }
+
+    private Person findPersonById(final int id) {
         return personRepository.findById(id)
                                .orElseThrow(() -> {
                                    final String message = "Person not found!";
                                    log.error(message);
-                                   throw new PersonException(message);
+                                   throw new PersonNotFoundException(message);
                                });
     }
 
@@ -100,7 +105,7 @@ public class PersonServiceImpl implements PersonService {
                             final String message = String.format("The person %s already exist in the database",
                                                                  per.getId());
                             log.info(message);
-                            throw new PersonException(message);
+                            throw new PersonNotFoundException(message);
                         });
         final Person dtoToPerson = conversionService.convert(personDTO, Person.class);
         final Person personSaved = personRepository.save(Objects.requireNonNull(dtoToPerson));
@@ -112,12 +117,11 @@ public class PersonServiceImpl implements PersonService {
      * {@inheritDoc}
      */
     @Override
-    public PersonDTO update(PersonDTO personDTO) {
+    public PersonDTO update(PersonDTO personDTO, final int id) {
         Validate.notNull(personDTO, "The person cannot be null");
-        final Person dtoToPerson = conversionService.convert(personDTO, Person.class);
-        final Person person = findById(Objects.requireNonNull(dtoToPerson)
-                                              .getId());
-        final Person personSaved = personRepository.save(Objects.requireNonNull(person));
+        final Person person = findPersonById(id);
+        final Person personConverted = conversionService.convert(personDTO, person.getClass());
+        final Person personSaved = personRepository.save(Objects.requireNonNull(personConverted));
         log.info("Person saved!");
         return conversionService.convert(personSaved, PersonDTO.class);
     }
@@ -127,7 +131,7 @@ public class PersonServiceImpl implements PersonService {
      */
     @Override
     public void deleteById(int id) {
-        final Person person = findById(id);
+        final Person person = findPersonById(id);
         personRepository.delete(person);
         log.info("Person deleted!");
     }

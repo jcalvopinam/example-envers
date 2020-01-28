@@ -23,14 +23,25 @@
  *
  */
 
-package com.jcalvopinam.exception;
+package com.jcalvopinam.converter;
 
-public class PersonException extends RuntimeException {
+import com.jcalvopinam.domain.OrderDetail;
+import com.jcalvopinam.dto.OrderDetailDTO;
+import org.springframework.beans.BeanUtils;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
-    private static final long serialVersionUID = 8267901611199198568L;
+/**
+ * @author juan.calvopina
+ */
+@Component
+public class OrderDetailDTOtoOrderDetailConverter implements Converter<OrderDetailDTO, OrderDetail> {
 
-    public PersonException(final String message) {
-        super(message);
+    @Override
+    public OrderDetail convert(final OrderDetailDTO orderDetailDTO) {
+        final OrderDetail orderDetail = new OrderDetail();
+        BeanUtils.copyProperties(orderDetailDTO, orderDetail);
+        return orderDetail;
     }
 
 }

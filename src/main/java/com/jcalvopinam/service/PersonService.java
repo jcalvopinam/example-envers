@@ -51,17 +51,17 @@ public interface PersonService {
      * @param id       receive an id value.
      * @param name     receive a name value.
      * @param lastName receive a lastName value.
-     * @return a Person object.
+     * @return a PersonDTO object.
      */
-    Person findByText(String id, String name, String lastName);
+    PersonDTO findByText(String id, String name, String lastName);
 
     /**
      * Finds the person by int.
      *
      * @param id receive an id value.
-     * @return a Person Object.
+     * @return a PersonDTO Object.
      */
-    Person findById(int id);
+    PersonDTO findById(int id);
 
     /**
      * Adds a new person to the database.
@@ -75,9 +75,10 @@ public interface PersonService {
      * Updates a person to the database.
      *
      * @param personDTO receive a PersonDTO object.
+     * @param id        receive an id.
      * @return a PersonDTO object.
      */
-    PersonDTO update(PersonDTO personDTO);
+    PersonDTO update(PersonDTO personDTO, int id);
 
     /**
      * Deletes a person by Id from database.

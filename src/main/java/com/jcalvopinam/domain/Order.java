@@ -29,6 +29,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jcalvopinam.dto.OrderDTO;
 import com.jcalvopinam.utils.Utilities;
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.envers.Audited;
 
@@ -56,6 +57,7 @@ import java.util.List;
 @Audited
 @Table(name = "env_order")
 @Data
+@Builder
 public class Order implements Serializable {
 
     private static final long serialVersionUID = -6669777807167682166L;

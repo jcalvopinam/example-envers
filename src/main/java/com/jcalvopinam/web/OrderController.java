@@ -70,23 +70,23 @@ public class OrderController {
     }
 
     @PostMapping
-    public String saveOrder(@RequestBody OrderDTO orderDTO) {
+    public OrderDTO saveOrder(@RequestBody OrderDTO orderDTO) {
         Validate.notNull(orderDTO, "The order cannot be null");
         log.info(String.format("Saving order: %s", orderDTO.toString()));
         return orderService.save(orderDTO);
     }
 
     @PutMapping("/{id}")
-    public String updateOrder(@RequestBody OrderDTO orderDTO, @PathVariable int id) {
+    public OrderDTO updateOrder(@RequestBody OrderDTO orderDTO, @PathVariable int id) {
         Validate.notNull(orderDTO, "The order cannot be null");
         log.info(String.format("Updating order: %s", orderDTO.toString()));
         return orderService.update(orderDTO);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteOrder(@PathVariable int id) {
+    public void deleteOrder(@PathVariable int id) {
         log.info(String.format("Deleting order: %s", id));
-        return orderService.deleteById(id);
+        orderService.deleteById(id);
     }
 
 }

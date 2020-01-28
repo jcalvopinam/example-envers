@@ -23,25 +23,22 @@
  *
  */
 
-package com.jcalvopinam.converter;
-
-import com.jcalvopinam.domain.Person;
-import com.jcalvopinam.dto.PersonDTO;
-import org.springframework.beans.BeanUtils;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
+package com.jcalvopinam.exception;
 
 /**
- * @author juan.calvopina
+ * Header Bad Request Exception.
  */
-@Component
-public class PersonToPersonDTOConverter implements Converter<Person, PersonDTO> {
+public class HeaderBadRequestException extends RuntimeException {
 
-    @Override
-    public PersonDTO convert(final Person person) {
-        final PersonDTO personDTO = new PersonDTO();
-        BeanUtils.copyProperties(person, personDTO);
-        return personDTO;
+    private static final long serialVersionUID = 3255327851989696270L;
+
+    /**
+     * Custom exception for HeaderBadRequestException.
+     *
+     * @param message receive a message String.
+     */
+    public HeaderBadRequestException(final String message) {
+        super(message);
     }
 
 }

@@ -27,14 +27,16 @@ package com.jcalvopinam.service;
 
 import com.jcalvopinam.domain.Product;
 import com.jcalvopinam.dto.ProductDTO;
-import com.jcalvopinam.exception.PersonException;
+import com.jcalvopinam.exception.PersonNotFoundException;
 import com.jcalvopinam.repository.ProductRepository;
 import com.jcalvopinam.utils.Utilities;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author juan.calvopina
@@ -45,10 +47,12 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
-    private String response;
+    private final ConversionService conversionService;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository,
+                              final ConversionService conversionService) {
         this.productRepository = productRepository;
+        this.conversionService = conversionService;
     }
 
     /**
@@ -63,57 +67,46 @@ public class ProductServiceImpl implements ProductService {
      * {@inheritDoc}
      */
     @Override
-    public Product findByText(String id, String name) {
+    public ProductDTO findByText(String id, String name) {
         Integer productId = Utilities.isInteger(id);
-        return productRepository.findByProductIdOrName(productId, name);
+        final Product product = productRepository.findByProductIdOrName(productId, name);
+        return conversionService.convert(product, ProductDTO.class);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String save(ProductDTO productDTO) {
-        response = "Product saved!";
-        productRepository.save(new Product(productDTO));
-        log.info(response);
-        return response;
+    public ProductDTO save(ProductDTO productDTO) {
+        final Product product = productRepository.save(new Product(productDTO));
+        log.info("Product saved!");
+        return conversionService.convert(product, ProductDTO.class);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String update(ProductDTO productDTO) {
-        response = "Product updated!";
+    public ProductDTO update(ProductDTO productDTO) {
         Product product = productRepository.findById(productDTO.getId())
                                            .orElseThrow(() -> {
                                                final String message = "Order detail not found!";
                                                log.error(message);
-                                               throw new PersonException(message);
+                                               throw new PersonNotFoundException(message);
                                            });
-        product = this.updateProduct(product, productDTO);
-        productRepository.save(product);
-        log.info(response);
-        return response;
+        final Product productConverted = conversionService.convert(productDTO, product.getClass());
+        final Product saved = productRepository.save(Objects.requireNonNull(productConverted));
+        log.info("Product updated!");
+        return conversionService.convert(saved, ProductDTO.class);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String deleteById(int id) {
-        response = "Product deleted!";
+    public void deleteById(int id) {
         productRepository.deleteById(id);
-        log.info(response);
-        return response;
-    }
-
-    private Product updateProduct(Product product, ProductDTO productDTO) {
-        product.setName(productDTO.getName());
-        product.setDescription(productDTO.getDescription());
-        product.setQuantityPerUnit(productDTO.getQuantityPerUnit());
-        product.setUnitPrice(productDTO.getUnitPrice());
-        return product;
+        log.info("Product deleted!");
     }
 
 }

@@ -28,16 +28,18 @@ package com.jcalvopinam.service;
 import com.jcalvopinam.domain.Order;
 import com.jcalvopinam.domain.Person;
 import com.jcalvopinam.dto.OrderDTO;
-import com.jcalvopinam.exception.OrderException;
+import com.jcalvopinam.exception.OrderNotFoundException;
 import com.jcalvopinam.repository.OrderRepository;
 import com.jcalvopinam.repository.PersonRepository;
 import com.jcalvopinam.utils.Utilities;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author juan.calvopina
@@ -49,12 +51,13 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
     private final PersonRepository personRepository;
+    private final ConversionService conversionService;
 
-    private String response;
-
-    public OrderServiceImpl(OrderRepository orderRepository, PersonRepository personRepository) {
+    public OrderServiceImpl(final OrderRepository orderRepository, final PersonRepository personRepository,
+                            final ConversionService conversionService) {
         this.orderRepository = orderRepository;
         this.personRepository = personRepository;
+        this.conversionService = conversionService;
     }
 
     /**
@@ -70,9 +73,9 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public List<Order> findByText(String id, String customer, String employee, String date, String orderStatus) {
-        Integer orderId = Utilities.isInteger(id);
-        Integer customerId = Utilities.isInteger(customer);
-        Integer employeeId = Utilities.isInteger(employee);
+        int orderId = Utilities.isInteger(id);
+        int customerId = Utilities.isInteger(customer);
+        int employeeId = Utilities.isInteger(employee);
         Date valueDate = Utilities.matchDate(date);
 
         return (customerId == 0 || employeeId == 0)
@@ -88,60 +91,70 @@ public class OrderServiceImpl implements OrderService {
      * {@inheritDoc}
      */
     @Override
-    public String save(OrderDTO orderDTO) {
-        response = "Order saved!";
+    public OrderDTO save(OrderDTO orderDTO) {
         Person customer = findPerson(orderDTO.getCustomer());
         Person employee = findPerson(orderDTO.getEmployee());
-        orderRepository.save(new Order(orderDTO, customer, employee));
-        log.info(response);
-        return response;
+        final Order order = create(orderDTO, customer, employee);
+        final Order saved = orderRepository.save(Objects.requireNonNull(order));
+        log.info("Order saved!");
+        return conversionService.convert(saved, OrderDTO.class);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String update(OrderDTO orderDTO) {
-        response = "Person updated!";
+    public OrderDTO update(OrderDTO orderDTO) {
         Person employee = findPerson(orderDTO.getEmployee());
         Person customer = findPerson(orderDTO.getCustomer());
-        Order order = orderRepository.findById(orderDTO.getId())
-                                     .orElseThrow(() -> {
-                                         final String message = "Order detail not found!";
-                                         log.error(message);
-                                         throw new OrderException(message);
-                                     });
-        order = this.updateOrder(order, orderDTO, employee, customer);
-        orderRepository.save(order);
-        log.info(response);
-        return response;
+        Order order = findById(orderDTO.getId());
+        updateOrder(order, orderDTO, employee, customer);
+        final Order saved = orderRepository.save(order);
+        log.info("Person updated!");
+        return conversionService.convert(saved, OrderDTO.class);
+    }
+
+    private Order findById(final int id) {
+        return orderRepository.findById(id)
+                              .orElseThrow(() -> {
+                                  final String message = "Order detail not found!";
+                                  log.error(message);
+                                  throw new OrderNotFoundException(message);
+                              });
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String deleteById(int id) {
-        response = "Order deleted!";
-        orderRepository.deleteById(id);
-        log.info(response);
-        return response;
+    public void deleteById(int id) {
+        Order order = findById(id);
+        orderRepository.delete(order);
+        log.info("Order deleted!");
     }
 
-    private Order updateOrder(Order order, OrderDTO orderDTO, Person employee, Person customer) {
+    private void updateOrder(Order order, OrderDTO orderDTO, Person employee, Person customer) {
         order.setCustomer(customer);
         order.setEmployee(employee);
         order.setOrderStatus(orderDTO.getOrderStatus());
         order.setSaleDate(Utilities.matchDate(orderDTO.getSaleDate()));
-        return order;
     }
 
-    private Person findPerson(final int customer2) {
-        return personRepository.findById(customer2)
+    public Order create(final OrderDTO orderDTO, final Person customer, final Person employee) {
+        return Order.builder()
+                    .customer(customer)
+                    .employee(employee)
+                    .saleDate(Utilities.matchDate(orderDTO.getSaleDate()))
+                    .orderStatus(orderDTO.getOrderStatus())
+                    .build();
+    }
+
+    private Person findPerson(final int person) {
+        return personRepository.findById(person)
                                .orElseThrow(() -> {
                                    final String message = "Order detail not found!";
                                    log.error(message);
-                                   throw new OrderException(message);
+                                   throw new OrderNotFoundException(message);
                                });
     }
 

@@ -25,11 +25,11 @@
 
 package com.jcalvopinam.exception;
 
-public class OrderDetailException extends RuntimeException {
+public class PersonNotFoundException extends RuntimeException {
 
-    private static final long serialVersionUID = 8315818189752354252L;
+    private static final long serialVersionUID = 8267901611199198568L;
 
-    public OrderDetailException(final String message) {
+    public PersonNotFoundException(final String message) {
         super(message);
     }
 

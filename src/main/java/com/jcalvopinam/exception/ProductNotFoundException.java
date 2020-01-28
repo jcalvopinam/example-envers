@@ -23,25 +23,14 @@
  *
  */
 
-package com.jcalvopinam.converter;
+package com.jcalvopinam.exception;
 
-import com.jcalvopinam.domain.Person;
-import com.jcalvopinam.dto.PersonDTO;
-import org.springframework.beans.BeanUtils;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
+public class ProductNotFoundException extends RuntimeException {
 
-/**
- * @author juan.calvopina
- */
-@Component
-public class PersonToPersonDTOConverter implements Converter<Person, PersonDTO> {
+    private static final long serialVersionUID = -6328899891108615600L;
 
-    @Override
-    public PersonDTO convert(final Person person) {
-        final PersonDTO personDTO = new PersonDTO();
-        BeanUtils.copyProperties(person, personDTO);
-        return personDTO;
+    public ProductNotFoundException(final String message) {
+        super(message);
     }
 
 }

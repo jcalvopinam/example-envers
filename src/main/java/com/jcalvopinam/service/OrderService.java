@@ -56,27 +56,27 @@ public interface OrderService {
      */
     List<Order> findByText(String id, String customer, String employee, String date, String orderStatus);
 
-    //FIXME: Update those methods.
-
     /**
      * Adds a new order to the database.
      *
-     * @return
+     * @param orderDTO receive an OrderDTO object.
+     * @return OrderDTO object.
      */
-    String save(OrderDTO orderDTO);
+    OrderDTO save(OrderDTO orderDTO);
 
     /**
      * Updates a order to the database.
      *
-     * @return
+     * @param orderDTO receive an OrderDTO object.
+     * @return OrderDTO object.
      */
-    String update(OrderDTO orderDTO);
+    OrderDTO update(OrderDTO orderDTO);
 
     /**
      * Deletes a order by Id from database.
      *
-     * @return
+     * @param id receive an id.
      */
-    String deleteById(int id);
+    void deleteById(int id);
 
 }

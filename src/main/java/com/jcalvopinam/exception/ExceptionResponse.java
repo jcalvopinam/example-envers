@@ -25,12 +25,26 @@
 
 package com.jcalvopinam.exception;
 
-public class OrderException extends RuntimeException {
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
+import lombok.Data;
 
-    private static final long serialVersionUID = -9130418085882264714L;
+/**
+ * Custom exception.
+ */
+@Data
+@Builder
+@SuppressWarnings("PMD.UnnecessaryAnnotationValueElement")
+public class ExceptionResponse {
 
-    public OrderException(final String message) {
-        super(message);
-    }
+    private String message;
+    private String type;
+    private int code;
+
+    @JsonProperty(value = "error_user_title")
+    private String errorUserTitle;
+
+    @JsonProperty(value = "error_user_msg")
+    private String errorUserMsg;
 
 }

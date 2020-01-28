@@ -47,32 +47,31 @@ public interface ProductService {
      *
      * @param id   receive an id value.
      * @param name receive a name value.
-     * @return a Product object.
+     * @return a ProductDTO object.
      */
-    Product findByText(String id, String name);
-
-    //FIXME: Update those methods.
+    ProductDTO findByText(String id, String name);
 
     /**
      * Adds a new product to the database.
      *
      * @param productDTO receive an ProductDTO object.
-     * @return
+     * @return a ProductDTO object.
      */
-    String save(ProductDTO productDTO);
+    ProductDTO save(ProductDTO productDTO);
 
     /**
      * Updates a product to the database
      *
-     * @return
+     * @param productDTO receive an ProductDTO object.
+     * @return a ProductDTO object.
      */
-    String update(ProductDTO productDTO);
+    ProductDTO update(ProductDTO productDTO);
 
     /**
      * Deletes a product by Id from database
      *
-     * @return
+     * @param id receive an id.
      */
-    String deleteById(int id);
+    void deleteById(int id);
 
 }

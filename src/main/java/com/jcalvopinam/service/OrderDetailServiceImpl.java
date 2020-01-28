@@ -28,14 +28,16 @@ package com.jcalvopinam.service;
 import com.jcalvopinam.domain.OrderDetail;
 import com.jcalvopinam.domain.OrderDetailPK;
 import com.jcalvopinam.dto.OrderDetailDTO;
-import com.jcalvopinam.exception.OrderDetailException;
+import com.jcalvopinam.exception.OrderDetailNotFoundException;
 import com.jcalvopinam.repository.OrderDetailRepository;
 import com.jcalvopinam.utils.Utilities;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author juan.calvopina
@@ -46,11 +48,12 @@ import java.util.List;
 public class OrderDetailServiceImpl implements OrderDetailService {
 
     private final OrderDetailRepository orderDetailRepository;
+    private final ConversionService conversionService;
 
-    private String response;
-
-    public OrderDetailServiceImpl(OrderDetailRepository orderDetailRepository) {
+    public OrderDetailServiceImpl(OrderDetailRepository orderDetailRepository,
+                                  final ConversionService conversionService) {
         this.orderDetailRepository = orderDetailRepository;
+        this.conversionService = conversionService;
     }
 
     /**
@@ -72,7 +75,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                                     .orElseThrow(() -> {
                                         final String message = "Order detail not found!";
                                         log.error(message);
-                                        throw new OrderDetailException(message);
+                                        throw new OrderDetailNotFoundException(message);
                                     });
     }
 
@@ -90,31 +93,28 @@ public class OrderDetailServiceImpl implements OrderDetailService {
      * {@inheritDoc}
      */
     @Override
-    public OrderDetail update(final OrderDetailDTO orderDetailDTO, final int id) {
-        OrderDetail orderDetail = orderDetailRepository.findById(id)
-                                                       .orElseThrow(() -> {
-                                                           final String message = "Order detail not found!";
-                                                           log.error(message);
-                                                           throw new OrderDetailException(message);
-                                                       });
-        orderDetail = this.updateOrderDetail(orderDetail, orderDetailDTO);
-        final OrderDetail updated = orderDetailRepository.save(orderDetail);
+    public OrderDetail update(final OrderDetailDTO orderDetailDTO) {
+        OrderDetail orderDetail = findOrderDetail(orderDetailDTO);
+        final OrderDetail OrderDetailConverted = conversionService.convert(orderDetailDTO, orderDetail.getClass());
+        final OrderDetail updated = orderDetailRepository.save(Objects.requireNonNull(OrderDetailConverted));
         log.info("Order Detail updated!");
         return updated;
     }
 
     @Override
-    public void deleteById(final int id) {
-        orderDetailRepository.deleteById(id);
+    public void deleteById(final OrderDetailDTO orderDetailDTO) {
+        final OrderDetail orderDetail = findOrderDetail(orderDetailDTO);
+        orderDetailRepository.delete(orderDetail);
         log.info("Order Detail deleted!");
     }
 
-    private OrderDetail updateOrderDetail(OrderDetail orderDetail,
-                                          OrderDetailDTO orderDetailDTO) {
-        orderDetail.setUnitPrice(orderDetailDTO.getUnitPrice());
-        orderDetail.setDiscount(orderDetailDTO.getDiscount());
-        orderDetail.setQuantity(orderDetailDTO.getQuantity());
-        return orderDetail;
+    private OrderDetail findOrderDetail(final OrderDetailDTO orderDetailDTO) {
+        return orderDetailRepository.findById(orderDetailDTO.getId())
+                                    .orElseThrow(() -> {
+                                        final String message = "Order detail not found!";
+                                        log.error(message);
+                                        throw new OrderDetailNotFoundException(message);
+                                    });
     }
 
 }

@@ -67,7 +67,7 @@ public class PersonController {
     }
 
     @GetMapping("/{text}")
-    public Person findByText(@PathVariable final String text) {
+    public PersonDTO findByText(@PathVariable final String text) {
         log.info(String.format("Finding by: %s", text));
         return personService.findByText(text, text, text);
     }
@@ -79,16 +79,16 @@ public class PersonController {
     }
 
     @PutMapping("/{id}")
-    public String updatePerson(@RequestBody final PersonDTO personDTO, @PathVariable final int id) {
+    public PersonDTO updatePerson(@RequestBody final PersonDTO personDTO, @PathVariable final int id) {
         Validate.notNull(personDTO, "The person cannot be null");
         log.info(String.format("Updating person: %s", personDTO.toString()));
-        return personService.update(personDTO);
+        return personService.update(personDTO, id);
     }
 
     @DeleteMapping("/{id}")
-    public String deletePerson(@PathVariable final int id) {
+    public void deletePerson(@PathVariable final int id) {
         log.info(String.format("Deleting person: %s", id));
-        return personService.deleteById(id);
+        personService.deleteById(id);
     }
 
 }

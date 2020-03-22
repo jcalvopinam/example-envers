@@ -30,7 +30,7 @@ import lombok.Builder;
 import lombok.Data;
 
 /**
- * Custom exception.
+ * @author juan.calvopina
  */
 @Data
 @Builder

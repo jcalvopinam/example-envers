@@ -108,6 +108,22 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
     /**
      * {@inheritDoc}
      */
+    @ExceptionHandler(PersonConflictException.class)
+    public final ResponseEntity<ExceptionResponse> handlePersonConflictException(final Exception exception) {
+        final ExceptionResponse exceptionResponse =
+                ExceptionResponse.builder()
+                                 .message(exception.getMessage())
+                                 .type(PersonConflictException.class.getSimpleName())
+                                 .code(HttpStatus.CONFLICT.value())
+                                 .errorUserTitle("Person already exist")
+                                 .errorUserMsg("Person has been found.")
+                                 .build();
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @ExceptionHandler(ProductNotFoundException.class)
     public final ResponseEntity<ExceptionResponse> handleProductNotFoundException(final Exception exception) {
         final ExceptionResponse exceptionResponse =

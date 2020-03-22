@@ -26,7 +26,7 @@
 package com.jcalvopinam.converter;
 
 import com.jcalvopinam.domain.Person;
-import com.jcalvopinam.dto.PersonDTO;
+import com.jcalvopinam.dto.PersonRequestDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -35,12 +35,12 @@ import org.springframework.stereotype.Component;
  * @author juan.calvopina
  */
 @Component
-public class PersonDTOtoPersonConverter implements Converter<PersonDTO, Person> {
+public class PersonDTOtoPersonConverter implements Converter<PersonRequestDTO, Person> {
 
     @Override
-    public Person convert(final PersonDTO personDTO) {
+    public Person convert(final PersonRequestDTO personRequestDTO) {
         final Person person = new Person();
-        BeanUtils.copyProperties(personDTO, person);
+        BeanUtils.copyProperties(personRequestDTO, person);
         return person;
     }
 

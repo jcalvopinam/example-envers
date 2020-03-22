@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2020 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * DTO to mapping of Person attributes
+ * DTO for mapping the Person response.
  *
  * @author juan.calvopina
  */
@@ -41,10 +41,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class PersonDTO {
+public class PersonResponseDTO {
 
-    private int id;
-    private String name;
+    private String firstName;
     private String lastName;
 
 }

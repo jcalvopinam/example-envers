@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 JUAN CALVOPINA M
+ * Copyright (c) 2017 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,22 +23,28 @@
  *
  */
 
-package com.jcalvopinam.exception;
+package com.jcalvopinam.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
+ * DTO for mapping the Person request.
+ *
  * @author juan.calvopina
  */
-public class HeaderBadRequestException extends RuntimeException {
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+public class PersonRequestDTO {
 
-    private static final long serialVersionUID = 3255327851989696270L;
-
-    /**
-     * Custom exception for HeaderBadRequestException.
-     *
-     * @param message receive a message String.
-     */
-    public HeaderBadRequestException(final String message) {
-        super(message);
-    }
+    private int id;
+    private String firstName;
+    private String lastName;
 
 }

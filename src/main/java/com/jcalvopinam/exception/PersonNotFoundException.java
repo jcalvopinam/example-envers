@@ -25,6 +25,9 @@
 
 package com.jcalvopinam.exception;
 
+/**
+ * @author juan.calvopina
+ */
 public class PersonNotFoundException extends RuntimeException {
 
     private static final long serialVersionUID = 8267901611199198568L;

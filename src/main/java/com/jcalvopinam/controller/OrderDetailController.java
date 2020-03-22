@@ -23,14 +23,11 @@
  *
  */
 
-/**
- * Endpoint for access to the services
- */
-package com.jcalvopinam.web;
+package com.jcalvopinam.controller;
 
-import com.jcalvopinam.domain.Person;
-import com.jcalvopinam.dto.PersonDTO;
-import com.jcalvopinam.service.PersonService;
+import com.jcalvopinam.domain.OrderDetail;
+import com.jcalvopinam.dto.OrderDetailDTO;
+import com.jcalvopinam.service.OrderDetailService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,46 +46,47 @@ import java.util.List;
  * @author juan.calvopina
  */
 @RestController
-@RequestMapping(value = "/person")
+@RequestMapping(value = "/order-detail")
 @Slf4j
-public class PersonController {
+public class OrderDetailController {
 
-    private final PersonService personService;
+    private final OrderDetailService orderDetailService;
 
     @Autowired
-    public PersonController(final PersonService personService) {
-        this.personService = personService;
+    public OrderDetailController(final OrderDetailService orderDetailService) {
+        this.orderDetailService = orderDetailService;
     }
 
     @GetMapping
-    public List<Person> findAllPersons() {
-        log.info("Find all persons");
-        return personService.findAll();
+    public List<OrderDetail> findAllDetails() {
+        log.info("Find all order details");
+        return orderDetailService.findAll();
     }
 
-    @GetMapping("/{text}")
-    public PersonDTO findByText(@PathVariable final String text) {
-        log.info(String.format("Finding by: %s", text));
-        return personService.findByText(text, text, text);
+    @GetMapping("/{productId}/{orderId}")
+    public OrderDetail findByDetailPk(@PathVariable String productId, @PathVariable String orderId) {
+        log.info(String.format("Finding by: %s, %s", productId, orderId));
+        return orderDetailService.findByDetailPk(productId, orderId);
     }
 
     @PostMapping
-    public PersonDTO savePerson(@RequestBody final PersonDTO personDTO) {
-        log.info(String.format("Saving person: %s", personDTO.toString()));
-        return personService.save(personDTO);
+    public OrderDetailDTO saveDetail(@RequestBody OrderDetailDTO orderDetailDTO) {
+        Validate.notNull(orderDetailDTO, "The order detail cannot be null");
+        log.info(String.format("Saving detail: %s", orderDetailDTO.toString()));
+        return orderDetailService.save(orderDetailDTO);
     }
 
-    @PutMapping("/{id}")
-    public PersonDTO updatePerson(@RequestBody final PersonDTO personDTO, @PathVariable final int id) {
-        Validate.notNull(personDTO, "The person cannot be null");
-        log.info(String.format("Updating person: %s", personDTO.toString()));
-        return personService.update(personDTO, id);
+    @PutMapping("/{orderDetailDTO}")
+    public OrderDetailDTO updateDetail(@RequestBody OrderDetailDTO orderDetailDTO, @PathVariable int id) {
+        Validate.notNull(orderDetailDTO, "The order detail cannot be null");
+        log.info(String.format("Updating order detail: %s", orderDetailDTO.toString()));
+        return orderDetailService.update(orderDetailDTO);
     }
 
-    @DeleteMapping("/{id}")
-    public void deletePerson(@PathVariable final int id) {
-        log.info(String.format("Deleting person: %s", id));
-        personService.deleteById(id);
+    @DeleteMapping("/{orderDetailDTO}")
+    public void deleteDetail(@PathVariable OrderDetailDTO orderDetailDTO) {
+        log.info(String.format("Deleting order detail: %s", orderDetailDTO));
+        orderDetailService.deleteById(orderDetailDTO);
     }
 
 }

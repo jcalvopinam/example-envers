@@ -23,11 +23,11 @@
  *
  */
 
-package com.jcalvopinam.web;
+package com.jcalvopinam.controller;
 
-import com.jcalvopinam.domain.OrderDetail;
-import com.jcalvopinam.dto.OrderDetailDTO;
-import com.jcalvopinam.service.OrderDetailService;
+import com.jcalvopinam.domain.Product;
+import com.jcalvopinam.dto.ProductDTO;
+import com.jcalvopinam.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,47 +46,47 @@ import java.util.List;
  * @author juan.calvopina
  */
 @RestController
-@RequestMapping(value = "/order-detail")
+@RequestMapping(value = "/product")
 @Slf4j
-public class OrderDetailController {
+public class ProductController {
 
-    private final OrderDetailService orderDetailService;
+    private final ProductService productService;
 
     @Autowired
-    public OrderDetailController(final OrderDetailService orderDetailService) {
-        this.orderDetailService = orderDetailService;
+    public ProductController(final ProductService productService) {
+        this.productService = productService;
     }
 
     @GetMapping
-    public List<OrderDetail> findAllDetails() {
-        log.info("Find all order details");
-        return orderDetailService.findAll();
+    public List<Product> findAllProducts() {
+        log.info("Find all products");
+        return productService.findAll();
     }
 
-    @GetMapping("/{productId}/{orderId}")
-    public OrderDetail findByDetailPk(@PathVariable String productId, @PathVariable String orderId) {
-        log.info(String.format("Finding by: %s, %s", productId, orderId));
-        return orderDetailService.findByDetailPk(productId, orderId);
+    @GetMapping("/{text}")
+    public ProductDTO findByText(@PathVariable final String text) {
+        log.info(String.format("Finding by: %s", text));
+        return productService.findByText(text, text);
     }
 
     @PostMapping
-    public OrderDetailDTO saveDetail(@RequestBody OrderDetailDTO orderDetailDTO) {
-        Validate.notNull(orderDetailDTO, "The order detail cannot be null");
-        log.info(String.format("Saving detail: %s", orderDetailDTO.toString()));
-        return orderDetailService.save(orderDetailDTO);
+    public ProductDTO saveProduct(@RequestBody ProductDTO productDTO) {
+        Validate.notNull(productDTO, "The product cannot be null");
+        log.info(String.format("Saving product: %s", productDTO.toString()));
+        return productService.save(productDTO);
     }
 
-    @PutMapping("/{orderDetailDTO}")
-    public OrderDetailDTO updateDetail(@RequestBody OrderDetailDTO orderDetailDTO, @PathVariable int id) {
-        Validate.notNull(orderDetailDTO, "The order detail cannot be null");
-        log.info(String.format("Updating order detail: %s", orderDetailDTO.toString()));
-        return orderDetailService.update(orderDetailDTO);
+    @PutMapping("/{id}")
+    public ProductDTO updateProduct(@RequestBody final ProductDTO productDTO, @PathVariable final int id) {
+        Validate.notNull(productDTO, "The product cannot be null");
+        log.info(String.format("Updating product: %s", productDTO.toString()));
+        return productService.update(productDTO);
     }
 
-    @DeleteMapping("/{orderDetailDTO}")
-    public void deleteDetail(@PathVariable OrderDetailDTO orderDetailDTO) {
-        log.info(String.format("Deleting order detail: %s", orderDetailDTO));
-        orderDetailService.deleteById(orderDetailDTO);
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable final int id) {
+        log.info(String.format("Deleting product: %s", id));
+        productService.deleteById(id);
     }
 
 }

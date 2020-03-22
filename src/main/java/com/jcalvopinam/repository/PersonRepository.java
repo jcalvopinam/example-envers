@@ -28,6 +28,10 @@ package com.jcalvopinam.repository;
 import com.jcalvopinam.domain.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
+
 /**
  * Methods for accessing the database
  *
@@ -36,13 +40,21 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface PersonRepository extends JpaRepository<Person, Integer> {
 
     /**
-     * Finds the person by name or last name.
+     * Finds the person by {@code id} or {@code firstName} starting with or {@code lastName} starting with.
      *
-     * @param id       receive an id value.
-     * @param name     receive the name value.
-     * @param lastName receive the lastName value.
-     * @return a Person object.
+     * @param id        receive an id value.
+     * @param firstName receive the firstName value.
+     * @param lastName  receive the lastName value.
+     * @return a Person wrapped in an Optional object.
      */
-    Person findByIdOrFirstNameOrLastName(int id, String name, String lastName);
+    List<Person> findByIdOrFirstNameStartingWithOrLastNameStartingWith(int id, String firstName, String lastName);
+
+    /**
+     * Finds the person by {@code firstName} and {@code lastName}
+     *
+     * @param firstName receive the firstName value.
+     * @return a Person wrapped in an Optional object.
+     */
+    Optional<Person> findByFirstNameAndLastName(String firstName, String lastName);
 
 }

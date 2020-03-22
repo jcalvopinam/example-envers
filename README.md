@@ -37,7 +37,7 @@ I used the postman as a client to test the endpoints, you can import the collect
 ```
 /resources/endpoints/collection.json
 ```
-Or if you prefer, you can see the Controllers inside of ```com.jcalvopinam.web``` 
+Or if you prefer, you can see the Controllers inside of ```com.jcalvopinam.controller``` 
 package and the DTOs inside of ```com.jcalvopinam.dto```
 
 

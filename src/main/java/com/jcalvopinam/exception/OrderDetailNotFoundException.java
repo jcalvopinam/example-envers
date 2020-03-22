@@ -25,6 +25,9 @@
 
 package com.jcalvopinam.exception;
 
+/**
+ * @author juan.calvopina
+ */
 public class OrderDetailNotFoundException extends RuntimeException {
 
     private static final long serialVersionUID = 8315818189752354252L;

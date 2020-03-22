@@ -82,7 +82,4 @@ public class Person implements Serializable {
     @OneToMany(mappedBy = "employee")
     private List<Order> employees;
 
-    public Person() {
-    }
-
 }

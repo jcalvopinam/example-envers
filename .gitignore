@@ -23,7 +23,6 @@ dist/
 nbdist/
 .nb-gradle/
 .settings/
-target/
 
 ### Logs
 logs/

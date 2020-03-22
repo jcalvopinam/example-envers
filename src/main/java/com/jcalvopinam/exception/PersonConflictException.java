@@ -28,16 +28,11 @@ package com.jcalvopinam.exception;
 /**
  * @author juan.calvopina
  */
-public class HeaderBadRequestException extends RuntimeException {
+public class PersonConflictException extends RuntimeException {
 
-    private static final long serialVersionUID = 3255327851989696270L;
+    private static final long serialVersionUID = 4402858693095556784L;
 
-    /**
-     * Custom exception for HeaderBadRequestException.
-     *
-     * @param message receive a message String.
-     */
-    public HeaderBadRequestException(final String message) {
+    public PersonConflictException(final String message) {
         super(message);
     }
 

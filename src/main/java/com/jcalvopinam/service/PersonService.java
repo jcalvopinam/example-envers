@@ -23,13 +23,11 @@
  *
  */
 
-/**
- * List of methods signature
- */
 package com.jcalvopinam.service;
 
 import com.jcalvopinam.domain.Person;
-import com.jcalvopinam.dto.PersonDTO;
+import com.jcalvopinam.dto.PersonRequestDTO;
+import com.jcalvopinam.dto.PersonResponseDTO;
 
 import java.util.List;
 
@@ -53,7 +51,7 @@ public interface PersonService {
      * @param lastName receive a lastName value.
      * @return a PersonDTO object.
      */
-    PersonDTO findByText(String id, String name, String lastName);
+    List<PersonResponseDTO> findByText(String id, String name, String lastName);
 
     /**
      * Finds the person by int.
@@ -61,24 +59,24 @@ public interface PersonService {
      * @param id receive an id value.
      * @return a PersonDTO Object.
      */
-    PersonDTO findById(int id);
+    PersonRequestDTO findById(int id);
 
     /**
      * Adds a new person to the database.
      *
-     * @param personDTO receive a PersonDTO object.
+     * @param personRequestDTO receive a PersonDTO object.
      * @return a PersonDTO object.
      */
-    PersonDTO save(PersonDTO personDTO);
+    PersonResponseDTO save(PersonRequestDTO personRequestDTO);
 
     /**
      * Updates a person to the database.
      *
-     * @param personDTO receive a PersonDTO object.
-     * @param id        receive an id.
+     * @param personRequestDTO receive a PersonDTO object.
+     * @param id               receive an id.
      * @return a PersonDTO object.
      */
-    PersonDTO update(PersonDTO personDTO, int id);
+    PersonResponseDTO update(PersonRequestDTO personRequestDTO, int id);
 
     /**
      * Deletes a person by Id from database.

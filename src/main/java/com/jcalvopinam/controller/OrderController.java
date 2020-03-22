@@ -23,11 +23,11 @@
  *
  */
 
-package com.jcalvopinam.web;
+package com.jcalvopinam.controller;
 
-import com.jcalvopinam.domain.Product;
-import com.jcalvopinam.dto.ProductDTO;
-import com.jcalvopinam.service.ProductService;
+import com.jcalvopinam.domain.Order;
+import com.jcalvopinam.dto.OrderDTO;
+import com.jcalvopinam.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,47 +46,47 @@ import java.util.List;
  * @author juan.calvopina
  */
 @RestController
-@RequestMapping(value = "/product")
+@RequestMapping(value = "/order")
 @Slf4j
-public class ProductController {
+public class OrderController {
 
-    private final ProductService productService;
+    private final OrderService orderService;
 
     @Autowired
-    public ProductController(final ProductService productService) {
-        this.productService = productService;
+    public OrderController(final OrderService orderService) {
+        this.orderService = orderService;
     }
 
     @GetMapping
-    public List<Product> findAllProducts() {
-        log.info("Find all products");
-        return productService.findAll();
+    public List<Order> findAllOrders() {
+        log.info("Find all orders");
+        return orderService.findAll();
     }
 
     @GetMapping("/{text}")
-    public ProductDTO findByText(@PathVariable final String text) {
+    public List<Order> findByTest(@PathVariable String text) {
         log.info(String.format("Finding by: %s", text));
-        return productService.findByText(text, text);
+        return orderService.findByText(text, text, text, text, text);
     }
 
     @PostMapping
-    public ProductDTO saveProduct(@RequestBody ProductDTO productDTO) {
-        Validate.notNull(productDTO, "The product cannot be null");
-        log.info(String.format("Saving product: %s", productDTO.toString()));
-        return productService.save(productDTO);
+    public OrderDTO saveOrder(@RequestBody OrderDTO orderDTO) {
+        Validate.notNull(orderDTO, "The order cannot be null");
+        log.info(String.format("Saving order: %s", orderDTO.toString()));
+        return orderService.save(orderDTO);
     }
 
     @PutMapping("/{id}")
-    public ProductDTO updateProduct(@RequestBody final ProductDTO productDTO, @PathVariable final int id) {
-        Validate.notNull(productDTO, "The product cannot be null");
-        log.info(String.format("Updating product: %s", productDTO.toString()));
-        return productService.update(productDTO);
+    public OrderDTO updateOrder(@RequestBody OrderDTO orderDTO, @PathVariable int id) {
+        Validate.notNull(orderDTO, "The order cannot be null");
+        log.info(String.format("Updating order: %s", orderDTO.toString()));
+        return orderService.update(orderDTO);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable final int id) {
-        log.info(String.format("Deleting product: %s", id));
-        productService.deleteById(id);
+    public void deleteOrder(@PathVariable int id) {
+        log.info(String.format("Deleting order: %s", id));
+        orderService.deleteById(id);
     }
 
 }

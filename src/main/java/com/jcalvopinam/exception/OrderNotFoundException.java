@@ -25,6 +25,9 @@
 
 package com.jcalvopinam.exception;
 
+/**
+ * @author juan.calvopina
+ */
 public class OrderNotFoundException extends RuntimeException {
 
     private static final long serialVersionUID = -9130418085882264714L;

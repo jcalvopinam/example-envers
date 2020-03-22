@@ -25,6 +25,9 @@
 
 package com.jcalvopinam.exception;
 
+/**
+ * @author juan.calvopina
+ */
 public class ProductNotFoundException extends RuntimeException {
 
     private static final long serialVersionUID = -6328899891108615600L;

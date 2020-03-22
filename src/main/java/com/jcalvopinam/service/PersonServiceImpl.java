@@ -26,7 +26,9 @@
 package com.jcalvopinam.service;
 
 import com.jcalvopinam.domain.Person;
-import com.jcalvopinam.dto.PersonDTO;
+import com.jcalvopinam.dto.PersonRequestDTO;
+import com.jcalvopinam.dto.PersonResponseDTO;
+import com.jcalvopinam.exception.PersonConflictException;
 import com.jcalvopinam.exception.PersonNotFoundException;
 import com.jcalvopinam.repository.PersonRepository;
 import com.jcalvopinam.utils.Utilities;
@@ -34,6 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -71,59 +74,66 @@ public class PersonServiceImpl implements PersonService {
      * {@inheritDoc}
      */
     @Override
-    public PersonDTO findByText(String id, String name, String lastName) {
+    public List<PersonResponseDTO> findByText(String id, String name, String lastName) {
         Integer personId = Utilities.isInteger(id);
-        final Person person = personRepository.findByIdOrFirstNameOrLastName(personId, name, lastName);
-        return conversionService.convert(person, PersonDTO.class);
+        final List<Person> personSourceList =
+                personRepository.findByIdOrFirstNameStartingWithOrLastNameStartingWith(personId, name, lastName);
+
+        if (personSourceList.isEmpty()) {
+            final String message = "There was no data found";
+            log.info(message);
+            throw new PersonNotFoundException(message);
+        }
+
+        final TypeDescriptor personSourceType =
+                TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(Person.class));
+
+        final TypeDescriptor personResponseDTOTargetType =
+                TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(PersonResponseDTO.class));
+
+        return (List<PersonResponseDTO>) conversionService.convert(personSourceList, personSourceType,
+                                                                   personResponseDTOTargetType);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public PersonDTO findById(int id) {
-        return conversionService.convert(findPersonById(id), PersonDTO.class);
-    }
-
-    private Person findPersonById(final int id) {
-        return personRepository.findById(id)
-                               .orElseThrow(() -> {
-                                   final String message = "Person not found!";
-                                   log.error(message);
-                                   return new PersonNotFoundException(message);
-                               });
+    public PersonRequestDTO findById(int id) {
+        return conversionService.convert(findPersonById(id), PersonRequestDTO.class);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public PersonDTO save(PersonDTO personDTO) {
-        Validate.notNull(personDTO, "The person cannot be null");
-        personRepository.findById(personDTO.getId())
+    public PersonResponseDTO save(PersonRequestDTO personRequestDTO) {
+        Validate.notNull(personRequestDTO, "The person cannot be null");
+        personRepository.findByFirstNameAndLastName(personRequestDTO.getFirstName(), personRequestDTO.getLastName())
                         .ifPresent(per -> {
-                            final String message = String.format("The person %s already exist in the database",
-                                                                 per.getId());
+                            final String message = String.format("The person %s %s already exist in the database",
+                                                                 per.getFirstName(), per.getLastName());
                             log.info(message);
-                            throw new PersonNotFoundException(message);
+                            throw new PersonConflictException(message);
                         });
-        final Person dtoToPerson = conversionService.convert(personDTO, Person.class);
-        final Person personSaved = personRepository.save(Objects.requireNonNull(dtoToPerson));
-        log.info("Person saved!");
-        return conversionService.convert(personSaved, PersonDTO.class);
+        final Person dtoToPerson = conversionService.convert(personRequestDTO, Person.class);
+        final Person person = personRepository.save(Objects.requireNonNull(dtoToPerson));
+        log.info("The person [{}] was saved!", person.toString());
+        return conversionService.convert(person, PersonResponseDTO.class);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public PersonDTO update(PersonDTO personDTO, final int id) {
-        Validate.notNull(personDTO, "The person cannot be null");
-        final Person person = findPersonById(id);
-        final Person personConverted = conversionService.convert(personDTO, person.getClass());
-        final Person personSaved = personRepository.save(Objects.requireNonNull(personConverted));
-        log.info("Person saved!");
-        return conversionService.convert(personSaved, PersonDTO.class);
+    public PersonResponseDTO update(PersonRequestDTO personRequestDTO, final int id) {
+        Validate.notNull(personRequestDTO, "The person cannot be null");
+        final Person existingPerson = findPersonById(id);
+        final Person personConverted = conversionService.convert(personRequestDTO, existingPerson.getClass());
+        personConverted.setId(id);
+        final Person person = personRepository.save(Objects.requireNonNull(personConverted));
+        log.info("The person [{}] was updated!", person.toString());
+        return conversionService.convert(person, PersonResponseDTO.class);
     }
 
     /**
@@ -133,7 +143,22 @@ public class PersonServiceImpl implements PersonService {
     public void deleteById(int id) {
         final Person person = findPersonById(id);
         personRepository.delete(person);
-        log.info("Person deleted!");
+        log.info("The person [{}] was deleted!", person.toString());
+    }
+
+    /**
+     * Finds the person by {@code id}.
+     *
+     * @param id receive an id.
+     * @return a Person object.
+     */
+    private Person findPersonById(final int id) {
+        return personRepository.findById(id)
+                               .orElseThrow(() -> {
+                                   final String message = String.format("The person's id [%d] was not found!", id);
+                                   log.error(message);
+                                   return new PersonNotFoundException(message);
+                               });
     }
 
 }

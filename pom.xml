@@ -24,6 +24,8 @@
         <java.version>1.8</java.version>
         <commons-lang.version>2.6</commons-lang.version>
         <commons-collections.version>3.2.2</commons-collections.version>
+        <modelmapper.version>2.3.6</modelmapper.version>
+        <junit.version>4.13</junit.version>
     </properties>
 
     <dependencies>
@@ -47,8 +49,15 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-<!--            <version>8.0.18</version>-->
+            <!--  <version>8.0.18</version>-->
             <scope>runtime</scope>
+        </dependency>
+
+        <!-- Model mapper dependency -->
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>${modelmapper.version}</version>
         </dependency>
 
         <!-- Apache commons dependencies-->
@@ -68,6 +77,13 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- Test dependencies -->

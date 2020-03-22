@@ -75,32 +75,37 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                                     .orElseThrow(() -> {
                                         final String message = "Order detail not found!";
                                         log.error(message);
-                                        throw new OrderDetailNotFoundException(message);
+                                        return new OrderDetailNotFoundException(message);
                                     });
     }
 
     /**
      * {@inheritDoc}
+     *
+     * @return
      */
     @Override
-    public OrderDetail save(final OrderDetailDTO orderDetailDTO) {
+    public OrderDetailDTO save(final OrderDetailDTO orderDetailDTO) {
         final OrderDetail orderDetail = orderDetailRepository.save(new OrderDetail(orderDetailDTO));
         log.info("Order Detail saved!");
-        return orderDetail;
+        return conversionService.convert(orderDetail, OrderDetailDTO.class);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public OrderDetail update(final OrderDetailDTO orderDetailDTO) {
+    public OrderDetailDTO update(final OrderDetailDTO orderDetailDTO) {
         OrderDetail orderDetail = findOrderDetail(orderDetailDTO);
         final OrderDetail OrderDetailConverted = conversionService.convert(orderDetailDTO, orderDetail.getClass());
         final OrderDetail updated = orderDetailRepository.save(Objects.requireNonNull(OrderDetailConverted));
         log.info("Order Detail updated!");
-        return updated;
+        return conversionService.convert(updated, OrderDetailDTO.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void deleteById(final OrderDetailDTO orderDetailDTO) {
         final OrderDetail orderDetail = findOrderDetail(orderDetailDTO);
@@ -113,7 +118,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                                     .orElseThrow(() -> {
                                         final String message = "Order detail not found!";
                                         log.error(message);
-                                        throw new OrderDetailNotFoundException(message);
+                                        return new OrderDetailNotFoundException(message);
                                     });
     }
 

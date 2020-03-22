@@ -92,7 +92,7 @@ public class ProductServiceImpl implements ProductService {
                                            .orElseThrow(() -> {
                                                final String message = "Order detail not found!";
                                                log.error(message);
-                                               throw new PersonNotFoundException(message);
+                                               return new PersonNotFoundException(message);
                                            });
         final Product productConverted = conversionService.convert(productDTO, product.getClass());
         final Product saved = productRepository.save(Objects.requireNonNull(productConverted));

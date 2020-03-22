@@ -54,7 +54,7 @@ public interface OrderDetailService {
      *
      * @return an OrderDetail object.
      */
-    OrderDetail save(OrderDetailDTO orderDetailDTO);
+    OrderDetailDTO save(OrderDetailDTO orderDetailDTO);
 
     /**
      * Updates a order detail to the database
@@ -62,7 +62,7 @@ public interface OrderDetailService {
      * @param orderDetailDTO receive an OrderDetailDTO object.
      * @return an OrderDetail object.
      */
-    OrderDetail update(OrderDetailDTO orderDetailDTO);
+    OrderDetailDTO update(OrderDetailDTO orderDetailDTO);
 
     /**
      * Deletes a order detail by orderDetailPK from database

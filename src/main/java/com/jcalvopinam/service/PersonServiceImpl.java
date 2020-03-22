@@ -90,7 +90,7 @@ public class PersonServiceImpl implements PersonService {
                                .orElseThrow(() -> {
                                    final String message = "Person not found!";
                                    log.error(message);
-                                   throw new PersonNotFoundException(message);
+                                   return new PersonNotFoundException(message);
                                });
     }
 

@@ -23,33 +23,21 @@
  *
  */
 
-package com.jcalvopinam.converter;
+package com.jcalvopinam.config;
 
-import com.jcalvopinam.domain.OrderDetail;
-import com.jcalvopinam.dto.OrderDetailDTO;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author juan.calvopina
  */
-@Component
-public class OrderDetailToOrderDetailDTOConverter implements Converter<OrderDetail, OrderDetailDTO> {
+@Configuration
+public class ModelMapperConfig {
 
-    private final ModelMapper modelMapper;
-
-    @Autowired
-    public OrderDetailToOrderDetailDTOConverter(final ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
-    }
-
-    @Override
-    public OrderDetailDTO convert(final OrderDetail orderDetail) {
-        final OrderDetailDTO orderDetailDTO = new OrderDetailDTO();
-        modelMapper.map(orderDetail, OrderDetailDTO.class);
-        return orderDetailDTO;
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 
 }

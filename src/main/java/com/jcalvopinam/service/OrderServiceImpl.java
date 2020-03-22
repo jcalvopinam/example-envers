@@ -119,7 +119,7 @@ public class OrderServiceImpl implements OrderService {
                               .orElseThrow(() -> {
                                   final String message = "Order detail not found!";
                                   log.error(message);
-                                  throw new OrderNotFoundException(message);
+                                  return new OrderNotFoundException(message);
                               });
     }
 
@@ -154,7 +154,7 @@ public class OrderServiceImpl implements OrderService {
                                .orElseThrow(() -> {
                                    final String message = "Order detail not found!";
                                    log.error(message);
-                                   throw new OrderNotFoundException(message);
+                                   return new OrderNotFoundException(message);
                                });
     }
 

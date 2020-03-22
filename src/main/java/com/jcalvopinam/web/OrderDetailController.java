@@ -70,23 +70,23 @@ public class OrderDetailController {
     }
 
     @PostMapping
-    public String saveDetail(@RequestBody OrderDetailDTO orderDetailDTO) {
+    public OrderDetailDTO saveDetail(@RequestBody OrderDetailDTO orderDetailDTO) {
         Validate.notNull(orderDetailDTO, "The order detail cannot be null");
         log.info(String.format("Saving detail: %s", orderDetailDTO.toString()));
         return orderDetailService.save(orderDetailDTO);
     }
 
-    @PutMapping("/{id}")
-    public String updateDetail(@RequestBody OrderDetailDTO orderDetailDTO, @PathVariable int id) {
+    @PutMapping("/{orderDetailDTO}")
+    public OrderDetailDTO updateDetail(@RequestBody OrderDetailDTO orderDetailDTO, @PathVariable int id) {
         Validate.notNull(orderDetailDTO, "The order detail cannot be null");
         log.info(String.format("Updating order detail: %s", orderDetailDTO.toString()));
         return orderDetailService.update(orderDetailDTO);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteDetail(@PathVariable int id) {
-        log.info(String.format("Deleting order detail: %s", id));
-        orderDetailService.deleteById(id);
+    @DeleteMapping("/{orderDetailDTO}")
+    public void deleteDetail(@PathVariable OrderDetailDTO orderDetailDTO) {
+        log.info(String.format("Deleting order detail: %s", orderDetailDTO));
+        orderDetailService.deleteById(orderDetailDTO);
     }
 
 }

@@ -92,15 +92,15 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
     /**
      * {@inheritDoc}
      */
-    @ExceptionHandler(PersonNotFoundException.class)
+    @ExceptionHandler(NotFoundException.class)
     public final ResponseEntity<ExceptionResponse> handlePersonNotFoundException(final Exception exception) {
         final ExceptionResponse exceptionResponse =
                 ExceptionResponse.builder()
                                  .message(exception.getMessage())
-                                 .type(PersonNotFoundException.class.getSimpleName())
+                                 .type(NotFoundException.class.getSimpleName())
                                  .code(HttpStatus.NOT_FOUND.value())
-                                 .errorUserTitle("Person Not Found.")
-                                 .errorUserMsg("Person has not been found.")
+                                 .errorUserTitle("Information Not Found.")
+                                 .errorUserMsg("Data has not been found.")
                                  .build();
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
@@ -108,33 +108,17 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
     /**
      * {@inheritDoc}
      */
-    @ExceptionHandler(PersonConflictException.class)
-    public final ResponseEntity<ExceptionResponse> handlePersonConflictException(final Exception exception) {
+    @ExceptionHandler(ConflictException.class)
+    public final ResponseEntity<ExceptionResponse> handleConflictException(final Exception exception) {
         final ExceptionResponse exceptionResponse =
                 ExceptionResponse.builder()
                                  .message(exception.getMessage())
-                                 .type(PersonConflictException.class.getSimpleName())
+                                 .type(ConflictException.class.getSimpleName())
                                  .code(HttpStatus.CONFLICT.value())
-                                 .errorUserTitle("Person already exist")
-                                 .errorUserMsg("Person has been found.")
+                                 .errorUserTitle("Existing information!")
+                                 .errorUserMsg("Data has been found in the database.")
                                  .build();
-        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @ExceptionHandler(ProductNotFoundException.class)
-    public final ResponseEntity<ExceptionResponse> handleProductNotFoundException(final Exception exception) {
-        final ExceptionResponse exceptionResponse =
-                ExceptionResponse.builder()
-                                 .message(exception.getMessage())
-                                 .type(ProductNotFoundException.class.getSimpleName())
-                                 .code(HttpStatus.NOT_FOUND.value())
-                                 .errorUserTitle("Product Not Found.")
-                                 .errorUserMsg("Product has not been found.")
-                                 .build();
-        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.CONFLICT);
     }
 
     /**

@@ -72,11 +72,11 @@ public interface PersonService {
     /**
      * Updates a person to the database.
      *
-     * @param personRequestDTO receive a PersonDTO object.
      * @param id               receive an id.
+     * @param personRequestDTO receive a PersonDTO object.
      * @return a PersonDTO object.
      */
-    PersonResponseDTO update(PersonRequestDTO personRequestDTO, int id);
+    PersonResponseDTO update(int id, PersonRequestDTO personRequestDTO);
 
     /**
      * Deletes a person by Id from database.

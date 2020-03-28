@@ -23,17 +23,25 @@
  *
  */
 
-package com.jcalvopinam.exception;
+package com.jcalvopinam.converter;
+
+import com.jcalvopinam.domain.Product;
+import com.jcalvopinam.dto.ProductResponseDTO;
+import org.springframework.beans.BeanUtils;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
 /**
  * @author juan.calvopina
  */
-public class ProductNotFoundException extends RuntimeException {
+@Component
+public class ProductToProductDTOConverter implements Converter<Product, ProductResponseDTO> {
 
-    private static final long serialVersionUID = -6328899891108615600L;
-
-    public ProductNotFoundException(final String message) {
-        super(message);
+    @Override
+    public ProductResponseDTO convert(final Product product) {
+        final ProductResponseDTO productResponseDTO = new ProductResponseDTO();
+        BeanUtils.copyProperties(product, productResponseDTO);
+        return productResponseDTO;
     }
 
 }

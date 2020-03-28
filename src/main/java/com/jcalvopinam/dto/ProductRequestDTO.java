@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020 JUAN CALVOPINA M
+ * Copyright (c) 2017 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,17 +23,34 @@
  *
  */
 
-package com.jcalvopinam.exception;
+package com.jcalvopinam.dto;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author juan.calvopina
  */
-public class PersonNotFoundException extends RuntimeException {
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class ProductRequestDTO {
 
-    private static final long serialVersionUID = 8267901611199198568L;
+    @JsonProperty("id")
+    private int productId;
+    private String name;
+    private String description;
+    private int quantityPerUnit;
+    private double unitPrice;
 
-    public PersonNotFoundException(final String message) {
-        super(message);
+    @Override
+    public String toString() {
+        return String.format("ProductDTO{ id=%d, name='%s', description='%s', quantityPerUnit=%d, unitPrice=%.2f}",
+                             productId, name, description, quantityPerUnit, unitPrice);
     }
 
 }

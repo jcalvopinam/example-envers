@@ -25,7 +25,6 @@
 
 package com.jcalvopinam.domain;
 
-import com.jcalvopinam.dto.ProductDTO;
 import lombok.Data;
 import lombok.ToString;
 import org.hibernate.envers.Audited;
@@ -59,11 +58,11 @@ public class Product implements Serializable {
     @Column(name = "product_id")
     private int productId;
 
-    @Column(name = "description")
-    private String description;
-
     @Column(name = "name")
     private String name;
+
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "quantity_per_unit")
     private int quantityPerUnit;
@@ -78,15 +77,5 @@ public class Product implements Serializable {
      */
     @OneToMany(mappedBy = "product")
     private List<OrderDetail> orderDetails;
-
-    public Product() {
-    }
-
-    public Product(ProductDTO productDTO) {
-        this.name = productDTO.getName();
-        this.description = productDTO.getDescription();
-        this.quantityPerUnit = productDTO.getQuantityPerUnit();
-        this.unitPrice = productDTO.getUnitPrice();
-    }
 
 }

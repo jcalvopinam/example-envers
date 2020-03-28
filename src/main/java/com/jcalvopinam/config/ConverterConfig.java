@@ -29,6 +29,8 @@ import com.jcalvopinam.converter.OrderDTOtoOrderConverter;
 import com.jcalvopinam.converter.OrderToOrderDTOConverter;
 import com.jcalvopinam.converter.PersonDTOtoPersonConverter;
 import com.jcalvopinam.converter.PersonToPersonDTOConverter;
+import com.jcalvopinam.converter.ProductDTOtoProductConverter;
+import com.jcalvopinam.converter.ProductToProductDTOConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -44,16 +46,22 @@ public class ConverterConfig implements WebMvcConfigurer {
     private final PersonDTOtoPersonConverter personDTOtoPersonConverter;
     private final OrderToOrderDTOConverter orderToOrderDTOConverter;
     private final OrderDTOtoOrderConverter orderDTOtoOrderConverter;
+    private final ProductToProductDTOConverter productToProductDTOConverter;
+    private final ProductDTOtoProductConverter productDTOtoProductConverter;
 
     @Autowired
     public ConverterConfig(final PersonToPersonDTOConverter personToPersonDTOConverter,
                            final PersonDTOtoPersonConverter personDTOtoPersonConverter,
                            final OrderToOrderDTOConverter orderToOrderDTOConverter,
-                           final OrderDTOtoOrderConverter orderDTOtoOrderConverter) {
+                           final OrderDTOtoOrderConverter orderDTOtoOrderConverter,
+                           final ProductToProductDTOConverter productToProductDTOConverter,
+                           final ProductDTOtoProductConverter productDTOtoProductConverter) {
         this.personToPersonDTOConverter = personToPersonDTOConverter;
         this.personDTOtoPersonConverter = personDTOtoPersonConverter;
         this.orderToOrderDTOConverter = orderToOrderDTOConverter;
         this.orderDTOtoOrderConverter = orderDTOtoOrderConverter;
+        this.productToProductDTOConverter = productToProductDTOConverter;
+        this.productDTOtoProductConverter = productDTOtoProductConverter;
     }
 
     @Override
@@ -62,6 +70,8 @@ public class ConverterConfig implements WebMvcConfigurer {
         registry.addConverter(personDTOtoPersonConverter);
         registry.addConverter(orderToOrderDTOConverter);
         registry.addConverter(orderDTOtoOrderConverter);
+        registry.addConverter(productToProductDTOConverter);
+        registry.addConverter(productDTOtoProductConverter);
     }
 
 }

@@ -26,10 +26,10 @@
 package com.jcalvopinam.controller;
 
 import com.jcalvopinam.domain.Product;
-import com.jcalvopinam.dto.ProductDTO;
+import com.jcalvopinam.dto.ProductRequestDTO;
+import com.jcalvopinam.dto.ProductResponseDTO;
 import com.jcalvopinam.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,23 +64,22 @@ public class ProductController {
     }
 
     @GetMapping("/{text}")
-    public ProductDTO findByText(@PathVariable final String text) {
+    public List<ProductResponseDTO> findByText(@PathVariable final String text) {
         log.info(String.format("Finding by: %s", text));
         return productService.findByText(text, text);
     }
 
     @PostMapping
-    public ProductDTO saveProduct(@RequestBody ProductDTO productDTO) {
-        Validate.notNull(productDTO, "The product cannot be null");
-        log.info(String.format("Saving product: %s", productDTO.toString()));
-        return productService.save(productDTO);
+    public ProductResponseDTO saveProduct(@RequestBody final ProductRequestDTO productRequestDTO) {
+        log.info(String.format("Saving product: %s", productRequestDTO.toString()));
+        return productService.save(productRequestDTO);
     }
 
     @PutMapping("/{id}")
-    public ProductDTO updateProduct(@RequestBody final ProductDTO productDTO, @PathVariable final int id) {
-        Validate.notNull(productDTO, "The product cannot be null");
-        log.info(String.format("Updating product: %s", productDTO.toString()));
-        return productService.update(productDTO);
+    public ProductResponseDTO updateProduct(@PathVariable final int id,
+                                            @RequestBody final ProductRequestDTO productRequestDTO) {
+        log.info(String.format("Updating product: %s", productRequestDTO.toString()));
+        return productService.update(id, productRequestDTO);
     }
 
     @DeleteMapping("/{id}")

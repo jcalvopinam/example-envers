@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2020 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,34 +23,31 @@
  *
  */
 
-package com.jcalvopinam.repository;
+package com.jcalvopinam.dto;
 
-import com.jcalvopinam.domain.Product;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
-import java.util.Optional;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author juan.calvopina
  */
-public interface ProductRepository extends JpaRepository<Product, Integer> {
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class ProductResponseDTO {
 
-    /**
-     * Finds the product by {@code name}.
-     *
-     * @param name receive a name value.
-     * @return a Product object.
-     */
-    Optional<Product> findByName(String name);
+    private String name;
+    private String description;
+    private int quantityPerUnit;
+    private double unitPrice;
 
-    /**
-     * Finds the product by id or name.
-     *
-     * @param id   receive an id value.
-     * @param name receive a name value.
-     * @return a Product List.
-     */
-    List<Product> findByProductIdOrNameStartingWith(int id, String name);
+    @Override
+    public String toString() {
+        return String.format("ProductDTO{ name='%s', description='%s', quantityPerUnit=%d, unitPrice=%.2f}",
+                             name, description, quantityPerUnit, unitPrice);
+    }
 
 }

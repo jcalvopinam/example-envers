@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2020 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,57 +23,25 @@
  *
  */
 
-package com.jcalvopinam.service;
+package com.jcalvopinam.converter;
 
 import com.jcalvopinam.domain.Product;
 import com.jcalvopinam.dto.ProductRequestDTO;
-import com.jcalvopinam.dto.ProductResponseDTO;
-
-import java.util.List;
+import org.springframework.beans.BeanUtils;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
 /**
  * @author juan.calvopina
  */
-public interface ProductService {
+@Component
+public class ProductDTOtoProductConverter implements Converter<ProductRequestDTO, Product> {
 
-    /**
-     * Retrieves all products from database.
-     *
-     * @return a List of product.
-     */
-    List<Product> findAll();
-
-    /**
-     * Finds the product by id or name.
-     *
-     * @param id   receive an id value.
-     * @param name receive a name value.
-     * @return a ProductResponseDTO object.
-     */
-    List<ProductResponseDTO> findByText(String id, String name);
-
-    /**
-     * Adds a new product to the database.
-     *
-     * @param productRequestDTO receive an ProductDTO object.
-     * @return a ProductResponseDTO object.
-     */
-    ProductResponseDTO save(ProductRequestDTO productRequestDTO);
-
-    /**
-     * Updates a product to the database
-     *
-     * @param id                receive an id.
-     * @param productRequestDTO receive an ProductDTO object.
-     * @return a ProductResponseDTO object.
-     */
-    ProductResponseDTO update(int id, ProductRequestDTO productRequestDTO);
-
-    /**
-     * Deletes a product by Id from database
-     *
-     * @param id receive an id.
-     */
-    void deleteById(int id);
+    @Override
+    public Product convert(final ProductRequestDTO productRequestDTO) {
+        final Product product = new Product();
+        BeanUtils.copyProperties(productRequestDTO, product);
+        return product;
+    }
 
 }

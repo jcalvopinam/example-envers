@@ -84,7 +84,7 @@ public class PersonController {
                                           @PathVariable final int id) {
         Validate.notNull(personRequestDTO, "The person cannot be null");
         log.info(String.format("Updating person: %s", personRequestDTO.toString()));
-        return personService.update(personRequestDTO, id);
+        return personService.update(id, personRequestDTO);
     }
 
     @DeleteMapping("/{id}")

@@ -28,8 +28,8 @@ package com.jcalvopinam.service;
 import com.jcalvopinam.domain.Person;
 import com.jcalvopinam.dto.PersonRequestDTO;
 import com.jcalvopinam.dto.PersonResponseDTO;
-import com.jcalvopinam.exception.PersonConflictException;
-import com.jcalvopinam.exception.PersonNotFoundException;
+import com.jcalvopinam.exception.ConflictException;
+import com.jcalvopinam.exception.NotFoundException;
 import com.jcalvopinam.repository.PersonRepository;
 import com.jcalvopinam.utils.Utilities;
 import lombok.extern.slf4j.Slf4j;
@@ -82,7 +82,7 @@ public class PersonServiceImpl implements PersonService {
         if (personSourceList.isEmpty()) {
             final String message = "There was no data found";
             log.info(message);
-            throw new PersonNotFoundException(message);
+            throw new NotFoundException(message);
         }
 
         final TypeDescriptor personSourceType =
@@ -114,7 +114,7 @@ public class PersonServiceImpl implements PersonService {
                             final String message = String.format("The person %s %s already exist in the database",
                                                                  per.getFirstName(), per.getLastName());
                             log.info(message);
-                            throw new PersonConflictException(message);
+                            throw new ConflictException(message);
                         });
         final Person dtoToPerson = conversionService.convert(personRequestDTO, Person.class);
         final Person person = personRepository.save(Objects.requireNonNull(dtoToPerson));
@@ -126,7 +126,7 @@ public class PersonServiceImpl implements PersonService {
      * {@inheritDoc}
      */
     @Override
-    public PersonResponseDTO update(PersonRequestDTO personRequestDTO, final int id) {
+    public PersonResponseDTO update(final int id, final PersonRequestDTO personRequestDTO) {
         Validate.notNull(personRequestDTO, "The person cannot be null");
         final Person existingPerson = findPersonById(id);
         final Person personConverted = conversionService.convert(personRequestDTO, existingPerson.getClass());
@@ -157,7 +157,7 @@ public class PersonServiceImpl implements PersonService {
                                .orElseThrow(() -> {
                                    final String message = String.format("The person's id [%d] was not found!", id);
                                    log.error(message);
-                                   return new PersonNotFoundException(message);
+                                   return new NotFoundException(message);
                                });
     }
 

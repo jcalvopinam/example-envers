@@ -28,11 +28,11 @@ package com.jcalvopinam.exception;
 /**
  * @author juan.calvopina
  */
-public class PersonConflictException extends RuntimeException {
+public class ConflictException extends RuntimeException {
 
     private static final long serialVersionUID = 4402858693095556784L;
 
-    public PersonConflictException(final String message) {
+    public ConflictException(final String message) {
         super(message);
     }
 

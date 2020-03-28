@@ -46,7 +46,7 @@ import java.util.List;
  * @author juan.calvopina
  */
 @RestController
-@RequestMapping(value = "/order-detail")
+@RequestMapping(value = "/v2/order-detail")
 @Slf4j
 public class OrderDetailController {
 

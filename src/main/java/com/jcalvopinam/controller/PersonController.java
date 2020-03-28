@@ -50,7 +50,7 @@ import java.util.List;
  * @author juan.calvopina
  */
 @RestController
-@RequestMapping(value = "/persons")
+@RequestMapping(value = "/v2/persons")
 @Slf4j
 public class PersonController {
 
@@ -68,7 +68,7 @@ public class PersonController {
     }
 
     @GetMapping("/{text}")
-    public PersonResponseDTO findByText(@PathVariable final String text) {
+    public List<PersonResponseDTO> findByText(@PathVariable final String text) {
         log.info(String.format("Finding by: %s", text));
         return personService.findByText(text, text, text);
     }
@@ -80,7 +80,8 @@ public class PersonController {
     }
 
     @PutMapping("/{id}")
-    public PersonResponseDTO updatePerson(@RequestBody final PersonRequestDTO personRequestDTO, @PathVariable final int id) {
+    public PersonResponseDTO updatePerson(@RequestBody final PersonRequestDTO personRequestDTO,
+                                          @PathVariable final int id) {
         Validate.notNull(personRequestDTO, "The person cannot be null");
         log.info(String.format("Updating person: %s", personRequestDTO.toString()));
         return personService.update(personRequestDTO, id);

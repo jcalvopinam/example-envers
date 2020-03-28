@@ -46,7 +46,7 @@ import java.util.List;
  * @author juan.calvopina
  */
 @RestController
-@RequestMapping(value = "/product")
+@RequestMapping(value = "/v2/product")
 @Slf4j
 public class ProductController {
 

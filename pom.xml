@@ -24,7 +24,7 @@
         <java.version>1.8</java.version>
         <tomcat-dbcp.version>8.0.30</tomcat-dbcp.version>
         <commons-lang.version>2.6</commons-lang.version>
-        <log4j.version>1.2.15</log4j.version>
+        <log4j.version>1.2.17</log4j.version>
     </properties>
 
     <dependencies>

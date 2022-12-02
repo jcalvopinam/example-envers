@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ExampleEnversApplication {
+public class SampleEnversApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ExampleEnversApplication.class, args);
+        SpringApplication.run(SampleEnversApplication.class, args);
     }
 
 }

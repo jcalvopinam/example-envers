@@ -1,3 +1,10 @@
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
@@ -6,14 +13,21 @@ target/
 .classpath
 .factorypath
 .project
-.settingss
-.DS_Store
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
 
 ### NetBeans ###
 nbproject/private/
@@ -23,7 +37,12 @@ dist/
 nbdist/
 .nb-gradle/
 .settings/
-target/
 
-### Logs
+### VS Code ###
+.vscode/
+
+### Logs ###
 logs/
+
+ ### macOS  ###
+.DS_Store

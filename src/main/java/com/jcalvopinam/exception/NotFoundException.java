@@ -23,21 +23,20 @@
  *
  */
 
-package com.jcalvopinam.repository;
-
-import com.jcalvopinam.domain.Person;
-import org.springframework.data.repository.CrudRepository;
+package com.jcalvopinam.exception;
 
 /**
  * @author Juan Calvopina <juan.calvopina@gmail.com>
  */
-public interface PersonRepository extends CrudRepository<Person, Long> {
+public class NotFoundException extends RuntimeException {
 
     /**
-     * Finds the person by id, name or last name
+     * Custom exception for NotFoundException.
      *
-     * @return the Person object.
+     * @param message receive a message String.
      */
-    Person findByIdOrFirstNameOrLastName(Long id, String name, String lastName);
+    public NotFoundException(final String message) {
+        super(message);
+    }
 
 }

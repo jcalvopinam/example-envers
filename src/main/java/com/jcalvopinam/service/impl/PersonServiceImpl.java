@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2022 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,13 +23,12 @@
  *
  */
 
-/**
- * Implementation of the method signatures
- */
 package com.jcalvopinam.service.impl;
 
 import com.jcalvopinam.domain.Person;
 import com.jcalvopinam.dto.PersonDTO;
+import com.jcalvopinam.exception.AlreadyExistsException;
+import com.jcalvopinam.exception.NotFoundException;
 import com.jcalvopinam.repository.PersonRepository;
 import com.jcalvopinam.service.PersonService;
 import com.jcalvopinam.utils.Utilities;
@@ -41,63 +40,95 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author Juan Calvopina <juan.calvopina@gmail.com>
  */
 @Service
 @Transactional
 public class PersonServiceImpl implements PersonService {
 
-    private static final Logger logger = LoggerFactory.getLogger(PersonServiceImpl.class);
-    private final PersonRepository personRepository;
-    private String response;
+    private static final Logger LOGGER = LoggerFactory.getLogger(PersonServiceImpl.class);
 
-    public PersonServiceImpl(PersonRepository personRepository) {
+    private final PersonRepository personRepository;
+
+    public PersonServiceImpl(final PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Person> findAll() {
-        return personRepository.findAll();
+        // TODO: fix findAll anti-pattern
+
+        LOGGER.info("Getting the  people");
+        return (List<Person>) personRepository.findAll();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Person findByText(String id, String name, String lastName) {
-        Integer personId = Utilities.isInteger(id);
+    public Person findByText(final String id, final String name, final String lastName) {
+        LOGGER.info("Finding by {} or {} or {}", id, name, lastName);
+        final Long personId = Utilities.isNumber(id);
         return personRepository.findByIdOrFirstNameOrLastName(personId, name, lastName);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Person findById(int id) {
-        return personRepository.findOne(id);
+    public Person findById(final Long id) {
+        LOGGER.info("Finding by {}", id);
+        return personRepository.findById(id)
+                               .orElseThrow(() -> new NotFoundException(String.format("The Person %s not found", id)));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String save(PersonDTO personDTO) {
-        response = "Person saved!";
-        personRepository.save(new Person(personDTO));
-        logger.info(response);
-        return response;
+    public Person save(final PersonDTO personDTO) {
+        if (personRepository.findById(personDTO.getId())
+                            .isPresent()) {
+            final String message = String.format("The Person %s already exist", personDTO.getId());
+            LOGGER.error(message);
+            throw new AlreadyExistsException(message);
+        }
+        LOGGER.info("Saving new person {}", personDTO.getId());
+        return personRepository.save(new Person(personDTO));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String update(PersonDTO personDTO) {
-        response = "Person updated!";
-        Person person = personRepository.findOne(personDTO.getId());
-        person = this.updatePerson(person, personDTO);
-        personRepository.save(person);
-        logger.info(response);
-        return response;
+    public Person update(final PersonDTO personDTO) {
+        Person person = this.updatePerson(this.findById(personDTO.getId()), personDTO);
+        LOGGER.info("Updating the person {}", personDTO.getId());
+        return personRepository.save(person);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String deleteById(int id) {
-        response = "Person deleted!";
-        personRepository.delete(id);
-        logger.info(response);
-        return response;
+    public void deleteById(final Long id) {
+        final Person person = this.findById(id);
+        LOGGER.info("Deleting the person {}", person.getId());
+        personRepository.deleteById(person.getId());
     }
 
-    private Person updatePerson(Person person, PersonDTO personDTO) {
+    /**
+     * Mapping the name and lastName from DTO object to the Pojo.
+     *
+     * @param person    receives the person object.
+     * @param personDTO receives the personDTO object.
+     * @return the Person object.
+     */
+    private Person updatePerson(final Person person, final PersonDTO personDTO) {
+        LOGGER.info("Mapping the person {}", personDTO.getId());
         person.setFirstName(personDTO.getName());
         person.setLastName(personDTO.getLastName());
         return person;

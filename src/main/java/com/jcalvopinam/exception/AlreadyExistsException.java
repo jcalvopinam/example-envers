@@ -23,21 +23,21 @@
  *
  */
 
-package com.jcalvopinam.repository;
-
-import com.jcalvopinam.domain.Person;
-import org.springframework.data.repository.CrudRepository;
+package com.jcalvopinam.exception;
 
 /**
  * @author Juan Calvopina <juan.calvopina@gmail.com>
  */
-public interface PersonRepository extends CrudRepository<Person, Long> {
+public class AlreadyExistsException extends RuntimeException {
 
     /**
-     * Finds the person by id, name or last name
+     * Custom exception for AlreadyExistsException.
      *
-     * @return the Person object.
+     * @param message receive a message String.
      */
-    Person findByIdOrFirstNameOrLastName(Long id, String name, String lastName);
+    public AlreadyExistsException(final String message) {
+
+        super(message);
+    }
 
 }

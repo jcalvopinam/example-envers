@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2022 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,9 +23,6 @@
  *
  */
 
-/**
- * This class sets the userId attribute in the Audit table
- */
 package com.jcalvopinam.listener;
 
 import com.jcalvopinam.domain.AuditEnversInfo;
@@ -33,14 +30,14 @@ import com.jcalvopinam.utils.Utilities;
 import org.hibernate.envers.RevisionListener;
 
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author Juan Calvopina <juan.calvopina@gmail.com>
  */
 public class UserRevisionListener implements RevisionListener {
 
     @Override
     public void newRevision(Object revisionEntity) {
-        AuditEnversInfo auditEnversInfo = (AuditEnversInfo) revisionEntity;
-        auditEnversInfo.setUserId(Utilities.getRandomUsers());
+        final AuditEnversInfo auditEnversInfo = (AuditEnversInfo) revisionEntity;
+        auditEnversInfo.setUserId(Utilities.getRandomBy(Utilities.NAMES));
     }
 
 }

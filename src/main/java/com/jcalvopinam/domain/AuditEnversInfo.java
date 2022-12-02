@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2022 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,38 +23,28 @@
  *
  */
 
-/**
- * This entity has an additional attribute for Audit table
- */
 package com.jcalvopinam.domain;
 
 import com.jcalvopinam.listener.UserRevisionListener;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.envers.DefaultRevisionEntity;
 import org.hibernate.envers.RevisionEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author Juan Calvopina <juan.calvopina@gmail.com>
  */
 @Entity
 @RevisionEntity(UserRevisionListener.class)
 @Table(name = "env_audit_envers_info")
+@Getter
+@Setter
 public class AuditEnversInfo extends DefaultRevisionEntity {
-
-    private static final long serialVersionUID = -7604731515258123883L;
 
     @Column(name = "user_id")
     private String userId;
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
 }

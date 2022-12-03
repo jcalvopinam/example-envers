@@ -25,13 +25,17 @@
 
 package com.jcalvopinam.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 /**
  * @author Juan Calvopina <juan.calvopina@gmail.com>
  */
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @ToString

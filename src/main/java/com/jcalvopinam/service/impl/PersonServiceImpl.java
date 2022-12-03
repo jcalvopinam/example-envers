@@ -96,8 +96,9 @@ public class PersonServiceImpl implements PersonService {
             LOGGER.error(message);
             throw new AlreadyExistsException(message);
         }
-        LOGGER.info("Saving new person {}", personDTO.getId());
-        return personRepository.save(new Person(personDTO));
+        LOGGER.info("Saving new person {} {}", personDTO.getName(), personDTO.getLastName());
+        final Person entity = new Person(personDTO);
+        return personRepository.save(entity);
     }
 
     /**
@@ -105,7 +106,8 @@ public class PersonServiceImpl implements PersonService {
      */
     @Override
     public Person update(final PersonDTO personDTO) {
-        Person person = this.updatePerson(this.findById(personDTO.getId()), personDTO);
+        final Person personFound = this.findById(personDTO.getId());
+        Person person = this.updatePerson(personFound, personDTO);
         LOGGER.info("Updating the person {}", personDTO.getId());
         return personRepository.save(person);
     }

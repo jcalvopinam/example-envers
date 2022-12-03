@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2022 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,9 +23,6 @@
  *
  */
 
-/**
- * List of methods signature
- */
 package com.jcalvopinam.service;
 
 import com.jcalvopinam.domain.Person;
@@ -34,57 +31,56 @@ import com.jcalvopinam.dto.PersonDTO;
 import java.util.List;
 
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author Juan Calvopina <juan.calvopina@gmail.com>
  */
 public interface PersonService {
 
     /**
-     * Retrieves all persons from database
+     * Retrieves all persons from database.
      *
-     * @return
+     * @return a list of People.
      */
     List<Person> findAll();
 
     /**
-     * Finds the person by name or last name
+     * Finds the person by name or last name.
      *
-     * @param id
-     * @param name
-     * @param lastName
-     * @return
+     * @param id       receives the id to be filtered.
+     * @param name     receives the `name` to be filtered.
+     * @param lastName receives the lastName to be filtered.
+     * @return a Person filtered by id, name or lastName.
      */
     Person findByText(String id, String name, String lastName);
 
     /**
-     * Finds the person by int
+     * Finds the person by int.
      *
-     * @param id
-     * @return
+     * @param id receives the id to be filtered.
+     * @return a Person filtered by id.
      */
-    Person findById(int id);
+    Person findById(Long id);
 
     /**
-     * Adds a new person to the database
+     * Adds a new person to the database.
      *
-     * @param personDTO
-     * @return
+     * @param personDTO receives the personDTO to be saved.
+     * @return the Person saved.
      */
-    String save(PersonDTO personDTO);
+    Person save(PersonDTO personDTO);
 
     /**
-     * Updates a person to the database
+     * Updates a person to the database.
      *
-     * @param personDTO
-     * @return
+     * @param personDTO receives the personDTO to be updated.
+     * @return the Person updated.
      */
-    String update(PersonDTO personDTO);
+    Person update(PersonDTO personDTO);
 
     /**
      * Deletes a person by Id from database
      *
-     * @param id
-     * @return
+     * @param id receives the id to be deleted.
      */
-    String deleteById(int id);
+    void deleteById(Long id);
 
 }

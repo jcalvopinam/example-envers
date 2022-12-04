@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2022 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,61 +25,26 @@
 
 package com.jcalvopinam.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author Juan Calvopina <juan.calvopina@gmail.com>
  */
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class ProductDTO {
 
-    private int id;
+    private Long productId;
     private String name;
     private String description;
     private int quantityPerUnit;
     private double unitPrice;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getQuantityPerUnit() {
-        return quantityPerUnit;
-    }
-
-    public void setQuantityPerUnit(int quantityPerUnit) {
-        this.quantityPerUnit = quantityPerUnit;
-    }
-
-    public double getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("ProductDTO{ id=%d, name='%s', description='%s', quantityPerUnit=%d, unitPrice=%.2f}", id,
-                             name, description, quantityPerUnit, unitPrice);
-    }
 
 }

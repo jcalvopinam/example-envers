@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2022 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,6 +27,8 @@ package com.jcalvopinam.service.impl;
 
 import com.jcalvopinam.domain.Product;
 import com.jcalvopinam.dto.ProductDTO;
+import com.jcalvopinam.exception.AlreadyExistsException;
+import com.jcalvopinam.exception.NotFoundException;
 import com.jcalvopinam.repository.ProductRepository;
 import com.jcalvopinam.service.ProductService;
 import com.jcalvopinam.utils.Utilities;
@@ -38,59 +40,98 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author Juan Calvopina <juan.calvopina@gmail.com>
  */
 @Service
 @Transactional
 public class ProductServiceImpl implements ProductService {
 
-    private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductServiceImpl.class);
 
-    private final ProductRepository productRepository;
-    private String response;
+    private ProductRepository productRepository;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(final ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Product> findAll() {
-        return productRepository.findAll();
+        // TODO: fix findAll anti-pattern
+        LOGGER.info("Getting the products");
+        return (List<Product>) productRepository.findAll();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Product findByText(String id, String name) {
-        Integer productId = Utilities.isInteger(id);
+    public List<Product> findByText(final String id, final String name) {
+        LOGGER.info("Finding by {} or {}", id, name);
+        final Long productId = Utilities.isNumber(id);
         return productRepository.findByProductIdOrName(productId, name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String save(ProductDTO productDTO) {
-        response = "Product saved!";
-        productRepository.save(new Product(productDTO));
-        logger.info(response);
-        return response;
+    public Product findById(final Long id) {
+        LOGGER.info("Finding by {}", id);
+        return productRepository.findById(id)
+                                .orElseThrow(
+                                        () -> new NotFoundException(String.format("The Product %s not found", id)));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String update(ProductDTO productDTO) {
-        response = "Product updated!";
-        Product product = productRepository.findOne(productDTO.getId());
-        product = this.updateProduct(product, productDTO);
-        productRepository.save(product);
-        logger.info(response);
-        return response;
+    public Product save(final ProductDTO productDTO) {
+        if (productRepository.findById(productDTO.getProductId())
+                             .isPresent()) {
+            final String message = String.format("The Product %s already exist", productDTO.getProductId());
+            LOGGER.error(message);
+            throw new AlreadyExistsException(message);
+        }
+        LOGGER.info("Saving new product {}", productDTO.getName());
+        final Product entity = new Product(productDTO);
+        return productRepository.save(entity);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String deleteById(int id) {
-        response = "Product deleted!";
-        productRepository.delete(id);
-        logger.info(response);
-        return response;
+    public Product update(final ProductDTO productDTO, final Long id) {
+        final Product productFound = this.findById(id);
+        Product product = this.updateProduct(productFound, productDTO);
+        LOGGER.info("Updating the product {}", productDTO.getName());
+        return productRepository.save(product);
     }
 
-    private Product updateProduct(Product product, ProductDTO productDTO) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void deleteById(final Long id) {
+        final Product product = this.findById(id);
+        LOGGER.info("Deleting the product {}", product.getProductId());
+        productRepository.deleteById(product.getProductId());
+    }
+
+    /**
+     * Mapping the attributes from DTO object to the Pojo.
+     *
+     * @param product    receives the product object.
+     * @param productDTO receives the productDTO object.
+     *
+     * @return the Product object.
+     */
+    private Product updateProduct(final Product product, final ProductDTO productDTO) {
+        LOGGER.info("Mapping the product {}", productDTO.getName());
         product.setName(productDTO.getName());
         product.setDescription(productDTO.getDescription());
         product.setQuantityPerUnit(productDTO.getQuantityPerUnit());

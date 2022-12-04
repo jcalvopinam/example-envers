@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2022 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,47 +31,60 @@ import com.jcalvopinam.dto.ProductDTO;
 import java.util.List;
 
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author Juan Calvopina <juan.calvopina@gmail.com>
  */
 public interface ProductService {
 
     /**
-     * Retrieves all products from database
+     * Retrieves all products from database.
      *
-     * @return
+     * @return a List of products.
      */
     List<Product> findAll();
 
     /**
-     * Finds the product by id or name
+     * Finds the product by id or name.
      *
-     * @param id
-     * @return
+     * @param id   receives an id value.
+     * @param name receives a name value.
+     *
+     * @return the ProductResponseDTO object.
      */
-    Product findByText(String id, String name);
+    List<Product> findByText(String id, String name);
 
     /**
-     * Adds a new product to the database
+     * Finds the product by id.
      *
-     * @param productDTO
-     * @return
+     * @param id receives the id to be filtered.
+     *
+     * @return the Project object.
      */
-    String save(ProductDTO productDTO);
+    Product findById(Long id);
 
     /**
-     * Updates a product to the database
+     * Adds the new product to the database.
      *
-     * @param productDTO
-     * @return
+     * @param productDTO receives an ProductDTO object.
+     *
+     * @return the ProductDTO object.
      */
-    String update(ProductDTO productDTO);
+    Product save(ProductDTO productDTO);
 
     /**
-     * Deletes a product by Id from database
+     * Updates the product to the database
      *
-     * @param id
-     * @return
+     * @param productDTO receives an ProductDTO object.
+     * @param id         receives an id.
+     *
+     * @return a ProductDTO object.
      */
-    String deleteById(int id);
+    Product update(ProductDTO productDTO, Long id);
+
+    /**
+     * Deletes a product by id from database
+     *
+     * @param id receives an id.
+     */
+    void deleteById(Long id);
 
 }

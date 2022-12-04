@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2022 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,20 +26,23 @@
 package com.jcalvopinam.repository;
 
 import com.jcalvopinam.domain.Product;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
 
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author Juan Calvopina <juan.calvopina@gmail.com>
  */
-public interface ProductRepository extends JpaRepository<Product, Integer> {
+public interface ProductRepository extends CrudRepository<Product, Long> {
 
     /**
-     * Finds the product by id or name
+     * Finds the product by id or name.
      *
-     * @param id
-     * @param name
-     * @return
+     * @param id   receives the id to be filtered.
+     * @param name receives the name to be filtered.
+     *
+     * @return a Product object.
      */
-    Product findByProductIdOrName(int id, String name);
+    List<Product> findByProductIdOrName(Long id, String name);
 
 }

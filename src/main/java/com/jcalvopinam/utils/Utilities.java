@@ -36,13 +36,16 @@ import java.util.Random;
  * @author Juan Calvopina <juan.calvopina@gmail.com>
  */
 
-public class Utilities {
+public final class Utilities {
 
     private static final String COLON = ":";
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String DATE_MATCH_FORMAT = "\\d{4}-\\d{2}-\\d{2}";
     public static final String NAMES = "Andrea:Juan:Isaac:Sandra:Michael:Annabel";
     public static final String LASTNAMES = "Bastidas:Calvopina:Newton:Ojeda:Patino:Cordova";
+
+    private Utilities() {
+    }
 
     /**
      * If the input parameter is integer, then converts the String input to Integer output else return null.
@@ -73,11 +76,11 @@ public class Utilities {
     public static Date matchDate(String date) {
         try {
             if (hasFormat(date)) {
-                DateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
+                final DateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
                 return formatter.parse(date);
             }
         } catch (ParseException pe) {
-            pe.printStackTrace();
+            // TODO: fix it
         }
         return null;
     }
@@ -100,7 +103,6 @@ public class Utilities {
     public static String getRandomBy(final String text) {
         String[] wordsAsArray = text.split(COLON);
         int index = new Random().nextInt(wordsAsArray.length);
-
         return wordsAsArray[index];
     }
 

@@ -45,6 +45,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * @author Juan Calvopina <juan.calvopina@gmail.com>
+ */
 @ExtendWith(SpringExtension.class)
 class PersonServiceImplTest {
 
@@ -141,7 +144,7 @@ class PersonServiceImplTest {
     void update() {
         final PersonDTO personDTO = getPersonDTO();
 
-        Mockito.when(personRepository.findById(personDTO.getId()))
+        Mockito.when(personRepository.findById(0l))
                .thenReturn(getOptionalPerson());
 
         if (getOptionalPerson().isEmpty()) {
@@ -153,7 +156,7 @@ class PersonServiceImplTest {
         Mockito.when(personRepository.save(Mockito.any()))
                .thenReturn(person);
 
-        final Person personSaved = personService.update(personDTO);
+        final Person personSaved = personService.update(personDTO, 0l);
         Assertions.assertNotNull(personSaved.getFirstName(), "The id is null");
     }
 

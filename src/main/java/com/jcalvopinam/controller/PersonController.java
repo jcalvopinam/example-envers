@@ -35,11 +35,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -48,6 +50,7 @@ import java.util.List;
  * @author Juan Calvopina <juan.calvopina@gmail.com>
  */
 @RestController
+@RequestMapping(value = "/person")
 public class PersonController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PersonController.class);
@@ -77,11 +80,18 @@ public class PersonController {
         return new ResponseEntity<>(personService.save(personDTO), HttpStatus.CREATED);
     }
 
-    @PutMapping
-    public ResponseEntity<Person> updatePerson(@RequestBody final PersonDTO personDTO) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Person> updatePerson(@RequestBody final PersonDTO personDTO, @PathVariable final Long id) {
         //TODO: Validate.notNull(personDTO, "The person cannot be null");
         LOGGER.info("Updating person {}", personDTO.toString());
-        return new ResponseEntity<>(personService.update(personDTO), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(personService.update(personDTO, id), HttpStatus.ACCEPTED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePerson(@PathVariable final Long id) {
+        LOGGER.info("Deleting person {}", id);
+        personService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

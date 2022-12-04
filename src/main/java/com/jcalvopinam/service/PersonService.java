@@ -72,9 +72,10 @@ public interface PersonService {
      * Updates a person to the database.
      *
      * @param personDTO receives the personDTO to be updated.
+     * @param id receives the id to be filtered.
      * @return the Person updated.
      */
-    Person update(PersonDTO personDTO);
+    Person update(PersonDTO personDTO, final Long id);
 
     /**
      * Deletes a person by Id from database

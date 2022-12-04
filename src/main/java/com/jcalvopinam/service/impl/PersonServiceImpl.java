@@ -105,8 +105,8 @@ public class PersonServiceImpl implements PersonService {
      * {@inheritDoc}
      */
     @Override
-    public Person update(final PersonDTO personDTO) {
-        final Person personFound = this.findById(personDTO.getId());
+    public Person update(final PersonDTO personDTO, final Long id) {
+        final Person personFound = this.findById(id);
         Person person = this.updatePerson(personFound, personDTO);
         LOGGER.info("Updating the person {}", personDTO.getId());
         return personRepository.save(person);

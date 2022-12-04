@@ -40,6 +40,19 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestController
 public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
+    /**
+     * {@inheritDoc}
+     */
+    private static ExceptionResponseDTO getExceptionResponseDTO(final String exceptionMessage,
+                                                                final String exceptionName,
+                                                                final int httpStatusCode) {
+        return ExceptionResponseDTO.builder()
+                                   .message(exceptionMessage)
+                                   .type(exceptionName)
+                                   .code(httpStatusCode)
+                                   .build();
+    }
+
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<ExceptionResponseDTO> handleAllExceptions(final Exception exception) {
         final ExceptionResponseDTO exceptionResponseDTO =
@@ -71,19 +84,6 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
                                              AlreadyExistsException.class.getSimpleName(),
                                              HttpStatus.CONFLICT.value());
         return new ResponseEntity<>(exceptionResponseDTO, HttpStatus.CONFLICT);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    private static ExceptionResponseDTO getExceptionResponseDTO(final String exceptionMessage,
-                                                                final String exceptionName,
-                                                                final int httpStatusCode) {
-        return ExceptionResponseDTO.builder()
-                                   .message(exceptionMessage)
-                                   .type(exceptionName)
-                                   .code(httpStatusCode)
-                                   .build();
     }
 
 }

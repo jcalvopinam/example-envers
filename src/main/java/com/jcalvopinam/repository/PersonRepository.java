@@ -36,6 +36,10 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
     /**
      * Finds the person by id, name or last name
      *
+     * @param id       receives the id to be filtered.
+     * @param name     receives the name to be filtered.
+     * @param lastName receives the lastName to be filtered.
+     *
      * @return the Person object.
      */
     Person findByIdOrFirstNameOrLastName(Long id, String name, String lastName);

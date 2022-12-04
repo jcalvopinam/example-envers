@@ -36,7 +36,6 @@ public class AlreadyExistsException extends RuntimeException {
      * @param message receive a message String.
      */
     public AlreadyExistsException(final String message) {
-
         super(message);
     }
 

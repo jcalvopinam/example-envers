@@ -23,9 +23,6 @@
  *
  */
 
-/*
- * The persistent class for the env_person database table.
- */
 package com.jcalvopinam.domain;
 
 import com.jcalvopinam.dto.PersonDTO;
@@ -41,11 +38,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.envers.Audited;
 
 /**
  * @author Juan Calvopina <juan.calvopina@gmail.com>
  */
 @Entity
+@Audited
 @Table(name = "env_person")
 @Builder
 @AllArgsConstructor
@@ -57,9 +56,10 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "person_id")
     private Long id;
 
-    @Column(name = "first_name", nullable = true)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @Column(name = "last_name", nullable = false)

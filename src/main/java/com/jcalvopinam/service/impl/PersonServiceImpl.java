@@ -60,8 +60,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public List<Person> findAll() {
         // TODO: fix findAll anti-pattern
-
-        LOGGER.info("Getting the  people");
+        LOGGER.info("Getting the people");
         return (List<Person>) personRepository.findAll();
     }
 
@@ -108,7 +107,7 @@ public class PersonServiceImpl implements PersonService {
     public Person update(final PersonDTO personDTO, final Long id) {
         final Person personFound = this.findById(id);
         Person person = this.updatePerson(personFound, personDTO);
-        LOGGER.info("Updating the person {}", personDTO.getId());
+        LOGGER.info("Updating the person {}", personDTO.getName());
         return personRepository.save(person);
     }
 
@@ -127,6 +126,7 @@ public class PersonServiceImpl implements PersonService {
      *
      * @param person    receives the person object.
      * @param personDTO receives the personDTO object.
+     *
      * @return the Person object.
      */
     private Person updatePerson(final Person person, final PersonDTO personDTO) {

@@ -48,14 +48,16 @@ public interface PersonService {
      * @param id       receives the id to be filtered.
      * @param name     receives the `name` to be filtered.
      * @param lastName receives the lastName to be filtered.
+     *
      * @return a Person filtered by id, name or lastName.
      */
     Person findByText(String id, String name, String lastName);
 
     /**
-     * Finds the person by int.
+     * Finds the person by id.
      *
      * @param id receives the id to be filtered.
+     *
      * @return a Person filtered by id.
      */
     Person findById(Long id);
@@ -64,6 +66,7 @@ public interface PersonService {
      * Adds a new person to the database.
      *
      * @param personDTO receives the personDTO to be saved.
+     *
      * @return the Person saved.
      */
     Person save(PersonDTO personDTO);
@@ -72,7 +75,8 @@ public interface PersonService {
      * Updates a person to the database.
      *
      * @param personDTO receives the personDTO to be updated.
-     * @param id receives the id to be filtered.
+     * @param id        receives the id to be filtered.
+     *
      * @return the Person updated.
      */
     Person update(PersonDTO personDTO, final Long id);

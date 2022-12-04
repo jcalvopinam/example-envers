@@ -38,11 +38,11 @@ import java.util.Random;
 
 public final class Utilities {
 
+    public static final String NAMES = "Andrea:Juan:Isaac:Sandra:Michael:Annabel";
+    public static final String LASTNAMES = "Bastidas:Calvopina:Newton:Ojeda:Patino:Cordova";
     private static final String COLON = ":";
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String DATE_MATCH_FORMAT = "\\d{4}-\\d{2}-\\d{2}";
-    public static final String NAMES = "Andrea:Juan:Isaac:Sandra:Michael:Annabel";
-    public static final String LASTNAMES = "Bastidas:Calvopina:Newton:Ojeda:Patino:Cordova";
 
     private Utilities() {
     }
@@ -51,6 +51,7 @@ public final class Utilities {
      * If the input parameter is integer, then converts the String input to Integer output else return null.
      *
      * @param input receives the input value.
+     *
      * @return the value.
      */
     public static Long isNumber(String input) {
@@ -70,7 +71,9 @@ public final class Utilities {
      * Convert date from String to Date object.
      *
      * @param date receives the date in the String input.
+     *
      * @return the date object.
+     *
      * @throws ParseException throws the exception if the String can't be parsed.
      */
     public static Date matchDate(String date) {
@@ -89,6 +92,7 @@ public final class Utilities {
      * Check if the string has a Date format.
      *
      * @param date receives the date in the String input.
+     *
      * @return a boolean type.
      */
     private static boolean hasFormat(String date) {

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2022 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,9 +23,6 @@
  *
  */
 
-/*
-  Endpoint for access to the controller
- */
 package com.jcalvopinam.controller;
 
 import com.jcalvopinam.domain.Person;
@@ -63,7 +60,7 @@ public class PersonController {
 
     @GetMapping
     public ResponseEntity<List<Person>> findAllPeople() {
-        LOGGER.info("Find all persons");
+        LOGGER.info("Finds all people");
         return new ResponseEntity<>(personService.findAll(), HttpStatus.ACCEPTED);
     }
 

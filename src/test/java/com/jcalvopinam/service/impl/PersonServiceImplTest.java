@@ -60,9 +60,9 @@ class PersonServiceImplTest {
     @Test
     void findAll() {
         Mockito.when(personRepository.findAll())
-               .thenReturn(people());
+               .thenReturn(getPeople());
         final List<Person> all = this.personService.findAll();
-        Assertions.assertEquals(people().size(), all.size(), "It is missing people");
+        Assertions.assertEquals(getPeople().size(), all.size(), "It is missing people");
     }
 
 
@@ -94,8 +94,8 @@ class PersonServiceImplTest {
     void findById() {
         Mockito.when(personRepository.findById(0l))
                .thenReturn(getOptionalPerson());
-        final Person personFinded = this.personService.findById(0l);
-        Assertions.assertEquals(0l, personFinded.getId(), "The is is null");
+        final Person personFound = this.personService.findById(0l);
+        Assertions.assertEquals(0l, personFound.getId(), "The is is null");
     }
 
     @Test
@@ -180,7 +180,7 @@ class PersonServiceImplTest {
     }
 
     private Optional<Person> getOptionalPerson() {
-        return this.people()
+        return this.getPeople()
                    .stream()
                    .findFirst();
     }
@@ -190,10 +190,10 @@ class PersonServiceImplTest {
         return person.isPresent() ? person.get() : new Person();
     }
 
-    private List<Person> people() {
+    private List<Person> getPeople() {
         return IntStream.range(0, 5)
                         .mapToObj(i -> Person.builder()
-                                             .id(Long.valueOf(i))
+                                             .id((long) i)
                                              .firstName(Utilities.getRandomBy(Utilities.NAMES))
                                              .lastName(Utilities.getRandomBy(Utilities.LASTNAMES))
                                              .build())

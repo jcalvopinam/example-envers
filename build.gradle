@@ -20,6 +20,7 @@ dependencies {
     implementation 'org.hibernate:hibernate-envers:6.1.5.Final'
 
     runtimeOnly 'com.mysql:mysql-connector-j'
+    runtimeOnly 'com.h2database:h2'
 
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
 

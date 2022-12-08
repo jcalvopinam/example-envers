@@ -41,7 +41,7 @@ import lombok.ToString;
 @ToString
 public class PersonDTO {
 
-    private Long id;
+    private Long id = 0L;
     private String name;
     private String lastName;
 

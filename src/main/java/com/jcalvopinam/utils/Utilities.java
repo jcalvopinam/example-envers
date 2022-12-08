@@ -55,7 +55,7 @@ public final class Utilities {
      * @return the value.
      */
     public static Long isNumber(String input) {
-        Long output = 0l;
+        long output = 0L;
         if (Optional.ofNullable(input)
                     .isPresent()) {
             try {

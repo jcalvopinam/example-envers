@@ -68,7 +68,7 @@ class PersonServiceImplTest {
 
     @Test
     void findByText_id() {
-        Mockito.when(personRepository.findByIdOrFirstNameOrLastName(1l, null, null))
+        Mockito.when(personRepository.findByIdOrFirstNameOrLastName(1L, null, null))
                .thenReturn(getPerson());
         final Person byText = this.personService.findByText("1", null, null);
         Assertions.assertNotNull(byText.getId(), "The id is null");
@@ -76,7 +76,7 @@ class PersonServiceImplTest {
 
     @Test
     void findByText_name() {
-        Mockito.when(personRepository.findByIdOrFirstNameOrLastName(0l, "Something", null))
+        Mockito.when(personRepository.findByIdOrFirstNameOrLastName(0L, "Something", null))
                .thenReturn(getPerson());
         final Person byText = this.personService.findByText("0", "Something", null);
         Assertions.assertNotNull(byText.getFirstName(), "The name is null");
@@ -84,7 +84,7 @@ class PersonServiceImplTest {
 
     @Test
     void findByText_lastName() {
-        Mockito.when(personRepository.findByIdOrFirstNameOrLastName(0l, null, "Something"))
+        Mockito.when(personRepository.findByIdOrFirstNameOrLastName(0L, null, "Something"))
                .thenReturn(getPerson());
         final Person byText = this.personService.findByText("0", null, "Something");
         Assertions.assertNotNull(byText.getLastName(), "The lastName is null");
@@ -92,19 +92,19 @@ class PersonServiceImplTest {
 
     @Test
     void findById() {
-        Mockito.when(personRepository.findById(0l))
+        Mockito.when(personRepository.findById(0L))
                .thenReturn(getOptionalPerson());
-        final Person personFound = this.personService.findById(0l);
-        Assertions.assertEquals(0l, personFound.getId(), "The is is null");
+        final Person personFound = this.personService.findById(0L);
+        Assertions.assertEquals(0L, personFound.getId(), "The is is null");
     }
 
     @Test
     void findById_NotFoundException() {
-        Mockito.when(personRepository.findById(0l))
+        Mockito.when(personRepository.findById(0L))
                .thenReturn(getOptionalPerson());
 
         Assertions.assertThrows(NotFoundException.class,
-                                () -> personService.findById(1l), "The Person 1 not found");
+                                () -> personService.findById(1L), "The Person 1 not found");
     }
 
     @Test
@@ -144,7 +144,7 @@ class PersonServiceImplTest {
     void update() {
         final PersonDTO personDTO = getPersonDTO();
 
-        Mockito.when(personRepository.findById(0l))
+        Mockito.when(personRepository.findById(0L))
                .thenReturn(getOptionalPerson());
 
         if (getOptionalPerson().isEmpty()) {
@@ -156,13 +156,13 @@ class PersonServiceImplTest {
         Mockito.when(personRepository.save(Mockito.any()))
                .thenReturn(person);
 
-        final Person personSaved = personService.update(personDTO, 0l);
+        final Person personSaved = personService.update(personDTO, 0L);
         Assertions.assertNotNull(personSaved.getFirstName(), "The id is null");
     }
 
     @Test
     void deleteById() {
-        Mockito.when(personRepository.findById(0l))
+        Mockito.when(personRepository.findById(0L))
                .thenReturn(getOptionalPerson());
 
         if (getOptionalPerson().isEmpty()) {

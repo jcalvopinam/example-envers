@@ -61,13 +61,13 @@ public class PersonController {
     @GetMapping
     public ResponseEntity<List<Person>> findAllPeople() {
         LOGGER.info("Finds all people");
-        return new ResponseEntity<>(personService.findAll(), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(personService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{text}")
     public ResponseEntity<Person> findByText(@PathVariable final String text) {
         LOGGER.info("Finding by {}", text);
-        return new ResponseEntity<>(personService.findByText(text, text, text), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(personService.findByText(text, text, text), HttpStatus.OK);
     }
 
     @PostMapping
@@ -81,7 +81,7 @@ public class PersonController {
     public ResponseEntity<Person> updatePerson(@RequestBody final PersonDTO personDTO, @PathVariable final Long id) {
         //TODO: Validate.notNull(personDTO, "The person cannot be null");
         LOGGER.info("Updating person {}", personDTO.toString());
-        return new ResponseEntity<>(personService.update(personDTO, id), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(personService.update(personDTO, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

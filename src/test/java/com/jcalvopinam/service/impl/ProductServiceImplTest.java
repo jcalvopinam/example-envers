@@ -25,6 +25,7 @@
 
 package com.jcalvopinam.service.impl;
 
+import com.jcalvopinam.controller.BaseControllerTest;
 import com.jcalvopinam.domain.Product;
 import com.jcalvopinam.dto.ProductDTO;
 import com.jcalvopinam.exception.AlreadyExistsException;
@@ -38,17 +39,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * @author Juan Calvopina <juan.calvopina@gmail.com>
  */
 @ExtendWith(SpringExtension.class)
-class ProductServiceImplTest {
+class ProductServiceImplTest extends BaseControllerTest {
 
     @Mock
     private ProductRepository productRepository;
@@ -66,7 +64,7 @@ class ProductServiceImplTest {
 
     @Test
     void findByText_id() {
-        Mockito.when(productRepository.findByProductIdOrName(1l, null))
+        Mockito.when(productRepository.findByProductIdOrName(1L, null))
                .thenReturn(getProducts());
         final List<Product> byText = this.productService.findByText("1", null);
         Assertions.assertNotNull(byText.get(0)
@@ -75,27 +73,27 @@ class ProductServiceImplTest {
 
     @Test
     void findByText_name() {
-        Mockito.when(productRepository.findByProductIdOrName(0l, "Something"))
+        Mockito.when(productRepository.findByProductIdOrName(1L, "Something"))
                .thenReturn(getProducts());
-        final List<Product> byText = this.productService.findByText("0", "Something");
+        final List<Product> byText = this.productService.findByText("1", "Something");
         Assertions.assertNotNull(byText.get(0)
                                        .getName(), "The name is null");
     }
 
     @Test
     void findById() {
-        Mockito.when(productRepository.findById(0l))
+        Mockito.when(productRepository.findById(1L))
                .thenReturn(getOptionalProduct());
-        final Product productFound = this.productService.findById(0l);
-        Assertions.assertEquals(0l, productFound.getProductId(), "The is is null");
+        final Product productFound = this.productService.findById(1L);
+        Assertions.assertEquals(1L, productFound.getProductId(), "The is is null");
     }
 
     @Test
     void findById_NotFoundException() {
-        Mockito.when(productRepository.findById(0l))
+        Mockito.when(productRepository.findById(0L))
                .thenReturn(getOptionalProduct());
 
-        Assertions.assertThrows(NotFoundException.class, () -> productService.findById(1l), "The Product 1 not found");
+        Assertions.assertThrows(NotFoundException.class, () -> productService.findById(1L), "The Product 1 not found");
     }
 
     @Test
@@ -135,7 +133,7 @@ class ProductServiceImplTest {
     void update() {
         final ProductDTO productDTO = getProductDTO();
 
-        Mockito.when(productRepository.findById(0l))
+        Mockito.when(productRepository.findById(1L))
                .thenReturn(getOptionalProduct());
 
         if (getOptionalProduct().isEmpty()) {
@@ -147,13 +145,13 @@ class ProductServiceImplTest {
         Mockito.when(productRepository.save(Mockito.any()))
                .thenReturn(product);
 
-        final Product productSaved = productService.update(productDTO, 0l);
+        final Product productSaved = productService.update(productDTO, 1L);
         Assertions.assertNotNull(productSaved.getName(), "The id is null");
     }
 
     @Test
     void deleteById() {
-        Mockito.when(productRepository.findById(0l))
+        Mockito.when(productRepository.findById(1L))
                .thenReturn(getOptionalProduct());
 
         if (getOptionalProduct().isEmpty()) {
@@ -168,36 +166,6 @@ class ProductServiceImplTest {
 
         Mockito.verify(productRepository, Mockito.times(1))
                .deleteById(product.getProductId());
-    }
-
-
-    private Optional<Product> getOptionalProduct() {
-        return this.getProducts()
-                   .stream()
-                   .findFirst();
-    }
-
-    private Product getProduct() {
-        final Optional<Product> product = this.getOptionalProduct();
-        return product.isPresent() ? product.get() : new Product();
-    }
-
-    private List<Product> getProducts() {
-        return IntStream.range(0, 5)
-                        .mapToObj(i -> Product.builder()
-                                              .productId((long) i)
-                                              .name("NAME " + i)
-                                              .description("DESCRIPTION " + i)
-                                              .quantityPerUnit(1)
-                                              .unitPrice(9.99 - i)
-                                              .build())
-                        .collect(Collectors.toCollection(() -> new ArrayList<>(5)));
-    }
-
-    private ProductDTO getProductDTO() {
-        final Product product = getProducts().get(0);
-        return new ProductDTO(product.getProductId(), product.getName(), product.getDescription(),
-                              product.getQuantityPerUnit(), product.getUnitPrice());
     }
 
 }

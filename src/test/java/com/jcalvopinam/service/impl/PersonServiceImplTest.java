@@ -25,12 +25,12 @@
 
 package com.jcalvopinam.service.impl;
 
+import com.jcalvopinam.controller.BaseControllerTest;
 import com.jcalvopinam.domain.Person;
 import com.jcalvopinam.dto.PersonDTO;
 import com.jcalvopinam.exception.AlreadyExistsException;
 import com.jcalvopinam.exception.NotFoundException;
 import com.jcalvopinam.repository.PersonRepository;
-import com.jcalvopinam.utils.Utilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,17 +39,19 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+
+import static com.jcalvopinam.utils.DummyPerson.getOptionalPerson;
+import static com.jcalvopinam.utils.DummyPerson.getPeople;
+import static com.jcalvopinam.utils.DummyPerson.getPerson;
+import static com.jcalvopinam.utils.DummyPerson.getPersonDTO;
 
 /**
  * @author Juan Calvopina <juan.calvopina@gmail.com>
  */
 @ExtendWith(SpringExtension.class)
-class PersonServiceImplTest {
+class PersonServiceImplTest extends BaseControllerTest {
 
     @Mock
     private PersonRepository personRepository;
@@ -76,26 +78,26 @@ class PersonServiceImplTest {
 
     @Test
     void findByText_name() {
-        Mockito.when(personRepository.findByIdOrFirstNameOrLastName(0L, "Something", null))
+        Mockito.when(personRepository.findByIdOrFirstNameOrLastName(1L, "Something", null))
                .thenReturn(getPerson());
-        final Person byText = this.personService.findByText("0", "Something", null);
+        final Person byText = this.personService.findByText("1", "Something", null);
         Assertions.assertNotNull(byText.getFirstName(), "The name is null");
     }
 
     @Test
     void findByText_lastName() {
-        Mockito.when(personRepository.findByIdOrFirstNameOrLastName(0L, null, "Something"))
+        Mockito.when(personRepository.findByIdOrFirstNameOrLastName(1L, null, "Something"))
                .thenReturn(getPerson());
-        final Person byText = this.personService.findByText("0", null, "Something");
+        final Person byText = this.personService.findByText("1", null, "Something");
         Assertions.assertNotNull(byText.getLastName(), "The lastName is null");
     }
 
     @Test
     void findById() {
-        Mockito.when(personRepository.findById(0L))
+        Mockito.when(personRepository.findById(1L))
                .thenReturn(getOptionalPerson());
-        final Person personFound = this.personService.findById(0L);
-        Assertions.assertEquals(0L, personFound.getId(), "The is is null");
+        final Person personFound = this.personService.findById(1L);
+        Assertions.assertEquals(1L, personFound.getId(), "The is is null");
     }
 
     @Test
@@ -144,7 +146,7 @@ class PersonServiceImplTest {
     void update() {
         final PersonDTO personDTO = getPersonDTO();
 
-        Mockito.when(personRepository.findById(0L))
+        Mockito.when(personRepository.findById(1L))
                .thenReturn(getOptionalPerson());
 
         if (getOptionalPerson().isEmpty()) {
@@ -156,13 +158,13 @@ class PersonServiceImplTest {
         Mockito.when(personRepository.save(Mockito.any()))
                .thenReturn(person);
 
-        final Person personSaved = personService.update(personDTO, 0L);
+        final Person personSaved = personService.update(personDTO, 1L);
         Assertions.assertNotNull(personSaved.getFirstName(), "The id is null");
     }
 
     @Test
     void deleteById() {
-        Mockito.when(personRepository.findById(0L))
+        Mockito.when(personRepository.findById(1L))
                .thenReturn(getOptionalPerson());
 
         if (getOptionalPerson().isEmpty()) {
@@ -177,31 +179,6 @@ class PersonServiceImplTest {
 
         Mockito.verify(personRepository, Mockito.times(1))
                .deleteById(person.getId());
-    }
-
-    private Optional<Person> getOptionalPerson() {
-        return this.getPeople()
-                   .stream()
-                   .findFirst();
-    }
-
-    private Person getPerson() {
-        final Optional<Person> person = this.getOptionalPerson();
-        return person.isPresent() ? person.get() : new Person();
-    }
-
-    private List<Person> getPeople() {
-        return IntStream.range(0, 5)
-                        .mapToObj(i -> Person.builder()
-                                             .id((long) i)
-                                             .firstName(Utilities.getRandomBy(Utilities.NAMES))
-                                             .lastName(Utilities.getRandomBy(Utilities.LASTNAMES))
-                                             .build())
-                        .collect(Collectors.toCollection(() -> new ArrayList<>(5)));
-    }
-
-    private PersonDTO getPersonDTO() {
-        return new PersonDTO(getPerson().getId(), getPerson().getFirstName(), getPerson().getLastName());
     }
 
 }

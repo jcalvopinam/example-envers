@@ -51,7 +51,6 @@ import java.util.List;
 public class PersonController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PersonController.class);
-
     private final PersonService personService;
 
     public PersonController(final PersonService personService) {

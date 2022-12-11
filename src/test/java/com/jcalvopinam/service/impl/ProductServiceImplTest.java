@@ -42,6 +42,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 import java.util.Optional;
 
+import static com.jcalvopinam.utils.DummyProduct.getOptionalProduct;
+import static com.jcalvopinam.utils.DummyProduct.getProduct;
+import static com.jcalvopinam.utils.DummyProduct.getProductDTO;
+import static com.jcalvopinam.utils.DummyProduct.getProducts;
+
 /**
  * @author Juan Calvopina <juan.calvopina@gmail.com>
  */

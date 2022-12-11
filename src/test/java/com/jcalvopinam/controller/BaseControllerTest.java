@@ -27,18 +27,10 @@ package com.jcalvopinam.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jcalvopinam.domain.Product;
-import com.jcalvopinam.dto.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * @author Juan Calvopina <juan.calvopina@gmail.com>
@@ -52,35 +44,6 @@ public abstract class BaseControllerTest {
 
     @Autowired
     ObjectMapper objectMapper;
-
-    protected Optional<Product> getOptionalProduct() {
-        return this.getProducts()
-                   .stream()
-                   .findFirst();
-    }
-
-    protected Product getProduct() {
-        final Optional<Product> product = this.getOptionalProduct();
-        return product.orElseGet(Product::new);
-    }
-
-    protected List<Product> getProducts() {
-        return IntStream.range(1, 6)
-                        .mapToObj(i -> Product.builder()
-                                              .productId((long) i)
-                                              .name("NAME " + i)
-                                              .description("DESCRIPTION " + i)
-                                              .quantityPerUnit(1)
-                                              .unitPrice(9.99 - i)
-                                              .build())
-                        .collect(Collectors.toCollection(() -> new ArrayList<>(5)));
-    }
-
-    protected ProductDTO getProductDTO() {
-        final Product product = getProducts().get(0);
-        return new ProductDTO(product.getProductId(), product.getName(), product.getDescription(),
-                              product.getQuantityPerUnit(), product.getUnitPrice());
-    }
 
     protected String asJsonString(final Object obj) throws JsonProcessingException {
         return objectMapper.writeValueAsString(obj);

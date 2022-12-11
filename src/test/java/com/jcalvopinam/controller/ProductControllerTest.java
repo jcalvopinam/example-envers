@@ -33,13 +33,16 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static com.jcalvopinam.utils.DummyProduct.getProduct;
+import static com.jcalvopinam.utils.DummyProduct.getProductDTO;
+
 /**
  * @author Juan Calvopina <juan.calvopina@gmail.com>
  */
 class ProductControllerTest extends BaseControllerTest {
 
-    public static final String BASE_URL = "/products";
-    public static final String PRODUCT_ID = "/1";
+    private static final String BASE_URL = "/products";
+    private static final String PRODUCT_ID = "/1";
 
     @Test
     void findAllProducts() throws Exception {
@@ -100,7 +103,7 @@ class ProductControllerTest extends BaseControllerTest {
         final MockHttpServletResponse product = createProduct();
         MockHttpServletResponse response =
                 mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL.concat(PRODUCT_ID))
-                                                      .content(asJsonString(getProduct()))
+                                                      .content(asJsonString(getProductDTO()))
                                                       .contentType(MediaType.APPLICATION_JSON))
                        .andExpect(MockMvcResultMatchers.content()
                                                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -124,7 +127,7 @@ class ProductControllerTest extends BaseControllerTest {
 
     private MockHttpServletResponse createProduct() throws Exception {
         return mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
-                                                     .content(asJsonString(getProduct()))
+                                                     .content(asJsonString(getProductDTO()))
                                                      .contentType(MediaType.APPLICATION_JSON))
                       .andExpect(MockMvcResultMatchers.content()
                                                       .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

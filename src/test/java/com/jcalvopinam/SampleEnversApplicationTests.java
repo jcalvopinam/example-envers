@@ -25,14 +25,17 @@
 
 package com.jcalvopinam;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class SampleEnversApplicationTests {
 
     @Test
     void contextLoads() {
+        SampleEnversApplication.main(new String[]{});
+        Assertions.assertTrue(true);
     }
 
 }

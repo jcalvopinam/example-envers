@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2022 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,9 +23,6 @@
  *
  */
 
-/**
- * List of methods signature
- */
 package com.jcalvopinam.service;
 
 import com.jcalvopinam.domain.Order;
@@ -34,51 +31,54 @@ import com.jcalvopinam.dto.OrderDTO;
 import java.util.List;
 
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author Juan Calvopina <juan.calvopina@gmail.com>
  */
 public interface OrderService {
 
     /**
-     * Retrieves all orders from database
+     * Retrieves all orders from database.
      *
-     * @return
+     * @return List of Order.
      */
     List<Order> findAll();
 
     /**
-     * Finds the order by id or customer, employee, date or orderStatus
+     * Finds the order by id or customer, employee, date or orderStatus.
      *
-     * @param id
-     * @param customer
-     * @param employee
-     * @param date
-     * @param orderStatus
-     * @return
+     * @param id          receives an id value.
+     * @param customer    receives a customer value.
+     * @param employee    receives a employee value
+     * @param date        receives a date value.
+     * @param orderStatus receives an orderStatus value.
+     *
+     * @return List of Order.
      */
     List<Order> findByText(String id, String customer, String employee, String date, String orderStatus);
 
     /**
-     * Adds a new order to the database
+     * Adds a new order to the database.
      *
-     * @param orderDTO
-     * @return
+     * @param orderDTO receives an OrderDTO object.
+     *
+     * @return Order object.
      */
-    String save(OrderDTO orderDTO);
+    Order save(OrderDTO orderDTO);
 
     /**
-     * Updates a order to the database
+     * Updates an order to the database.
      *
-     * @param orderDTO
-     * @return
+     * @param id       receives an Id.
+     * @param orderDTO receives an OrderDTO object.
+     *
+     * @return Order object.
      */
-    String update(OrderDTO orderDTO);
+    Order update(Long id, OrderDTO orderDTO);
 
     /**
-     * Deletes a order by Id from database
+     * Deletes an order by Id from database.
      *
-     * @param id
-     * @return
+     * @param id receives an id.
      */
-    String deleteById(int id);
+    void deleteById(Long id);
 
 }

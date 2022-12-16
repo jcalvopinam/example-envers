@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2022 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,6 +28,7 @@ package com.jcalvopinam.service.impl;
 import com.jcalvopinam.domain.Order;
 import com.jcalvopinam.domain.Person;
 import com.jcalvopinam.dto.OrderDTO;
+import com.jcalvopinam.exception.NotFoundException;
 import com.jcalvopinam.repository.OrderRepository;
 import com.jcalvopinam.repository.PersonRepository;
 import com.jcalvopinam.service.OrderService;
@@ -35,87 +36,124 @@ import com.jcalvopinam.utils.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author Juan Calvopina <juan.calvopina@gmail.com>
  */
 @Service
-@Transactional
 public class OrderServiceImpl implements OrderService {
 
-    private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderServiceImpl.class);
 
-    private final OrderRepository orderRepository;
-    private final PersonRepository personRepository;
+    private OrderRepository orderRepository;
+    private PersonRepository personRepository;
 
-    private String response;
-
-    public OrderServiceImpl(OrderRepository orderRepository, PersonRepository personRepository) {
+    public OrderServiceImpl(final OrderRepository orderRepository, final PersonRepository personRepository) {
         this.orderRepository = orderRepository;
         this.personRepository = personRepository;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Order> findAll() {
-        return orderRepository.findAll();
+        return (List<Order>) orderRepository.findAll();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<Order> findByText(String id, String customer, String employee, String date, String orderStatus) {
-        Integer orderId = Utilities.isInteger(id);
-        Integer customerId = Utilities.isInteger(customer);
-        Integer employeeId = Utilities.isInteger(employee);
-        Date valueDate = Utilities.matchDate(date);
+    public List<Order> findByText(final String id, final String customer, final String employee, final String date,
+                                  final String orderStatus) {
+        final Long orderId = Utilities.isNumber(id);
+        final Long customerId = Utilities.isNumber(customer);
+        final Long employeeId = Utilities.isNumber(employee);
+        final int orderStatusId = Utilities.isNumber(orderStatus)
+                                           .intValue();
+        final Date valueDate = Utilities.matchDate(date);
 
         return (customerId == 0 || employeeId == 0)
                ? orderRepository
                        .findByOrderIdOrCustomer_FirstNameOrCustomer_LastNameOrEmployee_FirstNameOrEmployee_LastNameOrSaleDateOrOrderStatus(
-                               orderId, customer, customer, employee, employee, valueDate, orderId)
+                               orderId, customer, customer, employee, employee, valueDate, orderStatusId)
                : orderRepository
                        .findByOrderIdOrCustomer_IdOrEmployee_IdOrSaleDateOrOrderStatus(orderId, customerId, employeeId,
-                                                                                       valueDate, orderId);
+                                                                                       valueDate, orderStatusId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String save(OrderDTO orderDTO) {
-        response = "Order saved!";
-        Person customer = personRepository.findOne(orderDTO.getCustomer());
-        Person employee = personRepository.findOne(orderDTO.getEmployee());
-        orderRepository.save(new Order(orderDTO, customer, employee));
-        logger.info(response);
-        return response;
+    public Order save(final OrderDTO orderDTO) {
+        // TODO: Validate.notNull(orderDTO, "The order cannot be null");
+        final Person customer = findPerson(orderDTO.getCustomer(), "Customer not found");
+        final Person employee = findPerson(orderDTO.getEmployee(), "Employee not found");
+        final Order order = create(orderDTO, customer, employee);
+        return orderRepository.save(Objects.requireNonNull(order));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String update(OrderDTO orderDTO) {
-        response = "Person updated!";
-        Order order = orderRepository.findOne(orderDTO.getId());
-        Person employee = personRepository.findOne(orderDTO.getEmployee());
-        Person customer = personRepository.findOne(orderDTO.getCustomer());
-        order = this.updateOrder(order, orderDTO, employee, customer);
-        orderRepository.save(order);
-        logger.info(response);
-        return response;
+    public Order update(final Long id, final OrderDTO orderDTO) {
+        // TODO: Validate.notNull(orderDTO, "The order cannot be null");
+        final Person employee = findPerson(orderDTO.getEmployee(), "Employee not found");
+        final Person customer = findPerson(orderDTO.getCustomer(), "Customer not found");
+        final Order order = findById(id);
+        updateOrder(order, orderDTO, employee, customer);
+        return orderRepository.save(order);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String deleteById(int id) {
-        response = "Order deleted!";
-        orderRepository.delete(id);
-        logger.info(response);
-        return response;
+    public void deleteById(final Long id) {
+        final Order order = findById(id);
+        orderRepository.delete(order);
+        LOGGER.info("Order deleted!");
     }
 
-    private Order updateOrder(Order order, OrderDTO orderDTO, Person employee, Person customer) {
+    private Order findById(final Long id) {
+        return orderRepository.findById(id)
+                              .orElseThrow(() -> {
+                                  final String message = "Order not found!";
+                                  LOGGER.error(message);
+                                  return new NotFoundException(message);
+                              });
+    }
+
+    private void updateOrder(final Order order, final OrderDTO orderDTO, final Person employee,
+                             final Person customer) {
         order.setCustomer(customer);
         order.setEmployee(employee);
         order.setOrderStatus(orderDTO.getOrderStatus());
         order.setSaleDate(Utilities.matchDate(orderDTO.getSaleDate()));
-        return order;
+    }
+
+    public Order create(final OrderDTO orderDTO, final Person customer, final Person employee) {
+        return Order.builder()
+                    .customer(customer)
+                    .employee(employee)
+                    .saleDate(Utilities.matchDate(orderDTO.getSaleDate()))
+                    .orderStatus(orderDTO.getOrderStatus())
+                    .build();
+    }
+
+    private Person findPerson(final Long person, final String message) {
+        return personRepository.findById(person)
+                               .orElseThrow(() -> {
+                                   LOGGER.error(message);
+                                   return new NotFoundException(message);
+                               });
     }
 
 }

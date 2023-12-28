@@ -31,7 +31,7 @@ import com.jcalvopinam.dto.PersonDTO;
 import java.util.List;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 public interface PersonService {
 

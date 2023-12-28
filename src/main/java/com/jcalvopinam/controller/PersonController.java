@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 JUAN CALVOPINA M
+ * Copyright (c) 2023 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,6 +28,7 @@ package com.jcalvopinam.controller;
 import com.jcalvopinam.domain.Person;
 import com.jcalvopinam.dto.PersonDTO;
 import com.jcalvopinam.service.PersonService;
+import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -44,7 +45,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 @RestController
 @RequestMapping(value = "/person")
@@ -71,15 +72,15 @@ public class PersonController {
 
     @PostMapping
     public ResponseEntity<Person> savePerson(@RequestBody final PersonDTO personDTO) {
-        //TODO: Validate.notNull(personDTO, "The person cannot be null");
-        LOGGER.info("Saving person {}", personDTO.toString());
+        Validate.notNull(personDTO, "The person cannot be null");
+        LOGGER.info("Saving person {}", personDTO);
         return new ResponseEntity<>(personService.save(personDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Person> updatePerson(@RequestBody final PersonDTO personDTO, @PathVariable final Long id) {
-        //TODO: Validate.notNull(personDTO, "The person cannot be null");
-        LOGGER.info("Updating person {}", personDTO.toString());
+        Validate.notNull(personDTO, "The person cannot be null");
+        LOGGER.info("Updating person {}", personDTO);
         return new ResponseEntity<>(personService.update(personDTO, id), HttpStatus.OK);
     }
 

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 JUAN CALVOPINA M
+ * Copyright (c) 2023 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -41,7 +41,7 @@ import lombok.ToString;
 import org.hibernate.envers.Audited;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 @Entity
 @Audited
@@ -53,7 +53,6 @@ import org.hibernate.envers.Audited;
 @Setter
 @ToString
 public class Person {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "person_id")
@@ -64,10 +63,5 @@ public class Person {
 
     @Column(name = "last_name", nullable = false)
     private String lastName;
-
-    public Person(PersonDTO personDTO) {
-        this.firstName = personDTO.getName();
-        this.lastName = personDTO.getLastName();
-    }
 
 }

@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 public final class DummyPerson {
 
@@ -47,7 +47,7 @@ public final class DummyPerson {
 
     public static Person getPerson() {
         final Optional<Person> person = getOptionalPerson();
-        return person.isPresent() ? person.get() : new Person();
+        return person.orElseGet(Person::new);
     }
 
     public static List<Person> getPeople() {

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 JUAN CALVOPINA M
+ * Copyright (c) 2023 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,13 +25,14 @@
 
 package com.jcalvopinam.service.impl;
 
+import com.jcalvopinam.converter.PersonConverter;
 import com.jcalvopinam.domain.Person;
 import com.jcalvopinam.dto.PersonDTO;
 import com.jcalvopinam.exception.AlreadyExistsException;
 import com.jcalvopinam.exception.NotFoundException;
 import com.jcalvopinam.repository.PersonRepository;
 import com.jcalvopinam.service.PersonService;
-import com.jcalvopinam.utils.Utilities;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 @Service
 @Transactional
@@ -49,9 +50,11 @@ public class PersonServiceImpl implements PersonService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PersonServiceImpl.class);
 
     private final PersonRepository personRepository;
+    private final PersonConverter personConverter;
 
-    public PersonServiceImpl(final PersonRepository personRepository) {
+    public PersonServiceImpl(final PersonRepository personRepository, PersonConverter personConverter) {
         this.personRepository = personRepository;
+        this.personConverter = personConverter;
     }
 
     /**
@@ -59,8 +62,7 @@ public class PersonServiceImpl implements PersonService {
      */
     @Override
     public List<Person> findAll() {
-        // TODO: fix findAll anti-pattern
-        LOGGER.info("Getting the people");
+        LOGGER.info("Getting all people");
         return (List<Person>) personRepository.findAll();
     }
 
@@ -70,7 +72,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person findByText(final String id, final String name, final String lastName) {
         LOGGER.info("Finding by {} or {} or {}", id, name, lastName);
-        final Long personId = Utilities.isNumber(id);
+        final Long personId = NumberUtils.createLong(id);
         return personRepository.findByIdOrFirstNameOrLastName(personId, name, lastName);
     }
 
@@ -81,7 +83,7 @@ public class PersonServiceImpl implements PersonService {
     public Person findById(final Long id) {
         LOGGER.info("Finding by {}", id);
         return personRepository.findById(id)
-                               .orElseThrow(() -> new NotFoundException(String.format("The Person %s not found", id)));
+                .orElseThrow(() -> new NotFoundException(String.format("The Person %s not found", id)));
     }
 
     /**
@@ -96,8 +98,8 @@ public class PersonServiceImpl implements PersonService {
             throw new AlreadyExistsException(message);
         }
         LOGGER.info("Saving new person {} {}", personDTO.getName(), personDTO.getLastName());
-        final Person entity = new Person(personDTO);
-        return personRepository.save(entity);
+        final Person person = personConverter.fromDTOtoPerson(personDTO);
+        return personRepository.save(person);
     }
 
     /**
@@ -106,7 +108,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person update(final PersonDTO personDTO, final Long id) {
         final Person personFound = this.findById(id);
-        Person person = this.updatePerson(personFound, personDTO);
+        final Person person = personConverter.fromDTOtoPerson(personDTO, personFound);
         LOGGER.info("Updating the person {}", personDTO.getName());
         return personRepository.save(person);
     }
@@ -119,21 +121,6 @@ public class PersonServiceImpl implements PersonService {
         final Person person = this.findById(id);
         LOGGER.info("Deleting the person {}", person.getId());
         personRepository.deleteById(person.getId());
-    }
-
-    /**
-     * Mapping the name and lastName from DTO object to the Pojo.
-     *
-     * @param person    receives the person object.
-     * @param personDTO receives the personDTO object.
-     *
-     * @return the Person object.
-     */
-    private Person updatePerson(final Person person, final PersonDTO personDTO) {
-        LOGGER.info("Mapping the person {}", personDTO.getId());
-        person.setFirstName(personDTO.getName());
-        person.setLastName(personDTO.getLastName());
-        return person;
     }
 
 }

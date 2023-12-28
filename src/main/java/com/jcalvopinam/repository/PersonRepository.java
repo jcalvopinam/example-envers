@@ -29,7 +29,7 @@ import com.jcalvopinam.domain.Person;
 import org.springframework.data.repository.CrudRepository;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 public interface PersonRepository extends CrudRepository<Person, Long> {
 

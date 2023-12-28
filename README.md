@@ -1,8 +1,16 @@
-Example JPA Envers
----
+# Example JPA Envers
+
 In this example you can see how to use Envers for Auditing your tables.
 
-This is a Spring Boot Application and it is configured with mysql database.
+## Requirements:
+- Java `11.x` e.g.: `sdk install java 17.0.9-amznsdk install java 17.0.9-amzn`
+- Gradle `8.x` e.g. `sdk install gradle 8.5` or you can use the embedded wrapper `gradlew`
+- Docker `24.x`
+- MySQL `8.2.x`. Check the [Docker section](#Docker)
+- Postman (or any rest client)
+
+## Description:
+This is a Spring Boot Application 3.2.1, and it is configured with mysql database.
 
 There are the following entities:
 
@@ -14,28 +22,40 @@ There are the following entities:
 
 For each table (entity) the framework will create the auditory tables.
 
-How to run?
----
+## Docker
+### Download database
+```bash
+docker run --name mysql-db -p 3306:3306 -e MYSQL_ROOT_PASSWORD=jcalvopinam -d mysql:8.2.0
+```
 
+### Start container
+```bash
+docker start mysql-db
+```
+
+### Stop container
+```bash
+docker stop mysql-db
+```
+
+## How to run?
 1. Since the current version, it is not necessary create manually the schema,
    when the application startup, it will create the schema and the entities.
    Anyway you can find the script in `src/main/resources/scripts/database.sql` as well as the script with the DDL of
    tables `tables.sql`
 
 2. Compile the project with the following command:
+   ```bash
+   ./gradlew clean build
    ```
-   mvn clean install
-   ```
-3. You can run the application inside of your ide from `com.jcalvopinam.ExampleEnversApplication.java` or
+3. You can run the application inside your ide from `com.jcalvopinam.ExampleEnversApplication.java` or
    from terminal with the following command:
-    ```
-    mvn spring-boot:run
+    ```bash
+    ./gradlew bootRun
     ```
 
-Rest endpoints
----
+## Rest endpoints
 I used the postman as a client to test the endpoints, you can import the collection, the file is in:
-
 ```
 /resources/endpoints/collection[postmanv2.1].json
 ```

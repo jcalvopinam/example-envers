@@ -33,7 +33,7 @@ import java.util.Optional;
 import java.util.Random;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 
 public final class Utilities {
@@ -45,26 +45,6 @@ public final class Utilities {
     private static final String DATE_MATCH_FORMAT = "\\d{4}-\\d{2}-\\d{2}";
 
     private Utilities() {
-    }
-
-    /**
-     * If the input parameter is integer, then converts the String input to Integer output else return null.
-     *
-     * @param input receives the input value.
-     *
-     * @return the value.
-     */
-    public static Long isNumber(String input) {
-        long output = 0L;
-        if (Optional.ofNullable(input)
-                    .isPresent()) {
-            try {
-                output = Long.parseLong(input);
-            } catch (NumberFormatException nfe) {
-                // TODO: fix it
-            }
-        }
-        return output;
     }
 
     /**

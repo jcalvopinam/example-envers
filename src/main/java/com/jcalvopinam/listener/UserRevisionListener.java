@@ -30,7 +30,7 @@ import com.jcalvopinam.utils.Utilities;
 import org.hibernate.envers.RevisionListener;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 public class UserRevisionListener implements RevisionListener {
 

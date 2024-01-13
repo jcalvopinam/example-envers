@@ -25,7 +25,6 @@
 
 package com.jcalvopinam.domain;
 
-import com.jcalvopinam.dto.PersonDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -35,7 +35,7 @@ import org.hibernate.envers.DefaultRevisionEntity;
 import org.hibernate.envers.RevisionEntity;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 @Entity
 @RevisionEntity(UserRevisionListener.class)

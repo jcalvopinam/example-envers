@@ -29,7 +29,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Optional;
 import java.util.Random;
 
 /**
@@ -56,7 +55,7 @@ public final class Utilities {
      *
      * @throws ParseException throws the exception if the String can't be parsed.
      */
-    public static Date matchDate(String date) {
+    public static Date matchDate(final String date) {
         try {
             if (hasFormat(date)) {
                 final DateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
@@ -75,7 +74,7 @@ public final class Utilities {
      *
      * @return a boolean type.
      */
-    private static boolean hasFormat(String date) {
+    private static boolean hasFormat(final String date) {
         return date.matches(DATE_MATCH_FORMAT);
     }
 

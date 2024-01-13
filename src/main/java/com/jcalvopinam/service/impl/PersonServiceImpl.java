@@ -72,8 +72,13 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person findByText(final String id, final String name, final String lastName) {
         LOGGER.info("Finding by {} or {} or {}", id, name, lastName);
-        final Long personId = NumberUtils.createLong(id);
-        return personRepository.findByIdOrFirstNameOrLastName(personId, name, lastName);
+        Long personId = 0L;
+        if (NumberUtils.isCreatable(id)) {
+            personId = NumberUtils.createLong(id);
+        }
+        return personRepository.findByIdOrFirstNameContainsIgnoreCaseOrLastNameContainsIgnoreCase(personId, name,
+                                                                                                  lastName)
+                               .orElseThrow(() -> new NotFoundException(String.format("The Person %s not found", id)));
     }
 
     /**
@@ -83,7 +88,7 @@ public class PersonServiceImpl implements PersonService {
     public Person findById(final Long id) {
         LOGGER.info("Finding by {}", id);
         return personRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(String.format("The Person %s not found", id)));
+                               .orElseThrow(() -> new NotFoundException(String.format("The Person %s not found", id)));
     }
 
     /**

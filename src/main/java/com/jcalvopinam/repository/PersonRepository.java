@@ -28,6 +28,8 @@ package com.jcalvopinam.repository;
 import com.jcalvopinam.domain.Person;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Optional;
+
 /**
  * @author Juan Calvopina
  */
@@ -42,6 +44,7 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
      *
      * @return the Person object.
      */
-    Person findByIdOrFirstNameOrLastName(Long id, String name, String lastName);
+    Optional<Person> findByIdOrFirstNameContainsIgnoreCaseOrLastNameContainsIgnoreCase(Long id, String name,
+                                                                                       String lastName);
 
 }

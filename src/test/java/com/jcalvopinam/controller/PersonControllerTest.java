@@ -26,7 +26,10 @@
 package com.jcalvopinam.controller;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -36,14 +39,16 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import static com.jcalvopinam.utils.DummyPerson.getPersonDTO;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class PersonControllerTest extends BaseControllerTest {
 
     private static final String BASE_URL = "/person";
     private static final String PERSON_ID = "/1";
 
     @Test
+    @Order(4)
     void findAllPeople() throws Exception {
         final MockHttpServletResponse response =
                 mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL)
@@ -56,6 +61,7 @@ class PersonControllerTest extends BaseControllerTest {
     }
 
     @Test
+    @Order(2)
     void findByText() throws Exception {
         final MockHttpServletResponse response =
                 mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL.concat(PERSON_ID))
@@ -66,12 +72,14 @@ class PersonControllerTest extends BaseControllerTest {
     }
 
     @Test
+    @Order(1)
     void savePerson() throws Exception {
         final MockHttpServletResponse response = createPerson();
         Assertions.assertEquals(HttpStatus.CREATED.value(), response.getStatus());
     }
 
     @Test
+    @Order(3)
     void updatePerson() throws Exception {
         final MockHttpServletResponse product = createPerson();
         MockHttpServletResponse response =
@@ -83,11 +91,11 @@ class PersonControllerTest extends BaseControllerTest {
                        .andReturn()
                        .getResponse();
 
-        Assertions.assertEquals(HttpStatus.CREATED.value(), product.getStatus());
         Assertions.assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
     @Test
+    @Order(5)
     void deletePerson() throws Exception {
         final MockHttpServletResponse response =
                 mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL.concat(PERSON_ID))

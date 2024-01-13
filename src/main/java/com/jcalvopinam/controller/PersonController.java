@@ -58,9 +58,9 @@ public class PersonController {
         this.personService = personService;
     }
 
-    @GetMapping
+    @GetMapping({"", "/"})
     public ResponseEntity<List<Person>> findAllPeople() {
-        LOGGER.info("Finds all people");
+        LOGGER.info("Finding all people");
         return new ResponseEntity<>(personService.findAll(), HttpStatus.OK);
     }
 
@@ -70,7 +70,7 @@ public class PersonController {
         return new ResponseEntity<>(personService.findByText(text, text, text), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping({"", "/"})
     public ResponseEntity<Person> savePerson(@RequestBody final PersonDTO personDTO) {
         Validate.notNull(personDTO, "The person cannot be null");
         LOGGER.info("Saving person {}", personDTO);

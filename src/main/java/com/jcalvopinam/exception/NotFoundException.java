@@ -26,7 +26,7 @@
 package com.jcalvopinam.exception;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 public class NotFoundException extends RuntimeException {
 

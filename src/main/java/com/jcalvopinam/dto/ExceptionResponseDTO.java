@@ -29,7 +29,7 @@ import lombok.Builder;
 import lombok.Data;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 @Data
 @Builder

@@ -26,6 +26,7 @@
 package com.jcalvopinam.service.impl;
 
 import com.jcalvopinam.controller.BaseControllerTest;
+import com.jcalvopinam.converter.PersonConverter;
 import com.jcalvopinam.domain.Person;
 import com.jcalvopinam.dto.PersonDTO;
 import com.jcalvopinam.exception.AlreadyExistsException;
@@ -48,13 +49,16 @@ import static com.jcalvopinam.utils.DummyPerson.getPerson;
 import static com.jcalvopinam.utils.DummyPerson.getPersonDTO;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 @ExtendWith(SpringExtension.class)
 class PersonServiceImplTest extends BaseControllerTest {
 
     @Mock
     private PersonRepository personRepository;
+
+    @Mock
+    private PersonConverter personConverter;
 
     @InjectMocks
     private PersonServiceImpl personService;
@@ -70,24 +74,26 @@ class PersonServiceImplTest extends BaseControllerTest {
 
     @Test
     void findByText_id() {
-        Mockito.when(personRepository.findByIdOrFirstNameOrLastName(1L, null, null))
-               .thenReturn(getPerson());
+        Mockito.when(personRepository.findByIdOrFirstNameContainsIgnoreCaseOrLastNameContainsIgnoreCase(1L, null, null))
+               .thenReturn(getOptionalPerson());
         final Person byText = this.personService.findByText("1", null, null);
         Assertions.assertNotNull(byText.getId(), "The id is null");
     }
 
     @Test
     void findByText_name() {
-        Mockito.when(personRepository.findByIdOrFirstNameOrLastName(1L, "Something", null))
-               .thenReturn(getPerson());
+        Mockito.when(personRepository.findByIdOrFirstNameContainsIgnoreCaseOrLastNameContainsIgnoreCase(1L, "Something",
+                                                                                                        null))
+               .thenReturn(getOptionalPerson());
         final Person byText = this.personService.findByText("1", "Something", null);
         Assertions.assertNotNull(byText.getFirstName(), "The name is null");
     }
 
     @Test
     void findByText_lastName() {
-        Mockito.when(personRepository.findByIdOrFirstNameOrLastName(1L, null, "Something"))
-               .thenReturn(getPerson());
+        Mockito.when(personRepository.findByIdOrFirstNameContainsIgnoreCaseOrLastNameContainsIgnoreCase(1L, null,
+                                                                                                        "Something"))
+               .thenReturn(getOptionalPerson());
         final Person byText = this.personService.findByText("1", null, "Something");
         Assertions.assertNotNull(byText.getLastName(), "The lastName is null");
     }
@@ -117,7 +123,9 @@ class PersonServiceImplTest extends BaseControllerTest {
         Mockito.when(personRepository.findById(personDTO.getId()))
                .thenReturn(Optional.empty());
 
-        final Person person = new Person(personDTO);
+        Person person = getPerson();
+        Mockito.when(personConverter.fromDTOtoPerson(getPersonDTO()))
+               .thenReturn(person);
 
         Mockito.when(personRepository.save(Mockito.any()))
                .thenReturn(person);

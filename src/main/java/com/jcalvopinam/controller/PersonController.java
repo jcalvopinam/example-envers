@@ -33,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -71,7 +72,7 @@ public class PersonController {
     }
 
     @PostMapping({"", "/"})
-    public ResponseEntity<Person> savePerson(@RequestBody final PersonDTO personDTO) {
+    public ResponseEntity<Person> savePerson(@Validated @RequestBody final PersonDTO personDTO) {
         Validate.notNull(personDTO, "The person cannot be null");
         LOGGER.info("Saving person {}", personDTO);
         return new ResponseEntity<>(personService.save(personDTO), HttpStatus.CREATED);

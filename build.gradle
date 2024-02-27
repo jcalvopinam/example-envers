@@ -29,7 +29,8 @@ dependencies {
     implementation 'org.hibernate:hibernate-envers:6.2.4.Final'
     implementation 'org.apache.commons:commons-lang3'
     implementation 'org.modelmapper:modelmapper:3.2.0'
-
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+    implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
 
     compileOnly 'org.projectlombok:lombok'
 

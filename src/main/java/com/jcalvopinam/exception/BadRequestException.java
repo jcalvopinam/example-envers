@@ -23,31 +23,20 @@
  *
  */
 
-package com.jcalvopinam.dto;
-
-import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+package com.jcalvopinam.exception;
 
 /**
  * @author Juan Calvopina
  */
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@ToString
-public class PersonDTO {
+public class BadRequestException extends RuntimeException {
 
-    private Long id = 0L;
-
-    @NotBlank(message = "The name cannot be blank, empty or null")
-    private String name;
-
-    @NotBlank(message = "The lastName cannot be blank, empty or null")
-    private String lastName;
+    /**
+     * Custom exception for BadRequestException.
+     *
+     * @param message receive a message String.
+     */
+    public BadRequestException(final String message) {
+        super(message);
+    }
 
 }

@@ -26,7 +26,10 @@
 package com.jcalvopinam.controller;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -39,12 +42,14 @@ import static com.jcalvopinam.utils.DummyProduct.getProductDTO;
 /**
  * @author Juan Calvopina <juan.calvopina@gmail.com>
  */
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ProductControllerTest extends BaseControllerTest {
 
     private static final String BASE_URL = "/products";
     private static final String PRODUCT_ID = "/1";
 
     @Test
+    @Order(3)
     void findAllProducts() throws Exception {
 
         final MockHttpServletResponse response =
@@ -59,6 +64,7 @@ class ProductControllerTest extends BaseControllerTest {
     }
 
     @Test
+    @Order(4)
     void findByText() throws Exception {
         final MockHttpServletResponse response =
                 mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL.concat(PRODUCT_ID))
@@ -72,12 +78,14 @@ class ProductControllerTest extends BaseControllerTest {
     }
 
     @Test
+    @Order(2)
     void saveProduct() throws Exception {
         final MockHttpServletResponse response = createProduct();
         Assertions.assertEquals(HttpStatus.CREATED.value(), response.getStatus());
     }
 
     @Test
+    @Order(6)
     void saveProduct_conflicted() throws Exception {
         createProduct();
         final MockHttpServletResponse responseConflicted = createProduct();
@@ -85,6 +93,7 @@ class ProductControllerTest extends BaseControllerTest {
     }
 
     @Test
+    @Order(1)
     void updateProduct_notFound() throws Exception {
         final MockHttpServletResponse response =
                 mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL.concat(PRODUCT_ID))
@@ -99,8 +108,8 @@ class ProductControllerTest extends BaseControllerTest {
     }
 
     @Test
+    @Order(5)
     void updateProduct() throws Exception {
-        final MockHttpServletResponse product = createProduct();
         MockHttpServletResponse response =
                 mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL.concat(PRODUCT_ID))
                                                       .content(asJsonString(getProductDTO()))
@@ -110,11 +119,11 @@ class ProductControllerTest extends BaseControllerTest {
                        .andReturn()
                        .getResponse();
 
-        Assertions.assertEquals(HttpStatus.CREATED.value(), product.getStatus());
         Assertions.assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
     @Test
+    @Order(7)
     void deleteProduct() throws Exception {
         final MockHttpServletResponse response =
                 mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL.concat(PRODUCT_ID))

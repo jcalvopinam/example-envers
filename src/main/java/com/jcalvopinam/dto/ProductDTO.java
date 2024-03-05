@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 JUAN CALVOPINA M
+ * Copyright (c) 2024 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,7 @@
 
 package com.jcalvopinam.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,10 +42,17 @@ import lombok.ToString;
 @ToString
 public class ProductDTO {
 
-    private Long productId;
+    private Long productId = 0L;
+
+    @NotNull(message = "The name cannot be blank, empty or null")
     private String name;
+
     private String description;
+
+    @NotNull(message = "The quantityPerUnit cannot be blank, empty or null")
     private int quantityPerUnit;
+
+    @NotNull(message = "The unitPrice cannot be blank, empty or null")
     private double unitPrice;
 
 }

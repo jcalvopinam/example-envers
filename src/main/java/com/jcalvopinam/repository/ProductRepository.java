@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 JUAN CALVOPINA M
+ * Copyright (c) 2024 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,6 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
      *
      * @return a Product object.
      */
-    List<Product> findByProductIdOrName(Long id, String name);
+    List<Product> findByProductIdOrNameContainingIgnoreCase(Long id, String name);
 
 }

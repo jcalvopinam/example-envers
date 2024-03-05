@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 JUAN CALVOPINA M
+ * Copyright (c) 2024 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,7 @@ import com.jcalvopinam.exception.AlreadyExistsException;
 import com.jcalvopinam.exception.NotFoundException;
 import com.jcalvopinam.repository.ProductRepository;
 import com.jcalvopinam.service.ProductService;
-import com.jcalvopinam.utils.Utilities;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -70,8 +70,15 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findByText(final String id, final String name) {
         LOGGER.info("Finding by {} or {}", id, name);
-        final Long productId = Utilities.isNumber(id);
-        return productRepository.findByProductIdOrName(productId, name);
+        Long productId = 0L;
+        if (NumberUtils.isCreatable(id)) {
+            productId = NumberUtils.createLong(id);
+        }
+        final List<Product> byProductIdOrName = productRepository.findByProductIdOrNameContainingIgnoreCase(productId, name);
+        if (byProductIdOrName.isEmpty()) {
+            throw new NotFoundException(String.format("The Product %s not found", id));
+        }
+        return byProductIdOrName;
     }
 
     /**

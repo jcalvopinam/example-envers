@@ -69,7 +69,7 @@ class ProductServiceImplTest extends BaseControllerTest {
 
     @Test
     void findByText_id() {
-        Mockito.when(productRepository.findByProductIdOrName(1L, null))
+        Mockito.when(productRepository.findByProductIdOrNameContainingIgnoreCase(1L, null))
                .thenReturn(getProducts());
         final List<Product> byText = this.productService.findByText("1", null);
         Assertions.assertNotNull(byText.get(0)
@@ -78,7 +78,7 @@ class ProductServiceImplTest extends BaseControllerTest {
 
     @Test
     void findByText_name() {
-        Mockito.when(productRepository.findByProductIdOrName(1L, "Something"))
+        Mockito.when(productRepository.findByProductIdOrNameContainingIgnoreCase(1L, "Something"))
                .thenReturn(getProducts());
         final List<Product> byText = this.productService.findByText("1", "Something");
         Assertions.assertNotNull(byText.get(0)

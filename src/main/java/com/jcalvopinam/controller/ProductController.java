@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 JUAN CALVOPINA M
+ * Copyright (c) 2024 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +28,12 @@ package com.jcalvopinam.controller;
 import com.jcalvopinam.domain.Product;
 import com.jcalvopinam.dto.ProductDTO;
 import com.jcalvopinam.service.ProductService;
+import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,22 +46,22 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 @RestController
 @RequestMapping(value = "/products")
 public class ProductController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
-    private ProductService productService;
+    private final ProductService productService;
 
     public ProductController(final ProductService productService) {
         this.productService = productService;
     }
 
-    @GetMapping
+    @GetMapping({"", "/"})
     public ResponseEntity<List<Product>> findAllProducts() {
-        LOGGER.info("Finds all products");
+        LOGGER.info("Finding all products");
         return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
     }
 
@@ -70,17 +72,17 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> saveProduct(@RequestBody final ProductDTO productDTO) {
-        //TODO: Validate.notNull(personDTO, "The person cannot be null");
-        LOGGER.info("Saving product {}", productDTO.toString());
+    public ResponseEntity<Product> saveProduct(@Validated @RequestBody final ProductDTO productDTO) {
+        Validate.notNull(productDTO, "The product cannot be null");
+        LOGGER.info("Saving product {}", productDTO);
         return new ResponseEntity<>(productService.save(productDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable final Long id,
                                                  @RequestBody final ProductDTO productDTO) {
-        //TODO: Validate.notNull(personDTO, "The person cannot be null");
-        LOGGER.info("Updating product {}", productDTO.toString());
+        Validate.notNull(productDTO, "The product cannot be null");
+        LOGGER.info("Updating product {}", productDTO);
         return new ResponseEntity<>(productService.update(productDTO, id), HttpStatus.OK);
     }
 

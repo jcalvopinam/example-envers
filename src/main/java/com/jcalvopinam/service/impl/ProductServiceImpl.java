@@ -40,7 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 @Service
 @Transactional
@@ -74,7 +74,8 @@ public class ProductServiceImpl implements ProductService {
         if (NumberUtils.isCreatable(id)) {
             productId = NumberUtils.createLong(id);
         }
-        final List<Product> byProductIdOrName = productRepository.findByProductIdOrNameContainingIgnoreCase(productId, name);
+        final List<Product> byProductIdOrName = productRepository.findByProductIdOrNameContainingIgnoreCase(productId,
+                                                                                                            name);
         if (byProductIdOrName.isEmpty()) {
             throw new NotFoundException(String.format("The Product %s not found", id));
         }

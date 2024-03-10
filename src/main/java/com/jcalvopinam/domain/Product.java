@@ -41,7 +41,7 @@ import lombok.ToString;
 import org.hibernate.envers.Audited;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 @Entity
 @Audited

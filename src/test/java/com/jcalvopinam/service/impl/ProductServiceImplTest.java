@@ -48,7 +48,7 @@ import static com.jcalvopinam.utils.DummyProduct.getProductDTO;
 import static com.jcalvopinam.utils.DummyProduct.getProducts;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 @ExtendWith(SpringExtension.class)
 class ProductServiceImplTest extends BaseControllerTest {

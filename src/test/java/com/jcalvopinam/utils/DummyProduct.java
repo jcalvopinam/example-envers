@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 public final class DummyProduct {
 

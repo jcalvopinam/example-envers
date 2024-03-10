@@ -33,7 +33,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 @AllArgsConstructor
 @NoArgsConstructor

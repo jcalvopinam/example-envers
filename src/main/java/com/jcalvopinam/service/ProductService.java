@@ -31,7 +31,7 @@ import com.jcalvopinam.dto.ProductDTO;
 import java.util.List;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 public interface ProductService {
 

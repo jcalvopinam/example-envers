@@ -31,7 +31,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 public interface ProductRepository extends CrudRepository<Product, Long> {
 

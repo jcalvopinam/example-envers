@@ -40,7 +40,7 @@ import static com.jcalvopinam.utils.DummyProduct.getProduct;
 import static com.jcalvopinam.utils.DummyProduct.getProductDTO;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ProductControllerTest extends BaseControllerTest {

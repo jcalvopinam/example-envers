@@ -4229,6 +4229,77 @@
 					"name": "[products]",
 					"item": [
 						{
+							"name": "Find all products",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{server}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"sample-envers",
+										"{{version}}",
+										"products",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "200 - Find all products",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products/",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"products",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 02 Mar 2024 03:31:25 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"productId\": 1,\n        \"name\": \"macbook pro\",\n        \"description\": \"MacBook Pro\",\n        \"quantityPerUnit\": 10,\n        \"unitPrice\": 25000\n    },\n    {\n        \"productId\": 2,\n        \"name\": \"hp\",\n        \"description\": \"Hewlett-Packard\",\n        \"quantityPerUnit\": 28,\n        \"unitPrice\": 12000\n    },\n    {\n        \"productId\": 3,\n        \"name\": \"Dell Technologies\",\n        \"description\": \"Computer Technology Company\",\n        \"quantityPerUnit\": 13,\n        \"unitPrice\": 8000\n    },\n    {\n        \"productId\": 4,\n        \"name\": \"macbook air\",\n        \"description\": \"MacBook Air\",\n        \"quantityPerUnit\": 13,\n        \"unitPrice\": 21000\n    }\n]"
+								}
+							]
+						},
+						{
 							"name": "Add macbook",
 							"request": {
 								"method": "POST",
@@ -4240,24 +4311,348 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"name\":\"mac\",\n  \"description\":\"MacBook Pro\",\n  \"quantityPerUnit\":10,\n  \"unitPrice\": 25000\n}"
+									"raw": "{\n    \"name\": \"mac\",\n    \"description\": \"MacBook Pro\",\n    \"quantityPerUnit\": 10,\n    \"unitPrice\": 25000\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/products/",
-									"protocol": "http",
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products",
+									"protocol": "{{protocol}}",
 									"host": [
-										"localhost"
+										"{{server}}"
 									],
-									"port": "8080",
+									"port": "{{port}}",
 									"path": [
 										"sample-envers",
-										"v2",
-										"products",
-										""
+										"{{version}}",
+										"products"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "201 - Add macbook",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\":\"mac\",\n  \"description\":\"MacBook Pro\",\n  \"quantityPerUnit\":10,\n  \"unitPrice\": 25000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"products"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 02 Mar 2024 02:52:37 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"productId\": 1,\n    \"name\": \"mac\",\n    \"description\": \"MacBook Pro\",\n    \"quantityPerUnit\": 10,\n    \"unitPrice\": 25000\n}"
+								},
+								{
+									"name": "400 - body missing",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"products"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 02 Mar 2024 02:54:44 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Required request body is missing\",\n    \"type\": \"BadRequestException\",\n    \"code\": 400\n}"
+								}
+							]
+						},
+						{
+							"name": "Add macbook air",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"macbook air\",\n    \"description\": \"MacBook Air\",\n    \"quantityPerUnit\": 13,\n    \"unitPrice\": 21000\n}"
+								},
+								"url": {
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{server}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"sample-envers",
+										"{{version}}",
+										"products"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "201 - Add macbook",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\":\"mac\",\n  \"description\":\"MacBook Pro\",\n  \"quantityPerUnit\":10,\n  \"unitPrice\": 25000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"products"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 02 Mar 2024 02:52:37 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"productId\": 1,\n    \"name\": \"mac\",\n    \"description\": \"MacBook Pro\",\n    \"quantityPerUnit\": 10,\n    \"unitPrice\": 25000\n}"
+								},
+								{
+									"name": "400 - body missing",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"products"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 02 Mar 2024 02:54:44 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Required request body is missing\",\n    \"type\": \"BadRequestException\",\n    \"code\": 400\n}"
+								},
+								{
+									"name": "201 - Add macbook Copy",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"macbook air\",\n    \"description\": \"MacBook Air\",\n    \"quantityPerUnit\": 13,\n    \"unitPrice\": 21000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"products"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 02 Mar 2024 03:24:43 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"productId\": 4,\n    \"name\": \"macbook air\",\n    \"description\": \"MacBook Air\",\n    \"quantityPerUnit\": 13,\n    \"unitPrice\": 21000\n}"
+								}
+							]
 						},
 						{
 							"name": "Add hp",
@@ -4271,24 +4666,87 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"name\":\"hp\",\n  \"description\":\"Hewlett-Packard\",\n  \"quantityPerUnit\":28,\n  \"unitPrice\": 12000\n}"
+									"raw": "{\n    \"name\": \"hp\",\n    \"description\": \"Hewlett-Packard\",\n    \"quantityPerUnit\": 28,\n    \"unitPrice\": 12000\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/products/",
-									"protocol": "http",
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products",
+									"protocol": "{{protocol}}",
 									"host": [
-										"localhost"
+										"{{server}}"
 									],
-									"port": "8080",
+									"port": "{{port}}",
 									"path": [
 										"sample-envers",
-										"v2",
-										"products",
-										""
+										"{{version}}",
+										"products"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "201 - Add hp",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\":\"hp\",\n  \"description\":\"Hewlett-Packard\",\n  \"quantityPerUnit\":28,\n  \"unitPrice\": 12000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"products"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 02 Mar 2024 02:56:51 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"productId\": 2,\n    \"name\": \"hp\",\n    \"description\": \"Hewlett-Packard\",\n    \"quantityPerUnit\": 28,\n    \"unitPrice\": 12000\n}"
+								}
+							]
 						},
 						{
 							"name": "Add dell",
@@ -4302,46 +4760,167 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"name\":\"dell\",\n  \"description\":\"Dell\",\n  \"quantityPerUnit\":3,\n  \"unitPrice\": 9000\n}"
+									"raw": "{\n    \"name\": \"dell\",\n    \"description\": \"Dell\",\n    \"quantityPerUnit\": 3,\n    \"unitPrice\": 9000\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/products/",
-									"protocol": "http",
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products",
+									"protocol": "{{protocol}}",
 									"host": [
-										"localhost"
+										"{{server}}"
 									],
-									"port": "8080",
+									"port": "{{port}}",
 									"path": [
 										"sample-envers",
-										"v2",
-										"products",
-										""
+										"{{version}}",
+										"products"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "201 - Add dell",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\":\"dell\",\n  \"description\":\"Dell\",\n  \"quantityPerUnit\":3,\n  \"unitPrice\": 9000\n}"
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"products"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 02 Mar 2024 02:57:28 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"productId\": 3,\n    \"name\": \"dell\",\n    \"description\": \"Dell\",\n    \"quantityPerUnit\": 3,\n    \"unitPrice\": 9000\n}"
+								}
+							]
 						},
 						{
-							"name": "Find all products",
+							"name": "Add lenovo",
 							"request": {
-								"method": "GET",
-								"header": [],
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"lenovo\",\n    \"description\": \"lenovo slim\",\n    \"quantityPerUnit\": 3,\n    \"unitPrice\": 1200\n}"
+								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/products/",
-									"protocol": "http",
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products",
+									"protocol": "{{protocol}}",
 									"host": [
-										"localhost"
+										"{{server}}"
 									],
-									"port": "8080",
+									"port": "{{port}}",
 									"path": [
 										"sample-envers",
-										"v2",
-										"products",
-										""
+										"{{version}}",
+										"products"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "201 - Add dell",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\":\"dell\",\n  \"description\":\"Dell\",\n  \"quantityPerUnit\":3,\n  \"unitPrice\": 9000\n}"
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"products"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 02 Mar 2024 02:57:28 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"productId\": 3,\n    \"name\": \"dell\",\n    \"description\": \"Dell\",\n    \"quantityPerUnit\": 3,\n    \"unitPrice\": 9000\n}"
+								}
+							]
 						},
 						{
 							"name": "Find product by name",
@@ -4349,21 +4928,162 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/products/mac",
-									"protocol": "http",
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products/macbook pro",
+									"protocol": "{{protocol}}",
 									"host": [
-										"localhost"
+										"{{server}}"
 									],
-									"port": "8080",
+									"port": "{{port}}",
 									"path": [
 										"sample-envers",
-										"v2",
+										"{{version}}",
 										"products",
-										"mac"
+										"macbook pro"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "500 - Find product by name",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products/mac",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"products",
+												"mac"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 02 Mar 2024 02:58:10 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"For input string: \\\"mac\\\"\",\n    \"type\": \"Exception\",\n    \"code\": 500\n}"
+								},
+								{
+									"name": "200 - Find product by name",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products/macbook pro",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"products",
+												"macbook pro"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 02 Mar 2024 03:10:02 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"productId\": 1,\n        \"name\": \"macbook pro\",\n        \"description\": \"MacBook Pro\",\n        \"quantityPerUnit\": 10,\n        \"unitPrice\": 25000\n    }\n]"
+								},
+								{
+									"name": "404 - Find product by name",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products/ipad",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"products",
+												"ipad"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 02 Mar 2024 03:14:17 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"The Product ipad not found\",\n    \"type\": \"NotFoundException\",\n    \"code\": 404\n}"
+								}
+							]
 						},
 						{
 							"name": "Update product by id",
@@ -4377,24 +5097,295 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"name\":\"Dell Technologies\",\n  \"description\":\"Computer Technology Company\",\n  \"quantityPerUnit\":13,\n  \"unitPrice\": 8000\n}"
+									"raw": "{\n    \"name\": \"macbook pro\",\n    \"description\": \"MacBook Pro\",\n    \"quantityPerUnit\": 10,\n    \"unitPrice\": 25000\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/products/3",
-									"protocol": "http",
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products/3",
+									"protocol": "{{protocol}}",
 									"host": [
-										"localhost"
+										"{{server}}"
 									],
-									"port": "8080",
+									"port": "{{port}}",
 									"path": [
 										"sample-envers",
-										"v2",
+										"{{version}}",
 										"products",
 										"3"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "200 - Update product by id",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"macbook pro\",\n    \"description\": \"MacBook Pro\",\n    \"quantityPerUnit\": 10,\n    \"unitPrice\": 25000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products/1",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"products",
+												"1"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 02 Mar 2024 03:22:40 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"productId\": 1,\n    \"name\": \"macbook pro\",\n    \"description\": \"MacBook Pro\",\n    \"quantityPerUnit\": 10,\n    \"unitPrice\": 25000\n}"
+								},
+								{
+									"name": "404 - Update product by id",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"sarasa\",\n    \"quantityPerUnit\": 10,\n    \"unitPrice\": 0\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products/100",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"products",
+												"100"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 02 Mar 2024 03:27:56 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"The Product 100 not found\",\n    \"type\": \"NotFoundException\",\n    \"code\": 404\n}"
+								},
+								{
+									"name": "400 - Bad Request",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products/100",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"products",
+												"100"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 02 Mar 2024 03:28:55 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Required request body is missing\",\n    \"type\": \"BadRequestException\",\n    \"code\": 400\n}"
+								}
+							]
+						},
+						{
+							"name": "Update product dell",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Dell Technologies\",\n    \"description\": \"Computer Technology Company\",\n    \"quantityPerUnit\": 13,\n    \"unitPrice\": 8000\n}"
+								},
+								"url": {
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products/3",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{server}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"sample-envers",
+										"{{version}}",
+										"products",
+										"3"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "200 - Update product dell",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"Dell Technologies\",\n    \"description\": \"Computer Technology Company\",\n    \"quantityPerUnit\": 13,\n    \"unitPrice\": 8000\n}"
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/products/3",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"products",
+												"3"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 02 Mar 2024 03:40:31 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"productId\": 3,\n    \"name\": \"Dell Technologies\",\n    \"description\": \"Computer Technology Company\",\n    \"quantityPerUnit\": 13,\n    \"unitPrice\": 8000\n}"
+								}
+							]
 						},
 						{
 							"name": "Delete product by id",
@@ -4406,7 +5397,7 @@
 									"formdata": []
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/products/3",
+									"raw": "http://localhost:8080/sample-envers/v2/products/5",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -4416,11 +5407,308 @@
 										"sample-envers",
 										"v2",
 										"products",
-										"3"
+										"5"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "405 - MethodNotAllowed",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "http://localhost:8080/sample-envers/v2/products/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"sample-envers",
+												"v2",
+												"products",
+												""
+											]
+										}
+									},
+									"status": "Method Not Allowed",
+									"code": 405,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 02 Mar 2024 03:55:18 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Request method 'DELETE' is not supported\",\n    \"type\": \"MethodNotAllowedException\",\n    \"code\": 405\n}"
+								},
+								{
+									"name": "404 - NotFoundException",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "http://localhost:8080/sample-envers/v2/products/900",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"sample-envers",
+												"v2",
+												"products",
+												"900"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 02 Mar 2024 03:55:53 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"The Product 900 not found\",\n    \"type\": \"NotFoundException\",\n    \"code\": 404\n}"
+								},
+								{
+									"name": "204 - Delete product by id",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "http://localhost:8080/sample-envers/v2/products/4",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"sample-envers",
+												"v2",
+												"products",
+												"4"
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Sat, 02 Mar 2024 03:56:17 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": null
+								},
+								{
+									"name": "404 - NotFound",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "http://localhost:8080/sample-envers/v2/products/99",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"sample-envers",
+												"v2",
+												"products",
+												"99"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 05 Mar 2024 03:07:25 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"The Product 99 not found\",\n    \"type\": \"NotFoundException\",\n    \"code\": 404\n}"
+								},
+								{
+									"name": "405 - MethodNotAllowed",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "http://localhost:8080/sample-envers/v2/products/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"sample-envers",
+												"v2",
+												"products",
+												""
+											]
+										}
+									},
+									"status": "Method Not Allowed",
+									"code": 405,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 05 Mar 2024 03:07:47 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Request method 'DELETE' is not supported\",\n    \"type\": \"MethodNotAllowedException\",\n    \"code\": 405\n}"
+								},
+								{
+									"name": "204 - No Content",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "http://localhost:8080/sample-envers/v2/products/5",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"sample-envers",
+												"v2",
+												"products",
+												"5"
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Tue, 05 Mar 2024 03:08:18 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": null
+								}
+							]
 						}
 					]
 				},

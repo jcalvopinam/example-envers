@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 JUAN CALVOPINA M
+ * Copyright (c) 2024 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,9 +44,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 @RestController
 @RequestMapping(value = "/orders")
@@ -58,7 +58,7 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping
+    @GetMapping({"", "/"})
     public ResponseEntity<List<Order>> findAllOrders() {
         LOGGER.info("Find all orders");
         return new ResponseEntity<>(orderService.findAll(), HttpStatus.OK);
@@ -66,26 +66,26 @@ public class OrderController {
 
     @GetMapping("/{text}")
     public ResponseEntity<List<Order>> findByTest(@PathVariable final String text) {
-        LOGGER.info(String.format("Finding by: %s", text));
+        LOGGER.info("Finding by {}", text);
         return new ResponseEntity<>(orderService.findByText(text, text, text, text, text), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Order> saveOrder(@RequestBody final OrderDTO orderDTO) {
-        LOGGER.info(String.format("Saving order: %s", orderDTO.toString()));
+    @PostMapping({"", "/"})
+    public ResponseEntity<Order> saveOrder(@Validated @RequestBody final OrderDTO orderDTO) {
+        LOGGER.info("Saving order {}", orderDTO.toString());
         return new ResponseEntity<>(orderService.save(orderDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Order> updateOrder(@PathVariable final Long id,
-                                             @RequestBody final OrderDTO orderDTO) {
-        LOGGER.info(String.format("Updating order: %s", orderDTO.toString()));
+                                             @Validated @RequestBody final OrderDTO orderDTO) {
+        LOGGER.info("Updating order {}", orderDTO);
         return new ResponseEntity<>(orderService.update(id, orderDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrder(@PathVariable final Long id) {
-        LOGGER.info(String.format("Deleting order: %s", id));
+        LOGGER.info("Deleting order {}", id);
         orderService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

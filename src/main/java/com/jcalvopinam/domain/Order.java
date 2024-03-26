@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 JUAN CALVOPINA M
+ * Copyright (c) 2024 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -50,7 +50,7 @@ import org.hibernate.envers.Audited;
 import java.util.Date;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 @Entity
 @Audited
@@ -82,7 +82,7 @@ public class Order {
     @JsonIgnore
     @JsonManagedReference
     @ManyToOne()
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @JoinColumn(name = "customer_id", referencedColumnName = "person_id")
     private Person customer;
 
     /**
@@ -91,14 +91,7 @@ public class Order {
      */
     @JsonManagedReference
     @ManyToOne()
-    @JoinColumn(name = "employee_id", referencedColumnName = "id")
+    @JoinColumn(name = "employee_id", referencedColumnName = "person_id")
     private Person employee;
-
-    public Order(final OrderDTO orderDTO, final Person customer, final Person employee) {
-        this.customer = customer;
-        this.employee = employee;
-        this.saleDate = Utilities.matchDate(orderDTO.getSaleDate());
-        this.orderStatus = orderDTO.getOrderStatus();
-    }
 
 }

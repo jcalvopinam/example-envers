@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 JUAN CALVOPINA M
+ * Copyright (c) 2024 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,7 @@
 
 package com.jcalvopinam.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,7 +33,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 @AllArgsConstructor
 @NoArgsConstructor
@@ -42,8 +43,13 @@ import lombok.ToString;
 public class OrderDTO {
 
     private int orderStatus;
+
     private String saleDate;
+
+    @NotNull(message = "The customer cannot be blank, empty or null")
     private Long customer;
+
+    @NotNull(message = "The employee cannot be blank, empty or null")
     private Long employee;
 
 }

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 JUAN CALVOPINA M
+ * Copyright (c) 2024 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -39,18 +39,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 /**
- * @author Juan Calvopina <juan.calvopina@gmail.com>
+ * @author Juan Calvopina
  */
 @Service
 public class OrderServiceImpl implements OrderService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderServiceImpl.class);
 
-    private OrderRepository orderRepository;
-    private PersonRepository personRepository;
+    private final OrderRepository orderRepository;
+    private final PersonRepository personRepository;
 
     public OrderServiceImpl(final OrderRepository orderRepository, final PersonRepository personRepository) {
         this.orderRepository = orderRepository;
@@ -71,11 +70,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> findByText(final String id, final String customer, final String employee, final String date,
                                   final String orderStatus) {
-        final Long orderId = Utilities.isNumber(id);
-        final Long customerId = Utilities.isNumber(customer);
-        final Long employeeId = Utilities.isNumber(employee);
-        final int orderStatusId = Utilities.isNumber(orderStatus)
-                                           .intValue();
+        LOGGER.info("Finding by {} or {} or {} or {} or {}", id, customer, employee, date, orderStatus);
+        final long orderId = Utilities.getLongValue(id);
+        final long customerId = Utilities.getLongValue(customer);
+        final long employeeId = Utilities.getLongValue(employee);
+        final int orderStatusId = Utilities.getIntValue(orderStatus);
+
         final Date valueDate = Utilities.matchDate(date);
 
         return (customerId == 0 || employeeId == 0)
@@ -92,11 +92,10 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public Order save(final OrderDTO orderDTO) {
-        // TODO: Validate.notNull(orderDTO, "The order cannot be null");
         final Person customer = findPerson(orderDTO.getCustomer(), "Customer not found");
         final Person employee = findPerson(orderDTO.getEmployee(), "Employee not found");
         final Order order = create(orderDTO, customer, employee);
-        return orderRepository.save(Objects.requireNonNull(order));
+        return orderRepository.save(order);
     }
 
     /**
@@ -104,7 +103,6 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public Order update(final Long id, final OrderDTO orderDTO) {
-        // TODO: Validate.notNull(orderDTO, "The order cannot be null");
         final Person employee = findPerson(orderDTO.getEmployee(), "Employee not found");
         final Person customer = findPerson(orderDTO.getCustomer(), "Customer not found");
         final Order order = findById(id);

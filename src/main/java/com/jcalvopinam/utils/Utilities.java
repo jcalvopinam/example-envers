@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 JUAN CALVOPINA M
+ * Copyright (c) 2024 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,11 @@
 
 package com.jcalvopinam.utils;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,6 +41,8 @@ import java.util.Random;
  */
 
 public final class Utilities {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Utilities.class);
 
     public static final String NAMES = "Andrea:Juan:Isaac:Sandra:Michael:Annabel";
     public static final String LASTNAMES = "Bastidas:Calvopina:Newton:Ojeda:Patino:Cordova";
@@ -52,19 +59,19 @@ public final class Utilities {
      * @param date receives the date in the String input.
      *
      * @return the date object.
-     *
-     * @throws ParseException throws the exception if the String can't be parsed.
      */
     public static Date matchDate(final String date) {
+        Date currentDate = new Date();
         try {
-            if (hasFormat(date)) {
+            if (!StringUtils.isEmpty(date) && hasFormat(date)) {
                 final DateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
-                return formatter.parse(date);
+                currentDate = formatter.parse(date);
             }
         } catch (ParseException pe) {
-            // TODO: fix it
+            currentDate = new Date();
+            LOGGER.warn("The {} could not be parsed. Setting current date {}", date, currentDate);
         }
-        return null;
+        return currentDate;
     }
 
     /**
@@ -87,6 +94,22 @@ public final class Utilities {
         String[] wordsAsArray = text.split(COLON);
         int index = new Random().nextInt(wordsAsArray.length);
         return wordsAsArray[index];
+    }
+
+    public static long getLongValue(final String value) {
+        long newValue = 0L;
+        if (NumberUtils.isCreatable(value)) {
+            newValue = NumberUtils.createLong(value);
+        }
+        return newValue;
+    }
+
+    public static int getIntValue(final String value) {
+        int newValue = 0;
+        if (NumberUtils.isCreatable(value)) {
+            newValue = NumberUtils.createInteger(value);
+        }
+        return newValue;
     }
 
 }

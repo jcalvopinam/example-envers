@@ -5727,18 +5727,18 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"orderStatus\":1,\n  \"saleDate\":\"2018-03-20\",\n  \"customer\":3,\n  \"employee\": 1\n}"
+									"raw": "{\n    \"orderStatus\": 1,\n    \"saleDate\": \"2018-03-20\",\n    \"customer\": 3,\n    \"employee\": 1\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/orders/",
-									"protocol": "http",
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/orders/",
+									"protocol": "{{protocol}}",
 									"host": [
-										"localhost"
+										"{{server}}"
 									],
-									"port": "8080",
+									"port": "{{port}}",
 									"path": [
 										"sample-envers",
-										"v2",
+										"{{version}}",
 										"orders",
 										""
 									]
@@ -5758,22 +5758,85 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"orderStatus\":1,\n  \"saleDate\":\"2018-03-20\",\n  \"customer\":9,\n  \"employee\": 1\n}"
+									"raw": "{\n    \"orderStatus\": 1,\n    \"saleDate\": \"2024-03-25\",\n    \"customer\": 5,\n    \"employee\": 3\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/order/",
-									"protocol": "http",
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/orders/",
+									"protocol": "{{protocol}}",
 									"host": [
-										"localhost"
+										"{{server}}"
 									],
-									"port": "8080",
+									"port": "{{port}}",
 									"path": [
-										"order",
+										"sample-envers",
+										"{{version}}",
+										"orders",
 										""
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "400 - BadRequest",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/orders/",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"orders",
+												""
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 05 Mar 2024 04:48:49 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Required request body is missing\",\n    \"type\": \"BadRequestException\",\n    \"code\": 400\n}"
+								}
+							]
 						},
 						{
 							"name": "Find all orders",
@@ -5781,19 +5844,70 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/order/",
-									"protocol": "http",
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/orders/",
+									"protocol": "{{protocol}}",
 									"host": [
-										"localhost"
+										"{{server}}"
 									],
-									"port": "8080",
+									"port": "{{port}}",
 									"path": [
-										"order",
+										"sample-envers",
+										"{{version}}",
+										"orders",
 										""
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "200 - FindAllOrders",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/orders/",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"orders",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 26 Mar 2024 01:24:14 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"orderId\": 1,\n        \"orderStatus\": 1,\n        \"saleDate\": \"2018-03-20\",\n        \"employee\": {\n            \"id\": 1,\n            \"firstName\": \"Bender Doblador\",\n            \"lastName\": \"Soto\"\n        }\n    },\n    {\n        \"orderId\": 2,\n        \"orderStatus\": 1,\n        \"saleDate\": \"2024-03-04\",\n        \"employee\": {\n            \"id\": 1,\n            \"firstName\": \"Bender Doblador\",\n            \"lastName\": \"Soto\"\n        }\n    },\n    {\n        \"orderId\": 4,\n        \"orderStatus\": 1,\n        \"saleDate\": \"2024-03-04\",\n        \"employee\": {\n            \"id\": 1,\n            \"firstName\": \"Bender Doblador\",\n            \"lastName\": \"Soto\"\n        }\n    },\n    {\n        \"orderId\": 5,\n        \"orderStatus\": 1,\n        \"saleDate\": \"2024-03-04\",\n        \"employee\": {\n            \"id\": 1,\n            \"firstName\": \"Bender Doblador\",\n            \"lastName\": \"Soto\"\n        }\n    }\n]"
+								}
+							]
 						},
 						{
 							"name": "Find order by id",
@@ -5801,19 +5915,70 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/order/1",
-									"protocol": "http",
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/orders/1",
+									"protocol": "{{protocol}}",
 									"host": [
-										"localhost"
+										"{{server}}"
 									],
-									"port": "8080",
+									"port": "{{port}}",
 									"path": [
-										"order",
+										"sample-envers",
+										"{{version}}",
+										"orders",
 										"1"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "200 - Find order by id",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/orders/1",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"orders",
+												"1"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 26 Mar 2024 01:28:09 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"orderId\": 1,\n        \"orderStatus\": 1,\n        \"saleDate\": \"2018-03-20\",\n        \"employee\": {\n            \"id\": 1,\n            \"firstName\": \"Bender Doblador\",\n            \"lastName\": \"Soto\"\n        }\n    },\n    {\n        \"orderId\": 2,\n        \"orderStatus\": 1,\n        \"saleDate\": \"2024-03-04\",\n        \"employee\": {\n            \"id\": 1,\n            \"firstName\": \"Bender Doblador\",\n            \"lastName\": \"Soto\"\n        }\n    },\n    {\n        \"orderId\": 4,\n        \"orderStatus\": 1,\n        \"saleDate\": \"2024-03-04\",\n        \"employee\": {\n            \"id\": 1,\n            \"firstName\": \"Bender Doblador\",\n            \"lastName\": \"Soto\"\n        }\n    },\n    {\n        \"orderId\": 5,\n        \"orderStatus\": 1,\n        \"saleDate\": \"2024-03-04\",\n        \"employee\": {\n            \"id\": 1,\n            \"firstName\": \"Bender Doblador\",\n            \"lastName\": \"Soto\"\n        }\n    }\n]"
+								}
+							]
 						},
 						{
 							"name": "Find order by date",
@@ -5821,19 +5986,70 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/order/2018-03-20",
-									"protocol": "http",
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/orders/2024-03-25",
+									"protocol": "{{protocol}}",
 									"host": [
-										"localhost"
+										"{{server}}"
 									],
-									"port": "8080",
+									"port": "{{port}}",
 									"path": [
-										"order",
-										"2018-03-20"
+										"sample-envers",
+										"{{version}}",
+										"orders",
+										"2024-03-25"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "200 - findByDate",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/orders/25-03-2024",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"orders",
+												"25-03-2024"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 26 Mar 2024 01:37:17 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"orderId\": 6,\n        \"orderStatus\": 1,\n        \"saleDate\": \"2024-03-25\",\n        \"employee\": {\n            \"id\": 3,\n            \"firstName\": \"Phillip J.\",\n            \"lastName\": \"Fray\"\n        }\n    }\n]"
+								}
+							]
 						},
 						{
 							"name": "Find order by person name",
@@ -5841,19 +6057,70 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/order/Amy",
-									"protocol": "http",
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/orders/Amy",
+									"protocol": "{{protocol}}",
 									"host": [
-										"localhost"
+										"{{server}}"
 									],
-									"port": "8080",
+									"port": "{{port}}",
 									"path": [
-										"order",
+										"sample-envers",
+										"{{version}}",
+										"orders",
 										"Amy"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "200 - findByName",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/orders/Amy",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"orders",
+												"Amy"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 26 Mar 2024 01:38:55 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"orderId\": 6,\n        \"orderStatus\": 1,\n        \"saleDate\": \"2024-03-25\",\n        \"employee\": {\n            \"id\": 3,\n            \"firstName\": \"Phillip J.\",\n            \"lastName\": \"Fray\"\n        }\n    }\n]"
+								}
+							]
 						},
 						{
 							"name": "Update order by id",
@@ -5867,22 +6134,196 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"id\":2,\n  \"orderStatus\":1,\n  \"saleDate\": \"2018-03-19\",\n    \"customer\": 7,\n    \"employee\":2\n}"
+									"raw": "{\n    \"orderStatus\": 2,\n    \"saleDate\": \"2018-03-19\",\n    \"customer\": 7,\n    \"employee\": 3\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/order/",
-									"protocol": "http",
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/orders/2",
+									"protocol": "{{protocol}}",
 									"host": [
-										"localhost"
+										"{{server}}"
 									],
-									"port": "8080",
+									"port": "{{port}}",
 									"path": [
-										"order",
-										""
+										"sample-envers",
+										"{{version}}",
+										"orders",
+										"2"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "404 - employeeNotFound",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"orderStatus\": 2,\n    \"saleDate\": \"2018-03-19\",\n    \"customer\": 7,\n    \"employee\": 2\n}"
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/orders/2",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"orders",
+												"2"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 26 Mar 2024 01:43:41 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Employee not found\",\n    \"type\": \"NotFoundException\",\n    \"code\": 404\n}"
+								},
+								{
+									"name": "404 - customerNotFound",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"orderStatus\": 2,\n    \"saleDate\": \"2018-03-19\",\n    \"customer\": 2,\n    \"employee\": 7\n}"
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/orders/2",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"orders",
+												"2"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 26 Mar 2024 01:44:36 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Customer not found\",\n    \"type\": \"NotFoundException\",\n    \"code\": 404\n}"
+								},
+								{
+									"name": "200 - updateById",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"orderStatus\": 2,\n    \"saleDate\": \"2018-03-19\",\n    \"customer\": 7,\n    \"employee\": 3\n}"
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/orders/2",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"orders",
+												"2"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 26 Mar 2024 01:45:58 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"orderId\": 2,\n    \"orderStatus\": 2,\n    \"saleDate\": \"2018-03-19T05:00:00.000+00:00\",\n    \"employee\": {\n        \"id\": 3,\n        \"firstName\": \"Phillip J.\",\n        \"lastName\": \"Fray\"\n    }\n}"
+								}
+							]
 						},
 						{
 							"name": "Delete order by id",
@@ -5894,19 +6335,166 @@
 									"formdata": []
 								},
 								"url": {
-									"raw": "http://localhost:8080/order/2",
-									"protocol": "http",
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/orders/6",
+									"protocol": "{{protocol}}",
 									"host": [
-										"localhost"
+										"{{server}}"
 									],
-									"port": "8080",
+									"port": "{{port}}",
 									"path": [
-										"order",
-										"2"
+										"sample-envers",
+										"{{version}}",
+										"orders",
+										"6"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "404 - orderNotFound",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/orders/99",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"orders",
+												"99"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 26 Mar 2024 01:47:01 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Order not found!\",\n    \"type\": \"NotFoundException\",\n    \"code\": 404\n}"
+								},
+								{
+									"name": "400 - badRequest",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/orders/A",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"orders",
+												"A"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/problem+json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 26 Mar 2024 01:47:21 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Bad Request\",\n    \"status\": 400,\n    \"detail\": \"Failed to convert 'id' with value: 'A'\",\n    \"instance\": \"/sample-envers/v2/orders/A\"\n}"
+								},
+								{
+									"name": "204 - NoContent",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/orders/6",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"orders",
+												"6"
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Tue, 26 Mar 2024 01:47:42 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": null
+								}
+							]
 						}
 					]
 				},

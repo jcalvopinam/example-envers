@@ -137,7 +137,7 @@ public class OrderServiceImpl implements OrderService {
         order.setSaleDate(Utilities.matchDate(orderDTO.getSaleDate()));
     }
 
-    public Order create(final OrderDTO orderDTO, final Person customer, final Person employee) {
+    private Order create(final OrderDTO orderDTO, final Person customer, final Person employee) {
         return Order.builder()
                     .customer(customer)
                     .employee(employee)

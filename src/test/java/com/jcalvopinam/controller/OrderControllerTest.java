@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 JUAN CALVOPINA M
+ * Copyright (c) 2024 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -36,22 +36,22 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static com.jcalvopinam.utils.DummyProduct.getProduct;
-import static com.jcalvopinam.utils.DummyProduct.getProductDTO;
+import static com.jcalvopinam.utils.DummyOrder.getOrderDTO;
+import static com.jcalvopinam.utils.DummyPerson.getPersonDTO;
 
 /**
  * @author Juan Calvopina
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class ProductControllerTest extends BaseControllerTest {
+class OrderControllerTest extends BaseControllerTest {
 
-    protected static final String BASE_URL = "/products";
-    private static final String PRODUCT_ID = "/1";
+    private static final String BASE_URL = "/orders";
+    private static final String ORDER_ID = "/1";
+
 
     @Test
     @Order(3)
-    void findAllProducts() throws Exception {
-
+    void findAllOrders() throws Exception {
         final MockHttpServletResponse response =
                 mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL)
                                                       .contentType(MediaType.APPLICATION_JSON))
@@ -59,84 +59,73 @@ class ProductControllerTest extends BaseControllerTest {
                                                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                        .andReturn()
                        .getResponse();
-
         Assertions.assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
     @Test
     @Order(4)
-    void findByText() throws Exception {
+    void findByTest() throws Exception {
         final MockHttpServletResponse response =
-                mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL.concat(PRODUCT_ID))
+                mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL.concat(ORDER_ID))
                                                       .contentType(MediaType.APPLICATION_JSON))
                        .andExpect(MockMvcResultMatchers.content()
                                                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                        .andReturn()
                        .getResponse();
-
         Assertions.assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
     @Test
     @Order(2)
-    void saveProduct() throws Exception {
-        final MockHttpServletResponse response = createProduct();
+    void saveOrder() throws Exception {
+        final MockHttpServletResponse response =
+                createObject(PersonControllerTest.BASE_URL, getPersonDTO());
+        createObject(BASE_URL, getOrderDTO());
         Assertions.assertEquals(HttpStatus.CREATED.value(), response.getStatus());
     }
 
     @Test
-    @Order(6)
-    void saveProduct_conflicted() throws Exception {
-        createProduct();
-        final MockHttpServletResponse responseConflicted = createProduct();
-        Assertions.assertEquals(HttpStatus.CONFLICT.value(), responseConflicted.getStatus());
-    }
-
-    @Test
     @Order(1)
-    void updateProduct_notFound() throws Exception {
+    void updateOrder_notFound() throws Exception {
         final MockHttpServletResponse response =
-                mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL.concat(PRODUCT_ID))
-                                                      .content(asJsonString(getProduct()))
+                mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL.concat(ORDER_ID))
+                                                      .content(asJsonString(getOrderDTO()))
                                                       .contentType(MediaType.APPLICATION_JSON))
                        .andExpect(MockMvcResultMatchers.content()
                                                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                        .andReturn()
                        .getResponse();
-
         Assertions.assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
     }
 
     @Test
     @Order(5)
-    void updateProduct() throws Exception {
-        MockHttpServletResponse response =
-                mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL.concat(PRODUCT_ID))
-                                                      .content(asJsonString(getProductDTO()))
+    void updateOrder() throws Exception {
+        final MockHttpServletResponse response =
+                mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL.concat(ORDER_ID))
+                                                      .content(asJsonString(getOrderDTO()))
                                                       .contentType(MediaType.APPLICATION_JSON))
                        .andExpect(MockMvcResultMatchers.content()
                                                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                        .andReturn()
                        .getResponse();
-
         Assertions.assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
     @Test
-    @Order(7)
-    void deleteProduct() throws Exception {
+    @Order(6)
+    void deleteOrder() throws Exception {
         final MockHttpServletResponse response =
-                mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL.concat(PRODUCT_ID))
+                mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL.concat(ORDER_ID))
                                                       .contentType(MediaType.APPLICATION_JSON))
                        .andReturn()
                        .getResponse();
-
         Assertions.assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
     }
 
-    private MockHttpServletResponse createProduct() throws Exception {
-        return mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
-                                                     .content(asJsonString(getProductDTO()))
+    private MockHttpServletResponse createObject(final String baseURL, final Object objectToCreate) throws Exception {
+        return mockMvc.perform(MockMvcRequestBuilders.post(baseURL)
+                                                     .content(asJsonString(objectToCreate))
                                                      .contentType(MediaType.APPLICATION_JSON))
                       .andExpect(MockMvcResultMatchers.content()
                                                       .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

@@ -44,7 +44,7 @@ import static com.jcalvopinam.utils.DummyPerson.getPersonDTO;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class PersonControllerTest extends BaseControllerTest {
 
-    private static final String BASE_URL = "/person";
+    protected static final String BASE_URL = "/person";
     private static final String PERSON_ID = "/1";
 
     @Test
@@ -81,7 +81,6 @@ class PersonControllerTest extends BaseControllerTest {
     @Test
     @Order(3)
     void updatePerson() throws Exception {
-        final MockHttpServletResponse product = createPerson();
         MockHttpServletResponse response =
                 mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL.concat(PERSON_ID))
                                                       .content(asJsonString(getPersonDTO()))

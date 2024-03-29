@@ -6513,22 +6513,167 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"id\":{\n    \"productId\":2,\n    \"orderId\":1\n  },\n  \"discount\":10,\n  \"quantity\":1,\n  \"unitPrice\":200\n}"
+									"raw": "{\n    \"id\": {\n        \"productId\": 2,\n        \"orderId\": 1\n    },\n    \"discount\": 10,\n    \"quantity\": 1,\n    \"unitPrice\": 200\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/order-detail/",
-									"protocol": "http",
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/order-details",
+									"protocol": "{{protocol}}",
 									"host": [
-										"localhost"
+										"{{server}}"
 									],
-									"port": "8080",
+									"port": "{{port}}",
 									"path": [
-										"order-detail",
-										""
+										"sample-envers",
+										"{{version}}",
+										"order-details"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "201 - Add order detail",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": {\n        \"productId\": 2,\n        \"orderId\": 1\n    },\n    \"discount\": 10,\n    \"quantity\": 1,\n    \"unitPrice\": 200\n}"
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/order-details",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"order-details"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 29 Mar 2024 03:24:37 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": {\n        \"productId\": 2,\n        \"orderId\": 1\n    },\n    \"discount\": 10,\n    \"quantity\": 1,\n    \"unitPrice\": 200\n}"
+								}
+							]
+						},
+						{
+							"name": "Add order detail 2",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": {\n        \"productId\": 3,\n        \"orderId\": 4\n    },\n    \"discount\": 5,\n    \"quantity\": 7,\n    \"unitPrice\": 1200\n}"
+								},
+								"url": {
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/order-details",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{server}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"sample-envers",
+										"{{version}}",
+										"order-details"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "201 - Add order detail 2",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": {\n        \"productId\": 3,\n        \"orderId\": 4\n    },\n    \"discount\": 5,\n    \"quantity\": 7,\n    \"unitPrice\": 1200\n}"
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/order-details",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"order-details"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 29 Mar 2024 03:31:04 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": {\n        \"productId\": 3,\n        \"orderId\": 4\n    },\n    \"discount\": 5,\n    \"quantity\": 7,\n    \"unitPrice\": 1200\n}"
+								}
+							]
 						},
 						{
 							"name": "Find all order details",
@@ -6541,14 +6686,16 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:8080/order-detail/",
-									"protocol": "http",
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/order-details/",
+									"protocol": "{{protocol}}",
 									"host": [
-										"localhost"
+										"{{server}}"
 									],
-									"port": "8080",
+									"port": "{{port}}",
 									"path": [
-										"order-detail",
+										"sample-envers",
+										"{{version}}",
+										"order-details",
 										""
 									]
 								}
@@ -6567,22 +6714,80 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"id\":{\n    \"productId\":2,\n    \"orderId\":1\n  },\n  \"discount\":0,\n  \"quantity\":5,\n  \"unitPrice\":300\n}"
+									"raw": "{\n    \"id\": {\n        \"productId\": 2,\n        \"orderId\": 1\n    },\n    \"discount\": 0,\n    \"quantity\": 5,\n    \"unitPrice\": 300\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/order-detail/",
-									"protocol": "http",
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/order-details",
+									"protocol": "{{protocol}}",
 									"host": [
-										"localhost"
+										"{{server}}"
 									],
-									"port": "8080",
+									"port": "{{port}}",
 									"path": [
-										"order-detail",
-										""
+										"sample-envers",
+										"{{version}}",
+										"order-details"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "200 - Update order details",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": {\n        \"productId\": 2,\n        \"orderId\": 1\n    },\n    \"discount\": 0,\n    \"quantity\": 5,\n    \"unitPrice\": 300\n}"
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/order-details",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"order-details"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 29 Mar 2024 03:28:48 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": {\n        \"productId\": 2,\n        \"orderId\": 1\n    },\n    \"discount\": 0,\n    \"quantity\": 5,\n    \"unitPrice\": 300\n}"
+								}
+							]
 						},
 						{
 							"name": "Find order details by id",
@@ -6595,20 +6800,77 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:8080/order-detail/2/1",
-									"protocol": "http",
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/order-details/2/1",
+									"protocol": "{{protocol}}",
 									"host": [
-										"localhost"
+										"{{server}}"
 									],
-									"port": "8080",
+									"port": "{{port}}",
 									"path": [
-										"order-detail",
+										"sample-envers",
+										"{{version}}",
+										"order-details",
 										"2",
 										"1"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "200 - Find order details by id",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/order-details/2/1",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"order-details",
+												"2",
+												"1"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 29 Mar 2024 03:26:31 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": {\n        \"productId\": 2,\n        \"orderId\": 1\n    },\n    \"discount\": 10,\n    \"quantity\": 1,\n    \"unitPrice\": 200\n}"
+								}
+							]
 						},
 						{
 							"name": "Delete order details by id",
@@ -6622,22 +6884,72 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"id\":{\n    \"productId\":2,\n    \"orderId\":1\n  }\n}"
+									"raw": "{\n    \"id\": {\n        \"productId\": 3,\n        \"orderId\": 4\n    }\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/order-detail/",
-									"protocol": "http",
+									"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/order-details",
+									"protocol": "{{protocol}}",
 									"host": [
-										"localhost"
+										"{{server}}"
 									],
-									"port": "8080",
+									"port": "{{port}}",
 									"path": [
-										"order-detail",
-										""
+										"sample-envers",
+										"{{version}}",
+										"order-details"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "204 - NoContent",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": {\n        \"productId\": 3,\n        \"orderId\": 4\n    }\n}"
+										},
+										"url": {
+											"raw": "{{protocol}}://{{server}}:{{port}}/sample-envers/{{version}}/order-details",
+											"protocol": "{{protocol}}",
+											"host": [
+												"{{server}}"
+											],
+											"port": "{{port}}",
+											"path": [
+												"sample-envers",
+												"{{version}}",
+												"order-details"
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Fri, 29 Mar 2024 03:32:24 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": null
+								}
+							]
 						}
 					]
 				}

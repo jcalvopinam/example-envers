@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2024 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,17 +27,19 @@ package com.jcalvopinam.repository;
 
 import com.jcalvopinam.domain.OrderDetail;
 import com.jcalvopinam.domain.OrderDetailPK;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+
+import java.util.Optional;
 
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author Juan Calvopina
  */
-public interface OrderDetailRepository extends JpaRepository<OrderDetail, OrderDetailPK> {
+public interface OrderDetailRepository extends CrudRepository<OrderDetail, OrderDetailPK> {
 
     /**
-     * @param orderDetailPK
-     * @return
+     * @param orderDetailPK object
+     * @return OrderDetail object wrapped into an Optional
      */
-    OrderDetail findById(OrderDetailPK orderDetailPK);
+    Optional<OrderDetail> findById(OrderDetailPK orderDetailPK);
 
 }

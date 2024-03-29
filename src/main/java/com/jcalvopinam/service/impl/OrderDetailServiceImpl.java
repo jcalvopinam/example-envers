@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2024 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,6 +28,7 @@ package com.jcalvopinam.service.impl;
 import com.jcalvopinam.domain.OrderDetail;
 import com.jcalvopinam.domain.OrderDetailPK;
 import com.jcalvopinam.dto.OrderDetailDTO;
+import com.jcalvopinam.exception.NotFoundException;
 import com.jcalvopinam.repository.OrderDetailRepository;
 import com.jcalvopinam.service.OrderDetailService;
 import com.jcalvopinam.utils.Utilities;
@@ -39,17 +40,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author Juan Calvopina
  */
 @Service
 @Transactional
 public class OrderDetailServiceImpl implements OrderDetailService {
 
-    private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     private final OrderDetailRepository orderDetailRepository;
-
-    private String response;
 
     public OrderDetailServiceImpl(OrderDetailRepository orderDetailRepository) {
         this.orderDetailRepository = orderDetailRepository;
@@ -57,39 +56,39 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
     @Override
     public List<OrderDetail> findAll() {
-        return orderDetailRepository.findAll();
+        LOGGER.info("Getting the order details");
+        return (List<OrderDetail>)orderDetailRepository.findAll();
     }
 
     @Override
     public OrderDetail findByDetailPk(String productId, String orderId) {
-        Integer prodId = Utilities.isInteger(productId);
-        Integer ordId = Utilities.isInteger(orderId);
-        return orderDetailRepository.findById(new OrderDetailPK(prodId, ordId));
+        LOGGER.info("Finding by {} or {}", productId, orderId);
+        long prodId = Utilities.getLongValue(productId);
+        long ordId = Utilities.getLongValue(orderId);
+        return orderDetailRepository.findById(new OrderDetailPK(prodId, ordId))
+                                    .orElseThrow(() -> new NotFoundException("Order Detail not found"));
     }
 
     @Override
-    public String save(OrderDetailDTO orderDetailDTO) {
-        response = "Order Detail saved!";
-        orderDetailRepository.save(new OrderDetail(orderDetailDTO));
-        logger.info(response);
-        return response;
+    public OrderDetail save(OrderDetailDTO orderDetailDTO) {
+        LOGGER.info("Saving the order detail {}", orderDetailDTO.getId());
+        return orderDetailRepository.save(new OrderDetail(orderDetailDTO));
     }
 
     @Override
-    public String update(OrderDetailDTO orderDetailDTO) {
-        response = "Order Detail updated!";
-        OrderDetail orderDetail = orderDetailRepository.findOne(orderDetailDTO.getId());
-        orderDetail = this.updateOrderDetail(orderDetail, orderDetailDTO);
-        orderDetailRepository.save(orderDetail);
-        logger.info(response);
-        return response;
+    public OrderDetail update(OrderDetailDTO orderDetailDTO) {
+        LOGGER.info("Updating the order detail {}", orderDetailDTO.getId());
+        final OrderDetail orderDetail =
+                orderDetailRepository.findById(orderDetailDTO.getId())
+                                     .orElseThrow(() -> new NotFoundException("Order Detail not found"));
+        final OrderDetail orderDetailUpdated = this.updateOrderDetail(orderDetail, orderDetailDTO);
+        return orderDetailRepository.save(orderDetailUpdated);
     }
 
     @Override
-    public String deleteById(OrderDetailPK orderDetailPK) {
-        response = "Order Detail deleted!";
-        orderDetailRepository.delete(orderDetailPK);
-        return response;
+    public void deleteById(OrderDetailPK orderDetailPK) {
+        LOGGER.info("Deleting the order detail {}", orderDetailPK.getOrderId());
+        orderDetailRepository.deleteById(orderDetailPK);
     }
 
     private OrderDetail updateOrderDetail(OrderDetail orderDetail,

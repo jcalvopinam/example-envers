@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2024 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,65 +23,33 @@
  *
  */
 
-/**
- * DTO to mapping of Order attributes
- */
 package com.jcalvopinam.dto;
 
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author Juan Calvopina
  */
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class OrderDTO {
 
-    private int id;
     private int orderStatus;
+
     private String saleDate;
-    private int customer;
-    private int employee;
 
-    public int getId() {
-        return id;
-    }
+    @NotNull(message = "The customer cannot be blank, empty or null")
+    private Long customer;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @NotNull(message = "The employee cannot be blank, empty or null")
+    private Long employee;
 
-    public int getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(int orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
-    public String getSaleDate() {
-        return saleDate;
-    }
-
-    public void setSaleDate(String saleDate) {
-        this.saleDate = saleDate;
-    }
-
-    public int getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(int customer) {
-        this.customer = customer;
-    }
-
-    public int getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(int employee) {
-        this.employee = employee;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("OrderDTO{id=%d, orderStatus=%d, saleDate='%s', customer=%d, employee=%d}", id,
-                             orderStatus, saleDate, customer, employee);
-    }
 }

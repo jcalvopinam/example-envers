@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2022 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,27 +23,28 @@
  *
  */
 
-/**
- * Methods for accessing the database
- */
 package com.jcalvopinam.repository;
 
 import com.jcalvopinam.domain.Person;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+
+import java.util.Optional;
 
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author Juan Calvopina
  */
-public interface PersonRepository extends JpaRepository<Person, Integer> {
+public interface PersonRepository extends CrudRepository<Person, Long> {
 
     /**
-     * Finds the person by name or last name
+     * Finds the person by id, name or last name
      *
-     * @param id
-     * @param name
-     * @param lastName
-     * @return
+     * @param id       receives the id to be filtered.
+     * @param name     receives the name to be filtered.
+     * @param lastName receives the lastName to be filtered.
+     *
+     * @return the Person object.
      */
-    Person findByIdOrFirstNameOrLastName(int id, String name, String lastName);
+    Optional<Person> findByIdOrFirstNameContainsIgnoreCaseOrLastNameContainsIgnoreCase(Long id, String name,
+                                                                                       String lastName);
 
 }

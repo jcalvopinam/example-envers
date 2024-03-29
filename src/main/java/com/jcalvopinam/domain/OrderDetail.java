@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2024 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,25 +23,41 @@
  *
  */
 
-/**
+/*
  * The persistent class for the env_order_details database table.
  */
 package com.jcalvopinam.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jcalvopinam.dto.OrderDetailDTO;
-import org.apache.commons.lang.builder.ToStringBuilder;
+import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.envers.Audited;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author Juan Calvopina
  */
 @Entity
 @Audited
 @Table(name = "env_order_detail")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class OrderDetail implements Serializable {
 
     private static final long serialVersionUID = 1183975993716362588L;
@@ -80,74 +96,11 @@ public class OrderDetail implements Serializable {
     @JsonIgnore
     private Product product;
 
-    public OrderDetail() {
-    }
-
     public OrderDetail(OrderDetailDTO orderDetailDTO) {
         this.id = orderDetailDTO.getId();
         this.quantity = orderDetailDTO.getQuantity();
         this.discount = orderDetailDTO.getDiscount();
         this.unitPrice = orderDetailDTO.getUnitPrice();
-    }
-
-    public OrderDetailPK getId() {
-        return this.id;
-    }
-
-    public void setId(OrderDetailPK id) {
-        this.id = id;
-    }
-
-    public double getDiscount() {
-        return this.discount;
-    }
-
-    public void setDiscount(double discount) {
-        this.discount = discount;
-    }
-
-    public int getQuantity() {
-        return this.quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public double getUnitPrice() {
-        return this.unitPrice;
-    }
-
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    public Order getOrder() {
-        return this.order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public Product getProduct() {
-        return this.product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .append("id", id)
-                .append("discount", discount)
-                .append("quantity", quantity)
-                .append("unitPrice", unitPrice)
-                .append("order", order)
-                .append("product", product)
-                .toString();
     }
 
 }

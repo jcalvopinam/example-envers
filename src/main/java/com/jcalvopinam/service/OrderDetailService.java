@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2024 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@ import com.jcalvopinam.dto.OrderDetailDTO;
 import java.util.List;
 
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author Juan Calvopina
  */
 public interface OrderDetailService {
 
@@ -58,22 +58,21 @@ public interface OrderDetailService {
      * @param orderDetailDTO
      * @return
      */
-    String save(OrderDetailDTO orderDetailDTO);
+    OrderDetail save(OrderDetailDTO orderDetailDTO);
 
     /**
      * Updates a order detail to the database
      *
      * @param orderDetailDTO
-     * @return
+     * @return OrderDetail object
      */
-    String update(OrderDetailDTO orderDetailDTO);
+    OrderDetail update(OrderDetailDTO orderDetailDTO);
 
     /**
      * Deletes a order detail by orderDetailPK from database
      *
-     * @param orderDetailPK
-     * @return
+     * @param orderDetailPK object
      */
-    String deleteById(OrderDetailPK orderDetailPK);
+    void deleteById(OrderDetailPK orderDetailPK);
 
 }

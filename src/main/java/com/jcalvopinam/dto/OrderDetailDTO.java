@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2024 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,53 +26,31 @@
 package com.jcalvopinam.dto;
 
 import com.jcalvopinam.domain.OrderDetailPK;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
- * @author juanca <juan.calvopina+dev@gmail.com>
+ * @author Juan Calvopina
  */
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class OrderDetailDTO {
 
     private OrderDetailPK id;
+
     private double discount;
+
+    @NotNull(message = "The quantity cannot be blank, empty or null")
     private int quantity;
+
+    @NotNull(message = "The unitPrice cannot be blank, empty or null")
     private double unitPrice;
-
-    public OrderDetailPK getId() {
-        return id;
-    }
-
-    public void setId(OrderDetailPK id) {
-        this.id = id;
-    }
-
-    public double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(double discount) {
-        this.discount = discount;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public double getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("OrderDetailDTO{[order=%d, product=%d], discount=%.2f, quantity=%d, unitPrice=%.2f}",
-                             id.getOrderId(), id.getProductId(), discount, quantity, unitPrice);
-    }
 
 }

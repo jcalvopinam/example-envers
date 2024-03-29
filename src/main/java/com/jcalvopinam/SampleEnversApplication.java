@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 JUAN CALVOPINA M
+ * Copyright (c) 2022 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,21 +25,14 @@
 
 package com.jcalvopinam;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import static org.junit.Assert.assertTrue;
+@SpringBootApplication
+public class SampleEnversApplication {
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = ExampleEnversApplicationTests.class)
-public class ExampleEnversApplicationTests {
-
-    //TODO: Develop the unit tests
-    @Test
-    public void contextLoads() {
-        assertTrue(true);
+    public static void main(String[] args) {
+        SpringApplication.run(SampleEnversApplication.class, args);
     }
 
 }

@@ -33,6 +33,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -45,6 +46,7 @@ import static com.jcalvopinam.utils.DummyProduct.getProductDTO;
  * @author Juan Calvopina
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class OrderDetailControllerTest extends BaseControllerTest {
 
     private static final String BASE_URL = "/order-details";
@@ -52,6 +54,19 @@ class OrderDetailControllerTest extends BaseControllerTest {
     private static final String PRODUCT_ID = "/1";
 
     @Test
+    @Order(1)
+    void saveDetail() throws Exception {
+        createObject(ProductControllerTest.BASE_URL, getProductDTO());
+        createObject(PersonControllerTest.BASE_URL, getPersonDTO());
+        createObject(OrderControllerTest.BASE_URL, getOrderDTO());
+
+        final MockHttpServletResponse response =
+                createObject(BASE_URL, getOrderDetailDTO());
+        Assertions.assertEquals(HttpStatus.CREATED.value(), response.getStatus());
+    }
+
+    @Test
+    @Order(2)
     void findAllDetails() throws Exception {
         final MockHttpServletResponse response =
                 mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL)
@@ -64,6 +79,7 @@ class OrderDetailControllerTest extends BaseControllerTest {
     }
 
     @Test
+    @Order(3)
     void findByDetailPk() throws Exception {
         final MockHttpServletResponse response =
                 mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL.concat(ORDER_ID)
@@ -77,33 +93,7 @@ class OrderDetailControllerTest extends BaseControllerTest {
     }
 
     @Test
-    @Order(1)
-    void findByDetailPk_notFound() throws Exception {
-        final MockHttpServletResponse response =
-                mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL.concat(ORDER_ID)
-                                                                   .concat(PRODUCT_ID))
-                                                      .contentType(MediaType.APPLICATION_JSON))
-                       .andExpect(MockMvcResultMatchers.content()
-                                                       .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                       .andReturn()
-                       .getResponse();
-        Assertions.assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
-    }
-
-    @Test
-    @Order(2)
-    void saveDetail() throws Exception {
-        createObject(ProductControllerTest.BASE_URL, getProductDTO());
-        createObject(PersonControllerTest.BASE_URL, getPersonDTO());
-        createObject(OrderControllerTest.BASE_URL, getOrderDTO());
-
-        final MockHttpServletResponse response =
-                createObject(BASE_URL, getOrderDetailDTO());
-        Assertions.assertEquals(HttpStatus.CREATED.value(), response.getStatus());
-    }
-
-    @Test
-    @Order(3)
+    @Order(4)
     void updateDetail() throws Exception {
         MockHttpServletResponse response =
                 mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL)
@@ -118,7 +108,7 @@ class OrderDetailControllerTest extends BaseControllerTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     void deleteDetail() throws Exception {
         final MockHttpServletResponse response =
                 mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL)
@@ -129,6 +119,21 @@ class OrderDetailControllerTest extends BaseControllerTest {
 
         Assertions.assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
     }
+
+    @Test
+    @Order(6)
+    void findByDetailPk_notFound() throws Exception {
+        final MockHttpServletResponse response =
+                mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL.concat("/99")
+                                                                   .concat("/99"))
+                                                      .contentType(MediaType.APPLICATION_JSON))
+                       .andExpect(MockMvcResultMatchers.content()
+                                                       .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                       .andReturn()
+                       .getResponse();
+        Assertions.assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
+    }
+
 
     private MockHttpServletResponse createObject(final String baseURL, final Object objectToCreate) throws Exception {
         return mockMvc.perform(MockMvcRequestBuilders.post(baseURL)

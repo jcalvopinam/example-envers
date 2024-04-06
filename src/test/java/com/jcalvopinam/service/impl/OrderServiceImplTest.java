@@ -36,6 +36,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Calendar;
@@ -50,6 +51,7 @@ import static com.jcalvopinam.utils.DummyPerson.getOptionalPerson;
  * @author Juan Calvopina
  */
 @ExtendWith(SpringExtension.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class OrderServiceImplTest extends BaseControllerTest {
 
     @Mock

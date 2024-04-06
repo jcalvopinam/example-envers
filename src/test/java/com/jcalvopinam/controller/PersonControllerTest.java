@@ -33,6 +33,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -42,22 +43,17 @@ import static com.jcalvopinam.utils.DummyPerson.getPersonDTO;
  * @author Juan Calvopina
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class PersonControllerTest extends BaseControllerTest {
 
     protected static final String BASE_URL = "/person";
     private static final String PERSON_ID = "/1";
 
     @Test
-    @Order(4)
-    void findAllPeople() throws Exception {
-        final MockHttpServletResponse response =
-                mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL)
-                                                      .contentType(MediaType.APPLICATION_JSON))
-                       .andExpect(MockMvcResultMatchers.content()
-                                                       .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                       .andReturn()
-                       .getResponse();
-        Assertions.assertEquals(HttpStatus.OK.value(), response.getStatus());
+    @Order(1)
+    void savePerson() throws Exception {
+        final MockHttpServletResponse response = createPerson();
+        Assertions.assertEquals(HttpStatus.CREATED.value(), response.getStatus());
     }
 
     @Test
@@ -69,13 +65,6 @@ class PersonControllerTest extends BaseControllerTest {
                        .andReturn()
                        .getResponse();
         Assertions.assertEquals(HttpStatus.OK.value(), response.getStatus());
-    }
-
-    @Test
-    @Order(1)
-    void savePerson() throws Exception {
-        final MockHttpServletResponse response = createPerson();
-        Assertions.assertEquals(HttpStatus.CREATED.value(), response.getStatus());
     }
 
     @Test
@@ -94,6 +83,19 @@ class PersonControllerTest extends BaseControllerTest {
     }
 
     @Test
+    @Order(4)
+    void findAllPeople() throws Exception {
+        final MockHttpServletResponse response =
+                mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL)
+                                                      .contentType(MediaType.APPLICATION_JSON))
+                       .andExpect(MockMvcResultMatchers.content()
+                                                       .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                       .andReturn()
+                       .getResponse();
+        Assertions.assertEquals(HttpStatus.OK.value(), response.getStatus());
+    }
+
+    @Test
     @Order(5)
     void deletePerson() throws Exception {
         final MockHttpServletResponse response =
@@ -103,6 +105,17 @@ class PersonControllerTest extends BaseControllerTest {
                        .getResponse();
 
         Assertions.assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+    }
+
+    @Test
+    @Order(6)
+    void findByText_notFound() throws Exception {
+        final MockHttpServletResponse response =
+                mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL.concat("/99"))
+                                                      .contentType(MediaType.APPLICATION_JSON))
+                       .andReturn()
+                       .getResponse();
+        Assertions.assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
     }
 
     private MockHttpServletResponse createPerson() throws Exception {

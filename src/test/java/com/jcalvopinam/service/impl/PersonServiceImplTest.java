@@ -122,14 +122,17 @@ class PersonServiceImplTest extends BaseControllerTest {
         final PersonDTO personDTO = getPersonDTO();
         personDTO.setId(null);
 
-        Mockito.when(personRepository.findById(personDTO.getId()))
+        Mockito.when(personRepository.findById(Mockito.any()))
                .thenReturn(Optional.empty());
 
         Person person = getPerson();
-        Mockito.when(personConverter.fromDTOtoPerson(getPersonDTO()))
+        Mockito.when(personConverter.fromDTOtoPerson(Mockito.any()))
                .thenReturn(person);
 
         Mockito.when(personRepository.save(Mockito.any()))
+               .thenReturn(person);
+
+        Mockito.when(personConverter.fromPersonToDTO(Mockito.any()))
                .thenReturn(person);
 
         final Person personSaved = personService.save(personDTO);
@@ -166,6 +169,9 @@ class PersonServiceImplTest extends BaseControllerTest {
         final Person person = getOptionalPerson().get();
 
         Mockito.when(personRepository.save(Mockito.any()))
+               .thenReturn(person);
+
+        Mockito.when(personConverter.fromPersonToDTO(Mockito.any()))
                .thenReturn(person);
 
         final Person personSaved = personService.update(personDTO, 1L);

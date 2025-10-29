@@ -102,9 +102,10 @@ public class PersonServiceImpl implements PersonService {
             LOGGER.error(message);
             throw new AlreadyExistsException(message);
         }
+        final Person fromDTOtoPerson = personConverter.fromDTOtoPerson(personDTO);
         LOGGER.info("Saving new person {} {}", personDTO.getName(), personDTO.getLastName());
-        final Person person = personConverter.fromDTOtoPerson(personDTO);
-        return personRepository.save(person);
+        final Person saved = personRepository.save(fromDTOtoPerson);
+        return personConverter.fromPersonToDTO(saved);
     }
 
     /**
@@ -113,9 +114,10 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person update(final PersonDTO personDTO, final Long id) {
         final Person personFound = this.findById(id);
-        final Person person = personConverter.fromDTOtoPerson(personDTO, personFound);
+        final Person fromDTOtoPerson = personConverter.fromDTOtoPerson(personDTO, personFound);
         LOGGER.info("Updating the person {}", personDTO.getName());
-        return personRepository.save(person);
+        final Person saved = personRepository.save(fromDTOtoPerson);
+        return personConverter.fromPersonToDTO(saved);
     }
 
     /**

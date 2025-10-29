@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.jcalvopinam'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2'
 description = 'Auditing with Hibernate Envers and Spring Data JPA'
 
 java {

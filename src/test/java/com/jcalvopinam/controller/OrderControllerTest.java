@@ -33,6 +33,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -43,11 +44,33 @@ import static com.jcalvopinam.utils.DummyPerson.getPersonDTO;
  * @author Juan Calvopina
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class OrderControllerTest extends BaseControllerTest {
 
     public static final String BASE_URL = "/orders";
     private static final String ORDER_ID = "/1";
 
+    @Test
+    @Order(1)
+    void updateOrder_notFound() throws Exception {
+        final MockHttpServletResponse response =
+                mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL.concat(ORDER_ID))
+                                                      .content(asJsonString(getOrderDTO()))
+                                                      .contentType(MediaType.APPLICATION_JSON))
+                       .andExpect(MockMvcResultMatchers.content()
+                                                       .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                       .andReturn()
+                       .getResponse();
+        Assertions.assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
+    }
+    @Test
+    @Order(2)
+    void saveOrder() throws Exception {
+        final MockHttpServletResponse response =
+                createObject(PersonControllerTest.BASE_URL, getPersonDTO());
+        createObject(BASE_URL, getOrderDTO());
+        Assertions.assertEquals(HttpStatus.CREATED.value(), response.getStatus());
+    }
 
     @Test
     @Order(3)
@@ -73,29 +96,6 @@ class OrderControllerTest extends BaseControllerTest {
                        .andReturn()
                        .getResponse();
         Assertions.assertEquals(HttpStatus.OK.value(), response.getStatus());
-    }
-
-    @Test
-    @Order(2)
-    void saveOrder() throws Exception {
-        final MockHttpServletResponse response =
-                createObject(PersonControllerTest.BASE_URL, getPersonDTO());
-        createObject(BASE_URL, getOrderDTO());
-        Assertions.assertEquals(HttpStatus.CREATED.value(), response.getStatus());
-    }
-
-    @Test
-    @Order(1)
-    void updateOrder_notFound() throws Exception {
-        final MockHttpServletResponse response =
-                mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL.concat(ORDER_ID))
-                                                      .content(asJsonString(getOrderDTO()))
-                                                      .contentType(MediaType.APPLICATION_JSON))
-                       .andExpect(MockMvcResultMatchers.content()
-                                                       .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                       .andReturn()
-                       .getResponse();
-        Assertions.assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
     }
 
     @Test

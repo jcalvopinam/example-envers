@@ -35,6 +35,7 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.annotation.DirtiesContext;
 
 import static com.jcalvopinam.utils.DummyProduct.getProduct;
 import static com.jcalvopinam.utils.DummyProduct.getProductDTO;
@@ -43,13 +44,21 @@ import static com.jcalvopinam.utils.DummyProduct.getProductDTO;
  * @author Juan Calvopina
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class ProductControllerTest extends BaseControllerTest {
 
     protected static final String BASE_URL = "/products";
     private static final String PRODUCT_ID = "/1";
 
     @Test
-    @Order(3)
+    @Order(1)
+    void saveProduct() throws Exception {
+        final MockHttpServletResponse response = createProduct();
+        Assertions.assertEquals(HttpStatus.CREATED.value(), response.getStatus());
+    }
+
+    @Test
+    @Order(2)
     void findAllProducts() throws Exception {
 
         final MockHttpServletResponse response =
@@ -64,7 +73,7 @@ class ProductControllerTest extends BaseControllerTest {
     }
 
     @Test
-    @Order(4)
+    @Order(3)
     void findByText() throws Exception {
         final MockHttpServletResponse response =
                 mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL.concat(PRODUCT_ID))
@@ -77,38 +86,9 @@ class ProductControllerTest extends BaseControllerTest {
         Assertions.assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
-    @Test
-    @Order(2)
-    void saveProduct() throws Exception {
-        final MockHttpServletResponse response = createProduct();
-        Assertions.assertEquals(HttpStatus.CREATED.value(), response.getStatus());
-    }
 
     @Test
-    @Order(6)
-    void saveProduct_conflicted() throws Exception {
-        createProduct();
-        final MockHttpServletResponse responseConflicted = createProduct();
-        Assertions.assertEquals(HttpStatus.CONFLICT.value(), responseConflicted.getStatus());
-    }
-
-    @Test
-    @Order(1)
-    void updateProduct_notFound() throws Exception {
-        final MockHttpServletResponse response =
-                mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL.concat(PRODUCT_ID))
-                                                      .content(asJsonString(getProduct()))
-                                                      .contentType(MediaType.APPLICATION_JSON))
-                       .andExpect(MockMvcResultMatchers.content()
-                                                       .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                       .andReturn()
-                       .getResponse();
-
-        Assertions.assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
-    }
-
-    @Test
-    @Order(5)
+    @Order(4)
     void updateProduct() throws Exception {
         MockHttpServletResponse response =
                 mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL.concat(PRODUCT_ID))
@@ -123,7 +103,15 @@ class ProductControllerTest extends BaseControllerTest {
     }
 
     @Test
-    @Order(7)
+    @Order(5)
+    void saveProduct_conflicted() throws Exception {
+        createProduct();
+        final MockHttpServletResponse responseConflicted = createProduct();
+        Assertions.assertEquals(HttpStatus.CONFLICT.value(), responseConflicted.getStatus());
+    }
+
+    @Test
+    @Order(6)
     void deleteProduct() throws Exception {
         final MockHttpServletResponse response =
                 mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL.concat(PRODUCT_ID))
@@ -132,6 +120,21 @@ class ProductControllerTest extends BaseControllerTest {
                        .getResponse();
 
         Assertions.assertEquals(HttpStatus.NO_CONTENT.value(), response.getStatus());
+    }
+
+    @Test
+    @Order(7)
+    void updateProduct_notFound() throws Exception {
+        final MockHttpServletResponse response =
+                mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL.concat("/99"))
+                                                      .content(asJsonString(getProduct()))
+                                                      .contentType(MediaType.APPLICATION_JSON))
+                       .andExpect(MockMvcResultMatchers.content()
+                                                       .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                       .andReturn()
+                       .getResponse();
+
+        Assertions.assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
     }
 
     private MockHttpServletResponse createProduct() throws Exception {

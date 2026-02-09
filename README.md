@@ -16,7 +16,7 @@ Hibernate Envers allows for a comprehensive history of modifications made to dat
 This project showcases the integration of Hibernate Envers in a Spring Boot application.
 Hibernate Envers provides auditing capabilities, allowing you to track changes and access previous versions of data.
 
-This project is based on `Spring Boot Application 3.2.1`, and it is configured with mysql database.
+This project is based on `Spring Boot Application 4.0.2`, and it is configured with mysql database.
 
 There are the following entities:
 
@@ -36,7 +36,7 @@ For each table (entity) the framework will create the auditory tables.
 
 ## Requirements
 - Java `17.x` e.g.: `sdk install java 17.0.9-amznsdk install java 17.0.9-amzn`
-- Gradle `8.x` e.g. you can use the embedded wrapper `gradlew` or install `sdk install gradle 8.5`
+- Gradle `814` e.g. you can use the embedded wrapper `gradlew` or install `sdk install gradle 8.14`
 - Docker `26.x`
 - MySQL `8.2.x`. _(Check the [Docker section](#Docker))_
 - Postman (or any rest client)

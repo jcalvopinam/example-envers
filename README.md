@@ -90,6 +90,33 @@ spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 - Start container `docker start mysql-db`
 - Stop container `docker stop mysql-db`
 
+To configure the database credentials, you can do so in 3 different ways:
+
+- In a `.env` file (rename the `.env.example` to `.env` and update the content with something like this:
+
+```properties
+DB_URL=jdbc:jdbc:mysql://127.0.0.1:3306/sample_envers?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+DB_USERNAME=root
+DB_PASSWORD=jcalvopinam
+```
+
+- Directly from the terminal
+
+```shell
+export DB_URL=jdbc:jdbc:mysql://127.0.0.1:3306/sample_envers?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+export DB_USERNAME=root
+export DB_PASSWORD=jcalvopinam
+```
+
+- Or in the `application.properties` file, replace the content with something like this:
+
+```properties
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/sample_envers?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+spring.datasource.username=root
+spring.datasource.password=jcalvopinam
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+```
+
 ### Testing
 
 - To run unit and integration tests `./gradlew clean test`

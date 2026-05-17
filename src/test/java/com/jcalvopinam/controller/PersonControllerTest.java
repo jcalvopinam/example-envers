@@ -123,7 +123,7 @@ class PersonControllerTest extends BaseControllerTest {
                                                      .content(asJsonString(personDTO))
                                                      .contentType(MediaType.APPLICATION_JSON))
                       .andExpect(MockMvcResultMatchers.content()
-                                                       .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                                                      .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                       .andReturn()
                       .getResponse();
     }

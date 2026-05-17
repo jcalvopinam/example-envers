@@ -44,15 +44,16 @@ public abstract class BaseControllerTest {
     MockMvc mockMvc;
 
     @Autowired
+    ObjectMapper objectMapper;
+
+    @Autowired
     private WebApplicationContext context;
 
     @BeforeEach
     void setup() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(context)
+                                 .build();
     }
-
-    @Autowired
-    ObjectMapper objectMapper;
 
     protected String asJsonString(final Object obj) {
         return objectMapper.writeValueAsString(obj);

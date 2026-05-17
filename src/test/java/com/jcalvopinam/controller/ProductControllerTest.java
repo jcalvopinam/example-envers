@@ -141,7 +141,7 @@ class ProductControllerTest extends BaseControllerTest {
                                                      .content(asJsonString(productDTO))
                                                      .contentType(MediaType.APPLICATION_JSON))
                       .andExpect(MockMvcResultMatchers.content()
-                                                       .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                                                      .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                       .andReturn()
                       .getResponse();
     }

@@ -38,7 +38,7 @@ public class ProductConverter {
 
     private final ModelMapper modelMapper;
 
-    public ProductConverter(final ModelMapper modelMapper){
+    public ProductConverter(final ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
 

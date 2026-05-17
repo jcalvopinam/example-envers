@@ -39,31 +39,34 @@ public interface OrderDetailService {
     /**
      * Retrieves all order details from database
      *
-     * @return
+     * @return a list of OrderDetail
      */
     List<OrderDetail> findAll();
 
     /**
      * Finds the order detail by id or customer, employee, date or orderStatus
      *
-     * @param productId
-     * @param orderId
-     * @return
+     * @param productId retrieves a productId
+     * @param orderId retrieves an orderId
+     *
+     * @return OrderDetail object
      */
     OrderDetail findByDetailPk(String productId, String orderId);
 
     /**
      * Adds a new order detail to the database
      *
-     * @param orderDetailDTO
-     * @return
+     * @param orderDetailDTO retrieves an orderDetailDTO
+     *
+     * @return OrderDetail object
      */
     OrderDetail save(OrderDetailDTO orderDetailDTO);
 
     /**
-     * Updates a order detail to the database
+     * Updates an order detail to the database
      *
-     * @param orderDetailDTO
+     * @param orderDetailDTO retrieves an orderDetailDTO
+     *
      * @return OrderDetail object
      */
     OrderDetail update(OrderDetailDTO orderDetailDTO);

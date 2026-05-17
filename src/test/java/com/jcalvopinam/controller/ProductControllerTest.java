@@ -25,6 +25,7 @@
 
 package com.jcalvopinam.controller;
 
+import com.jcalvopinam.dto.ProductDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -35,7 +36,6 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.annotation.DirtiesContext;
 
 import static com.jcalvopinam.utils.DummyProduct.getProduct;
 import static com.jcalvopinam.utils.DummyProduct.getProductDTO;
@@ -44,7 +44,6 @@ import static com.jcalvopinam.utils.DummyProduct.getProductDTO;
  * @author Juan Calvopina
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class ProductControllerTest extends BaseControllerTest {
 
     protected static final String BASE_URL = "/products";
@@ -60,7 +59,6 @@ class ProductControllerTest extends BaseControllerTest {
     @Test
     @Order(2)
     void findAllProducts() throws Exception {
-
         final MockHttpServletResponse response =
                 mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL)
                                                       .contentType(MediaType.APPLICATION_JSON))
@@ -138,11 +136,12 @@ class ProductControllerTest extends BaseControllerTest {
     }
 
     private MockHttpServletResponse createProduct() throws Exception {
+        final ProductDTO productDTO = getProductDTO();
         return mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
-                                                     .content(asJsonString(getProductDTO()))
+                                                     .content(asJsonString(productDTO))
                                                      .contentType(MediaType.APPLICATION_JSON))
                       .andExpect(MockMvcResultMatchers.content()
-                                                      .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                                                       .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                       .andReturn()
                       .getResponse();
     }

@@ -103,6 +103,7 @@ public class PersonServiceImpl implements PersonService {
             throw new AlreadyExistsException(message);
         }
         final Person fromDTOtoPerson = personConverter.fromDTOtoPerson(personDTO);
+        fromDTOtoPerson.setId(null);
         LOGGER.info("Saving new person {} {}", personDTO.getName(), personDTO.getLastName());
         final Person saved = personRepository.save(fromDTOtoPerson);
         return personConverter.fromPersonToDTO(saved);

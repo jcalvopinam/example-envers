@@ -25,6 +25,7 @@
 
 package com.jcalvopinam.controller;
 
+import com.jcalvopinam.dto.PersonDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -33,7 +34,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -43,7 +43,6 @@ import static com.jcalvopinam.utils.DummyPerson.getPersonDTO;
  * @author Juan Calvopina
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class PersonControllerTest extends BaseControllerTest {
 
     protected static final String BASE_URL = "/person";
@@ -119,11 +118,12 @@ class PersonControllerTest extends BaseControllerTest {
     }
 
     private MockHttpServletResponse createPerson() throws Exception {
+        final PersonDTO personDTO = getPersonDTO();
         return mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
-                                                     .content(asJsonString(getPersonDTO()))
+                                                     .content(asJsonString(personDTO))
                                                      .contentType(MediaType.APPLICATION_JSON))
                       .andExpect(MockMvcResultMatchers.content()
-                                                      .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                                                       .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                       .andReturn()
                       .getResponse();
     }

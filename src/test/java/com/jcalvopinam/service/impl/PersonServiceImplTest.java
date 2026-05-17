@@ -25,7 +25,6 @@
 
 package com.jcalvopinam.service.impl;
 
-import com.jcalvopinam.controller.BaseControllerTest;
 import com.jcalvopinam.converter.PersonConverter;
 import com.jcalvopinam.domain.Person;
 import com.jcalvopinam.dto.PersonDTO;
@@ -38,8 +37,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
@@ -52,9 +50,8 @@ import static com.jcalvopinam.utils.DummyPerson.getPersonDTO;
 /**
  * @author Juan Calvopina
  */
-@ExtendWith(SpringExtension.class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-class PersonServiceImplTest extends BaseControllerTest {
+@ExtendWith(MockitoExtension.class)
+class PersonServiceImplTest {
 
     @Mock
     private PersonRepository personRepository;
@@ -110,9 +107,6 @@ class PersonServiceImplTest extends BaseControllerTest {
 
     @Test
     void findById_NotFoundException() {
-        Mockito.when(personRepository.findById(0L))
-               .thenReturn(getOptionalPerson());
-
         Assertions.assertThrows(NotFoundException.class,
                                 () -> personService.findById(1L), "The Person 1 not found");
     }
@@ -145,11 +139,6 @@ class PersonServiceImplTest extends BaseControllerTest {
 
         Mockito.when(personRepository.findById(personDTO.getId()))
                .thenReturn(getOptionalPerson());
-
-        final Person person = getPerson();
-
-        Mockito.when(personRepository.save(Mockito.any()))
-               .thenReturn(person);
 
         Assertions.assertThrows(AlreadyExistsException.class,
                                 () -> personService.save(personDTO), "Expected AlreadyExistsException");

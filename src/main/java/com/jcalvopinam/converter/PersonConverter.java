@@ -24,8 +24,8 @@ public class PersonConverter {
         return mapped;
     }
 
-    public Person fromPersonToDTO(final Person saved) {
-        return modelMapper.map(saved, Person.class);
+    public Person fromPersonToDTO(final Person person) {
+        return modelMapper.map(person, Person.class);
     }
 
 }

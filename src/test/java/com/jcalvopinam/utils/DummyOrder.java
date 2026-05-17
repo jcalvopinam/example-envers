@@ -52,10 +52,12 @@ public final class DummyOrder {
 
     public static OrderDTO getOrderDTO() {
         final Order order = getOrders().get(0);
-        return new OrderDTO(order.getOrderStatus(), order.getSaleDate()
-                                                         .toString(), order.getCustomer()
-                                                                           .getId(), order.getEmployee()
-                                                                                          .getId());
+        return new OrderDTO(order.getOrderStatus(),
+                            String.valueOf(order.getSaleDate()),
+                            order.getCustomer()
+                                 .getId(),
+                            order.getEmployee()
+                                 .getId());
     }
 
     public static List<Order> getOrders() {

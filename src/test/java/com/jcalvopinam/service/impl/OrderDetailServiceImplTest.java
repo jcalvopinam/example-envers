@@ -25,7 +25,7 @@
 
 package com.jcalvopinam.service.impl;
 
-import com.jcalvopinam.controller.BaseControllerTest;
+import com.jcalvopinam.converter.ProductConverter;
 import com.jcalvopinam.domain.Order;
 import com.jcalvopinam.domain.OrderDetail;
 import com.jcalvopinam.domain.Product;
@@ -40,8 +40,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
@@ -54,14 +53,14 @@ import static com.jcalvopinam.utils.DummyOrderDetail.getOrderDetailDTO;
 import static com.jcalvopinam.utils.DummyOrderDetail.getOrderDetailPK;
 import static com.jcalvopinam.utils.DummyOrderDetail.getOrderDetails;
 import static com.jcalvopinam.utils.DummyPerson.getOptionalPerson;
+import static com.jcalvopinam.utils.DummyProduct.getProduct;
 import static com.jcalvopinam.utils.DummyProduct.getProductDTO;
 
 /**
  * @author Juan Calvopina
  */
-@ExtendWith(SpringExtension.class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-class OrderDetailServiceImplTest extends BaseControllerTest {
+@ExtendWith(MockitoExtension.class)
+class OrderDetailServiceImplTest {
 
     @Mock
     private OrderRepository orderRepository;
@@ -71,6 +70,8 @@ class OrderDetailServiceImplTest extends BaseControllerTest {
     private OrderDetailRepository orderDetailRepository;
     @Mock
     private ProductRepository productRepository;
+    @Mock
+    private ProductConverter productConverter;
     @InjectMocks
     private ProductServiceImpl productService;
     @InjectMocks
@@ -111,8 +112,11 @@ class OrderDetailServiceImplTest extends BaseControllerTest {
         Mockito.when(productRepository.findById(Mockito.any()))
                .thenReturn(Optional.empty());
 
+        Mockito.when(productConverter.fromDTOtoProduct(Mockito.any()))
+               .thenReturn(getProduct());
+
         Mockito.when(productRepository.save(Mockito.any()))
-               .thenReturn(new Product(productDTO));
+               .thenReturn(getProduct());
 
         final Product productSaved = productService.save(productDTO);
         Assertions.assertNotNull(productSaved.getName(), "The id is null");

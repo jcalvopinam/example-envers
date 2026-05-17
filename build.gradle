@@ -5,11 +5,13 @@ plugins {
 }
 
 group = 'com.jcalvopinam'
-version = '0.0.3'
+version = '0.0.4'
 description = 'Auditing with Hibernate Envers and Spring Data JPA'
 
 java {
-    sourceCompatibility = '17'
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 configurations {

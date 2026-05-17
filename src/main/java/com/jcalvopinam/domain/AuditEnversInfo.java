@@ -28,11 +28,14 @@ package com.jcalvopinam.domain;
 import com.jcalvopinam.listener.UserRevisionListener;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.envers.DefaultRevisionEntity;
 import org.hibernate.envers.RevisionEntity;
+import org.hibernate.envers.RevisionNumber;
+import org.hibernate.envers.RevisionTimestamp;
 
 /**
  * @author Juan Calvopina
@@ -42,7 +45,15 @@ import org.hibernate.envers.RevisionEntity;
 @Table(name = "env_audit_envers_info")
 @Getter
 @Setter
-public class AuditEnversInfo extends DefaultRevisionEntity {
+public class AuditEnversInfo {
+
+    @Id
+    @GeneratedValue
+    @RevisionNumber
+    private Integer id;
+
+    @RevisionTimestamp
+    private Long timestamp;
 
     @Column(name = "user_id")
     private String userId;

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 JUAN CALVOPINA M
+ * Copyright (c) 2026 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,39 +23,37 @@
  *
  */
 
-package com.jcalvopinam.controller;
+package com.jcalvopinam.converter;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-import tools.jackson.databind.ObjectMapper;
+import com.jcalvopinam.domain.Product;
+import com.jcalvopinam.dto.ProductDTO;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Juan Calvopina
  */
-@SpringBootTest
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-public abstract class BaseControllerTest {
+@Component
+public class ProductConverter {
 
-    MockMvc mockMvc;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    private WebApplicationContext context;
-
-    @BeforeEach
-    void setup() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+    public ProductConverter(final ModelMapper modelMapper){
+        this.modelMapper = modelMapper;
     }
 
-    @Autowired
-    ObjectMapper objectMapper;
+    public Product fromDTOtoProduct(final ProductDTO productDTO) {
+        return modelMapper.map(productDTO, Product.class);
+    }
 
-    protected String asJsonString(final Object obj) {
-        return objectMapper.writeValueAsString(obj);
+    public Product fromDTOtoProduct(final ProductDTO productDTO, final Product product) {
+        final Product mapped = modelMapper.map(productDTO, Product.class);
+        mapped.setProductId(product.getProductId());
+        return mapped;
+    }
+
+    public Product fromProductToDTO(final Product product) {
+        return modelMapper.map(product, Product.class);
     }
 
 }

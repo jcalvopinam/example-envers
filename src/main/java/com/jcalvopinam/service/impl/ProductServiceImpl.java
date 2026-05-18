@@ -101,8 +101,8 @@ public class ProductServiceImpl implements ProductService {
      */
     @Override
     public Product save(final ProductDTO productDTO) {
-        if (productRepository.findById(productDTO.getProductId())
-                             .isPresent()) {
+        if (productDTO.getProductId() != null && productRepository.findById(productDTO.getProductId())
+                                                                  .isPresent()) {
             final String message = String.format("The Product %s already exist", productDTO.getProductId());
             LOGGER.error(message);
             throw new AlreadyExistsException(message);

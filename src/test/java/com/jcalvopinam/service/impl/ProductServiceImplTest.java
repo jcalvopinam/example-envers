@@ -40,7 +40,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.jcalvopinam.utils.DummyProduct.getOptionalProduct;
 import static com.jcalvopinam.utils.DummyProduct.getProduct;
@@ -106,19 +105,18 @@ class ProductServiceImplTest {
         final ProductDTO productDTO = getProductDTO();
         productDTO.setProductId(null);
 
-        Mockito.when(productRepository.findById(productDTO.getProductId()))
-               .thenReturn(Optional.empty());
-
         final Product product = getProduct();
 
-        Mockito.when(productConverter.fromDTOtoProduct(Mockito.any()))
+        Mockito.when(productConverter.fromDTOtoProduct(productDTO))
                .thenReturn(product);
 
-        Mockito.when(productRepository.save(Mockito.any()))
+        Mockito.when(productRepository.save(product))
                .thenReturn(product);
 
         final Product productSaved = productService.save(productDTO);
-        Assertions.assertNotNull(productSaved.getName(), "The id is null");
+
+        Mockito.verify(productRepository, Mockito.never()).findById(Mockito.any());
+        Assertions.assertNotNull(productSaved.getName(), "The name is null");
     }
 
     @Test

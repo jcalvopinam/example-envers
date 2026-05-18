@@ -96,8 +96,8 @@ public class PersonServiceImpl implements PersonService {
      */
     @Override
     public Person save(final PersonDTO personDTO) {
-        if (personRepository.findById(personDTO.getId())
-                            .isPresent()) {
+        if (personDTO.getId() != null && personRepository.findById(personDTO.getId())
+                                                         .isPresent()) {
             final String message = String.format("The Person %s already exist", personDTO.getId());
             LOGGER.error(message);
             throw new AlreadyExistsException(message);

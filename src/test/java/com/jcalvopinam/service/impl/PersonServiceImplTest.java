@@ -40,7 +40,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.jcalvopinam.utils.DummyPerson.getOptionalPerson;
 import static com.jcalvopinam.utils.DummyPerson.getPeople;
@@ -116,21 +115,20 @@ class PersonServiceImplTest {
         final PersonDTO personDTO = getPersonDTO();
         personDTO.setId(null);
 
-        Mockito.when(personRepository.findById(Mockito.any()))
-               .thenReturn(Optional.empty());
-
         Person person = getPerson();
-        Mockito.when(personConverter.fromDTOtoPerson(Mockito.any()))
+        Mockito.when(personConverter.fromDTOtoPerson(personDTO))
                .thenReturn(person);
 
-        Mockito.when(personRepository.save(Mockito.any()))
+        Mockito.when(personRepository.save(person))
                .thenReturn(person);
 
-        Mockito.when(personConverter.fromPersonToDTO(Mockito.any()))
+        Mockito.when(personConverter.fromPersonToDTO(person))
                .thenReturn(person);
 
         final Person personSaved = personService.save(personDTO);
-        Assertions.assertNotNull(personSaved.getFirstName(), "The id is null");
+
+        Mockito.verify(personRepository, Mockito.never()).findById(Mockito.any());
+        Assertions.assertNotNull(personSaved.getFirstName(), "The name is null");
     }
 
     @Test

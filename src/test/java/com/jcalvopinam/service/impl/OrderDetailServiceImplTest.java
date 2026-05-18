@@ -109,17 +109,17 @@ class OrderDetailServiceImplTest {
         final ProductDTO productDTO = getProductDTO();
         productDTO.setProductId(null);
 
-        Mockito.when(productRepository.findById(Mockito.any()))
-               .thenReturn(Optional.empty());
+        final Product product = getProduct();
+        Mockito.when(productConverter.fromDTOtoProduct(productDTO))
+               .thenReturn(product);
 
-        Mockito.when(productConverter.fromDTOtoProduct(Mockito.any()))
-               .thenReturn(getProduct());
-
-        Mockito.when(productRepository.save(Mockito.any()))
-               .thenReturn(getProduct());
+        Mockito.when(productRepository.save(product))
+               .thenReturn(product);
 
         final Product productSaved = productService.save(productDTO);
-        Assertions.assertNotNull(productSaved.getName(), "The id is null");
+
+        Mockito.verify(productRepository, Mockito.never()).findById(Mockito.any());
+        Assertions.assertNotNull(productSaved.getName(), "The name is null");
 
         Mockito.when(orderDetailRepository.save(Mockito.any()))
                .thenReturn(getOrderDetail());

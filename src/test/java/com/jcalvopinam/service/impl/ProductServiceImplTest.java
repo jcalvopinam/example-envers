@@ -25,7 +25,7 @@
 
 package com.jcalvopinam.service.impl;
 
-import com.jcalvopinam.controller.BaseControllerTest;
+import com.jcalvopinam.converter.ProductConverter;
 import com.jcalvopinam.domain.Product;
 import com.jcalvopinam.dto.ProductDTO;
 import com.jcalvopinam.exception.AlreadyExistsException;
@@ -37,11 +37,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.jcalvopinam.utils.DummyProduct.getOptionalProduct;
 import static com.jcalvopinam.utils.DummyProduct.getProduct;
@@ -51,12 +49,14 @@ import static com.jcalvopinam.utils.DummyProduct.getProducts;
 /**
  * @author Juan Calvopina
  */
-@ExtendWith(SpringExtension.class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-class ProductServiceImplTest extends BaseControllerTest {
+@ExtendWith(MockitoExtension.class)
+class ProductServiceImplTest {
 
     @Mock
     private ProductRepository productRepository;
+
+    @Mock
+    private ProductConverter productConverter;
 
     @InjectMocks
     private ProductServiceImpl productService;
@@ -97,9 +97,6 @@ class ProductServiceImplTest extends BaseControllerTest {
 
     @Test
     void findById_NotFoundException() {
-        Mockito.when(productRepository.findById(0L))
-               .thenReturn(getOptionalProduct());
-
         Assertions.assertThrows(NotFoundException.class, () -> productService.findById(1L), "The Product 1 not found");
     }
 
@@ -108,16 +105,18 @@ class ProductServiceImplTest extends BaseControllerTest {
         final ProductDTO productDTO = getProductDTO();
         productDTO.setProductId(null);
 
-        Mockito.when(productRepository.findById(productDTO.getProductId()))
-               .thenReturn(Optional.empty());
+        final Product product = getProduct();
 
-        final Product product = new Product(productDTO);
+        Mockito.when(productConverter.fromDTOtoProduct(productDTO))
+               .thenReturn(product);
 
-        Mockito.when(productRepository.save(Mockito.any()))
+        Mockito.when(productRepository.save(product))
                .thenReturn(product);
 
         final Product productSaved = productService.save(productDTO);
-        Assertions.assertNotNull(productSaved.getName(), "The id is null");
+
+        Mockito.verify(productRepository, Mockito.never()).findById(Mockito.any());
+        Assertions.assertNotNull(productSaved.getName(), "The name is null");
     }
 
     @Test
@@ -126,11 +125,6 @@ class ProductServiceImplTest extends BaseControllerTest {
 
         Mockito.when(productRepository.findById(productDTO.getProductId()))
                .thenReturn(getOptionalProduct());
-
-        final Product product = getProduct();
-
-        Mockito.when(productRepository.save(Mockito.any()))
-               .thenReturn(product);
 
         Assertions.assertThrows(AlreadyExistsException.class, () -> productService.save(productDTO),
                                 "Expected AlreadyExistsException");

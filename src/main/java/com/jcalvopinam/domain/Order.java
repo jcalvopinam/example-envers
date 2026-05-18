@@ -27,8 +27,6 @@ package com.jcalvopinam.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.jcalvopinam.dto.OrderDTO;
-import com.jcalvopinam.utils.Utilities;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

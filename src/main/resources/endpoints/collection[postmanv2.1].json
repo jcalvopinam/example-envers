@@ -1352,7 +1352,7 @@
 			]
 		},
 		{
-			"name": "v2",
+			"name": "v4",
 			"item": [
 				{
 					"name": "[persons]",
@@ -1372,7 +1372,7 @@
 									"raw": "{\n  \"firstName\":\"Bender doblador\",\n  \"lastName\":\"Rodriguez\"\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/persons/",
+									"raw": "http://localhost:8080/sample-envers/v4/persons/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1380,7 +1380,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"persons",
 										""
 									]
@@ -1403,7 +1403,7 @@
 									"raw": "{\n  \"firstName\":\"Phillip J.\",\n  \"lastName\":\"Fray\"\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/persons/",
+									"raw": "http://localhost:8080/sample-envers/v4/persons/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1411,7 +1411,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"persons",
 										""
 									]
@@ -1434,7 +1434,7 @@
 									"raw": "{\n  \"firstName\":\"Turanga\",\n  \"lastName\":\"Leela\"\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/persons/",
+									"raw": "http://localhost:8080/sample-envers/v4/persons/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1442,7 +1442,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"persons",
 										""
 									]
@@ -1465,7 +1465,7 @@
 									"raw": "{\n  \"firstName\":\"Amy\",\n  \"lastName\":\"Wong\"\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/persons/",
+									"raw": "http://localhost:8080/sample-envers/v4/persons/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1473,7 +1473,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"persons",
 										""
 									]
@@ -1496,7 +1496,7 @@
 									"raw": "{\n  \"firstName\":\"Hermes\",\n  \"lastName\":\"Conrad\"\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/persons/",
+									"raw": "http://localhost:8080/sample-envers/v4/persons/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1504,7 +1504,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"persons",
 										""
 									]
@@ -1527,7 +1527,7 @@
 									"raw": "{\n  \"firstName\":\"Farnsworth\",\n  \"lastName\":\"Profesor Hubert J.\"\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/persons/",
+									"raw": "http://localhost:8080/sample-envers/v4/persons/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1535,7 +1535,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"persons",
 										""
 									]
@@ -1558,7 +1558,7 @@
 									"raw": "{\n  \"firstName\":\"Zapp\",\n  \"lastName\":\"Brannigan\"\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/persons/",
+									"raw": "http://localhost:8080/sample-envers/v4/persons/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1566,7 +1566,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"persons",
 										""
 									]
@@ -1589,7 +1589,7 @@
 									"raw": "{\n  \"firstName\":\"Kif\",\n  \"lastName\":\"Kroker\"\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/persons/",
+									"raw": "http://localhost:8080/sample-envers/v4/persons/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1597,7 +1597,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"persons",
 										""
 									]
@@ -1620,7 +1620,7 @@
 									"raw": "{\n  \"firstName\":\"Diablo\",\n  \"lastName\":\"Robot\"\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/persons/",
+									"raw": "http://localhost:8080/sample-envers/v4/persons/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1628,7 +1628,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"persons",
 										""
 									]
@@ -1651,7 +1651,7 @@
 									"raw": "{\n  \"firstName\":\"-\",\n  \"lastName\":\"Zoidberg\"\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/persons/",
+									"raw": "http://localhost:8080/sample-envers/v4/persons/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1659,7 +1659,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"persons",
 										""
 									]
@@ -1673,7 +1673,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/persons/",
+									"raw": "http://localhost:8080/sample-envers/v4/persons/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1681,7 +1681,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"persons",
 										""
 									]
@@ -1704,7 +1704,7 @@
 									"raw": "{\n  \"firstName\": \"Dr.\",\n  \"lastName\": \"Zoidberg\"\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/persons/10",
+									"raw": "http://localhost:8080/sample-envers/v4/persons/10",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1712,7 +1712,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"persons",
 										"10"
 									]
@@ -1726,7 +1726,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/persons/10",
+									"raw": "http://localhost:8080/sample-envers/v4/persons/10",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1734,7 +1734,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"persons",
 										"10"
 									]
@@ -1748,7 +1748,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/persons/dr",
+									"raw": "http://localhost:8080/sample-envers/v4/persons/dr",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1756,7 +1756,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"persons",
 										"dr"
 									]
@@ -1774,7 +1774,7 @@
 									"formdata": []
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/persons/10",
+									"raw": "http://localhost:8080/sample-envers/v4/persons/10",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1782,7 +1782,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"persons",
 										"10"
 									]
@@ -1810,7 +1810,7 @@
 									"raw": "{\n  \"name\":\"mac\",\n  \"description\":\"MacBook Pro\",\n  \"quantityPerUnit\":10,\n  \"unitPrice\": 25000\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/products/",
+									"raw": "http://localhost:8080/sample-envers/v4/products/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1818,7 +1818,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"products",
 										""
 									]
@@ -1841,7 +1841,7 @@
 									"raw": "{\n  \"name\":\"hp\",\n  \"description\":\"Hewlett-Packard\",\n  \"quantityPerUnit\":28,\n  \"unitPrice\": 12000\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/products/",
+									"raw": "http://localhost:8080/sample-envers/v4/products/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1849,7 +1849,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"products",
 										""
 									]
@@ -1872,7 +1872,7 @@
 									"raw": "{\n  \"name\":\"dell\",\n  \"description\":\"Dell\",\n  \"quantityPerUnit\":3,\n  \"unitPrice\": 9000\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/products/",
+									"raw": "http://localhost:8080/sample-envers/v4/products/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1880,7 +1880,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"products",
 										""
 									]
@@ -1894,7 +1894,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/products/",
+									"raw": "http://localhost:8080/sample-envers/v4/products/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1902,7 +1902,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"products",
 										""
 									]
@@ -1916,7 +1916,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/products/mac",
+									"raw": "http://localhost:8080/sample-envers/v4/products/mac",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1924,7 +1924,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"products",
 										"mac"
 									]
@@ -1947,7 +1947,7 @@
 									"raw": "{\n  \"name\":\"Dell Technologies\",\n  \"description\":\"Computer Technology Company\",\n  \"quantityPerUnit\":13,\n  \"unitPrice\": 8000\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/products/3",
+									"raw": "http://localhost:8080/sample-envers/v4/products/3",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1955,7 +1955,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"products",
 										"3"
 									]
@@ -1973,7 +1973,7 @@
 									"formdata": []
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/products/3",
+									"raw": "http://localhost:8080/sample-envers/v4/products/3",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1981,7 +1981,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"products",
 										"3"
 									]
@@ -2009,7 +2009,7 @@
 									"raw": "{\n  \"orderStatus\":1,\n  \"saleDate\":\"2018-03-20\",\n  \"customer\":3,\n  \"employee\": 1\n}"
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/orders/",
+									"raw": "http://localhost:8080/sample-envers/v4/orders/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -2017,7 +2017,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"orders",
 										""
 									]
@@ -5397,7 +5397,7 @@
 									"formdata": []
 								},
 								"url": {
-									"raw": "http://localhost:8080/sample-envers/v2/products/5",
+									"raw": "http://localhost:8080/sample-envers/v4/products/5",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -5405,7 +5405,7 @@
 									"port": "8080",
 									"path": [
 										"sample-envers",
-										"v2",
+										"v4",
 										"products",
 										"5"
 									]
@@ -5422,7 +5422,7 @@
 											"formdata": []
 										},
 										"url": {
-											"raw": "http://localhost:8080/sample-envers/v2/products/",
+											"raw": "http://localhost:8080/sample-envers/v4/products/",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -5430,7 +5430,7 @@
 											"port": "8080",
 											"path": [
 												"sample-envers",
-												"v2",
+												"v4",
 												"products",
 												""
 											]
@@ -5474,7 +5474,7 @@
 											"formdata": []
 										},
 										"url": {
-											"raw": "http://localhost:8080/sample-envers/v2/products/900",
+											"raw": "http://localhost:8080/sample-envers/v4/products/900",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -5482,7 +5482,7 @@
 											"port": "8080",
 											"path": [
 												"sample-envers",
-												"v2",
+												"v4",
 												"products",
 												"900"
 											]
@@ -5526,7 +5526,7 @@
 											"formdata": []
 										},
 										"url": {
-											"raw": "http://localhost:8080/sample-envers/v2/products/4",
+											"raw": "http://localhost:8080/sample-envers/v4/products/4",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -5534,7 +5534,7 @@
 											"port": "8080",
 											"path": [
 												"sample-envers",
-												"v2",
+												"v4",
 												"products",
 												"4"
 											]
@@ -5570,7 +5570,7 @@
 											"formdata": []
 										},
 										"url": {
-											"raw": "http://localhost:8080/sample-envers/v2/products/99",
+											"raw": "http://localhost:8080/sample-envers/v4/products/99",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -5578,7 +5578,7 @@
 											"port": "8080",
 											"path": [
 												"sample-envers",
-												"v2",
+												"v4",
 												"products",
 												"99"
 											]
@@ -5622,7 +5622,7 @@
 											"formdata": []
 										},
 										"url": {
-											"raw": "http://localhost:8080/sample-envers/v2/products/",
+											"raw": "http://localhost:8080/sample-envers/v4/products/",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -5630,7 +5630,7 @@
 											"port": "8080",
 											"path": [
 												"sample-envers",
-												"v2",
+												"v4",
 												"products",
 												""
 											]
@@ -5674,7 +5674,7 @@
 											"formdata": []
 										},
 										"url": {
-											"raw": "http://localhost:8080/sample-envers/v2/products/5",
+											"raw": "http://localhost:8080/sample-envers/v4/products/5",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -5682,7 +5682,7 @@
 											"port": "8080",
 											"path": [
 												"sample-envers",
-												"v2",
+												"v4",
 												"products",
 												"5"
 											]

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2022 JUAN CALVOPINA M
+ * Copyright (c) 2026 JUAN CALVOPINA M
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,39 +23,37 @@
  *
  */
 
-package com.jcalvopinam.domain;
+package com.jcalvopinam.converter;
 
-import com.jcalvopinam.listener.UserRevisionListener;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.envers.RevisionEntity;
-import org.hibernate.envers.RevisionNumber;
-import org.hibernate.envers.RevisionTimestamp;
+import com.jcalvopinam.domain.Product;
+import com.jcalvopinam.dto.ProductDTO;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Juan Calvopina
  */
-@Entity
-@RevisionEntity(UserRevisionListener.class)
-@Table(name = "env_audit_envers_info")
-@Getter
-@Setter
-public class AuditEnversInfo {
+@Component
+public class ProductConverter {
 
-    @Id
-    @GeneratedValue
-    @RevisionNumber
-    private Integer id;
+    private final ModelMapper modelMapper;
 
-    @RevisionTimestamp
-    private Long timestamp;
+    public ProductConverter(final ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
-    @Column(name = "user_id")
-    private String userId;
+    public Product fromDTOtoProduct(final ProductDTO productDTO) {
+        return modelMapper.map(productDTO, Product.class);
+    }
+
+    public Product fromDTOtoProduct(final ProductDTO productDTO, final Product product) {
+        final Product mapped = modelMapper.map(productDTO, Product.class);
+        mapped.setProductId(product.getProductId());
+        return mapped;
+    }
+
+    public Product fromProductToDTO(final Product product) {
+        return modelMapper.map(product, Product.class);
+    }
 
 }

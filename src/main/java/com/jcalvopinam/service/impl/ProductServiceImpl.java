@@ -25,6 +25,7 @@
 
 package com.jcalvopinam.service.impl;
 
+import com.jcalvopinam.converter.ProductConverter;
 import com.jcalvopinam.domain.Product;
 import com.jcalvopinam.dto.ProductDTO;
 import com.jcalvopinam.exception.AlreadyExistsException;
@@ -49,9 +50,11 @@ public class ProductServiceImpl implements ProductService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     private final ProductRepository productRepository;
+    private final ProductConverter productConverter;
 
-    public ProductServiceImpl(final ProductRepository productRepository) {
+    public ProductServiceImpl(final ProductRepository productRepository, final ProductConverter productConverter) {
         this.productRepository = productRepository;
+        this.productConverter = productConverter;
     }
 
     /**
@@ -98,15 +101,16 @@ public class ProductServiceImpl implements ProductService {
      */
     @Override
     public Product save(final ProductDTO productDTO) {
-        if (productRepository.findById(productDTO.getProductId())
-                             .isPresent()) {
+        if (productDTO.getProductId() != null && productRepository.findById(productDTO.getProductId())
+                                                                  .isPresent()) {
             final String message = String.format("The Product %s already exist", productDTO.getProductId());
             LOGGER.error(message);
             throw new AlreadyExistsException(message);
         }
         LOGGER.info("Saving new product {}", productDTO.getName());
-        final Product entity = new Product(productDTO);
-        return productRepository.save(entity);
+        final Product product = productConverter.fromDTOtoProduct(productDTO);
+        product.setProductId(null);
+        return productRepository.save(product);
     }
 
     /**

@@ -38,6 +38,7 @@ public interface OrderDetailRepository extends CrudRepository<OrderDetail, Order
 
     /**
      * @param orderDetailPK object
+     *
      * @return OrderDetail object wrapped into an Optional
      */
     Optional<OrderDetail> findById(OrderDetailPK orderDetailPK);

@@ -42,10 +42,10 @@ import java.util.Random;
 
 public final class Utilities {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Utilities.class);
-
     public static final String NAMES = "Andrea:Juan:Isaac:Sandra:Michael:Annabel";
     public static final String LASTNAMES = "Bastidas:Calvopina:Newton:Ojeda:Patino:Cordova";
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Utilities.class);
     private static final String COLON = ":";
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String DATE_MATCH_FORMAT = "\\d{4}-\\d{2}-\\d{2}";

@@ -25,6 +25,8 @@
 
 package com.jcalvopinam.controller;
 
+import com.jcalvopinam.dto.PersonDTO;
+import com.jcalvopinam.dto.ProductDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -33,7 +35,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -46,7 +47,6 @@ import static com.jcalvopinam.utils.DummyProduct.getProductDTO;
  * @author Juan Calvopina
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class OrderDetailControllerTest extends BaseControllerTest {
 
     private static final String BASE_URL = "/order-details";
@@ -56,8 +56,10 @@ class OrderDetailControllerTest extends BaseControllerTest {
     @Test
     @Order(1)
     void saveDetail() throws Exception {
-        createObject(ProductControllerTest.BASE_URL, getProductDTO());
-        createObject(PersonControllerTest.BASE_URL, getPersonDTO());
+        final ProductDTO productDTO = getProductDTO();
+        createObject(ProductControllerTest.BASE_URL, productDTO);
+        final PersonDTO personDTO = getPersonDTO();
+        createObject(PersonControllerTest.BASE_URL, personDTO);
         createObject(OrderControllerTest.BASE_URL, getOrderDTO());
 
         final MockHttpServletResponse response =

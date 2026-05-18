@@ -25,7 +25,6 @@
 
 package com.jcalvopinam.service.impl;
 
-import com.jcalvopinam.controller.BaseControllerTest;
 import com.jcalvopinam.domain.Order;
 import com.jcalvopinam.exception.NotFoundException;
 import com.jcalvopinam.repository.OrderRepository;
@@ -36,10 +35,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Calendar;
 import java.util.List;
 
 import static com.jcalvopinam.utils.DummyOrder.getOptionalOrder;
@@ -50,9 +47,8 @@ import static com.jcalvopinam.utils.DummyPerson.getOptionalPerson;
 /**
  * @author Juan Calvopina
  */
-@ExtendWith(SpringExtension.class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-class OrderServiceImplTest extends BaseControllerTest {
+@ExtendWith(MockitoExtension.class)
+class OrderServiceImplTest {
 
     @Mock
     private OrderRepository orderRepository;
@@ -71,23 +67,17 @@ class OrderServiceImplTest extends BaseControllerTest {
 
     @Test
     void findByText() {
-        final Calendar calendar = Calendar.getInstance();
-        calendar.set(2024, Calendar.APRIL, 25, 0, 0, 0);
-
         Mockito.when(
-                       orderRepository.findByOrderIdOrCustomer_IdOrEmployee_IdOrSaleDateOrOrderStatus(1L, null, null,
-                                                                                                      null, 0))
+                       orderRepository.findByOrderIdOrCustomer_FirstNameOrCustomer_LastNameOrEmployee_FirstNameOrEmployee_LastNameOrSaleDateOrOrderStatus(
+                               Mockito.eq(1L), Mockito.eq(null), Mockito.eq(null), Mockito.eq(null), Mockito.eq(null),
+                               Mockito.any(), Mockito.eq(0)))
                .thenReturn(getOrders());
         final List<Order> byText = orderService.findByText("1", null, null, null, "0");
-        Assertions.assertEquals(0, byText.size(), "The id is null");
+        Assertions.assertEquals(getOrders().size(), byText.size(), "The orders size does not match");
     }
 
     @Test
     void findByTextNumberFormatException() {
-        Mockito.when(
-                       orderRepository.findByOrderIdOrCustomer_IdOrEmployee_IdOrSaleDateOrOrderStatus(1L, 0L, 0L, null, 0))
-               .thenReturn(null);
-
         Assertions.assertThrows(NumberFormatException.class, () -> orderService.findByText("1", "0L", "0L", null, "0"),
                                 "The Order 1 not found");
     }
@@ -125,8 +115,10 @@ class OrderServiceImplTest extends BaseControllerTest {
 
     @Test
     void updateNotFound() {
-        Mockito.when(personRepository.findById(0L))
+        Mockito.when(personRepository.findById(Mockito.anyLong()))
                .thenReturn(getOptionalPerson());
+        Mockito.when(orderRepository.findById(0L))
+               .thenReturn(java.util.Optional.empty());
 
         Assertions.assertThrows(NotFoundException.class, () -> orderService.update(0L, getOrderDTO()),
                                 "Expected NotFoundException");

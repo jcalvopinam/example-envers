@@ -57,7 +57,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     @Override
     public List<OrderDetail> findAll() {
         LOGGER.info("Getting the order details");
-        return (List<OrderDetail>)orderDetailRepository.findAll();
+        return (List<OrderDetail>) orderDetailRepository.findAll();
     }
 
     @Override

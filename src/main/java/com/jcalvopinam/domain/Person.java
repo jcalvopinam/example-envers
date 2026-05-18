@@ -52,6 +52,7 @@ import org.hibernate.envers.Audited;
 @Setter
 @ToString
 public class Person {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "person_id")
